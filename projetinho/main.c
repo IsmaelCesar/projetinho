@@ -8,7 +8,7 @@ typedef struct Celula{
 	struct Celula *fdir;
 }Celula;
 
-char string[20] ="KSK(KKK)K\0";
+char string[60] ="KSK(KK(SKK)K)K\0";
 
 //Procedimento que recebe duas variáveis, uma que aponta para
 //um array e outra que aponta para um inteiro com a posição do
@@ -40,7 +40,6 @@ Celula *cria_combinador(char *entrada){
 	combinador->tipo = entrada[0];
 	combinador->fdir = NULL;
 	combinador->fesq = NULL;
-	entrada++;
 	return combinador;
 }
 
