@@ -64,31 +64,37 @@ Celula* cria_grafo(char *entrada){
 	while(entrada[0] != '\0'){
 
 			if(entrada[0] == ')'){
-					return raiz->fesq;
+					return raiz;
 			}
 			else if(entrada[0] == '('){
-
-				raiz->fdir = cria_grafo(entrada + 1);
+				Celula *ap = cria_aplicacao();
+				Celula *aux = raiz;
+				ap->fesq = aux;
+				ap->fdir = cria_grafo(entrada + 1);
+				raiz = ap;
 				int end   = 1;
 				casa_parenteses(entrada,&end);
-				for(int i = 0; i < end-1; i++){
+				for(int i = 0; i < end; i++){
 					entrada++;
 				}
 			}
 			else{
-				if(raiz->fesq != NULL){
-					Celula *ap = cria_aplicacao();
+				if(raiz->fesq == NULL){
 					Celula *comb = cria_combinador(entrada);
+					raiz->fesq = comb;
+					entrada++;
+				}
+				else if(raiz->fdir == NULL){
+					Celula *comb = cria_combinador(entrada);
+					raiz->fdir = comb;
+					entrada++;
+				}
+				else{
+					Celula *ap = cria_aplicacao();
 					Celula *aux  = raiz;
-					aux->fdir = comb;
 					ap->fesq  = aux;
 					raiz  = ap;
 				}
-				else{
-					Celula *comb = cria_combinador(entrada);
-					raiz->fesq = comb;
-				}
-				entrada++;
 			}
 	}
 
