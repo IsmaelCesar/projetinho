@@ -266,7 +266,7 @@ void reduz_K(Celula *grafo){
 		grafo->fdir = newA->fdir;
 		grafo->fesq = newA->fesq;
 		if(grafo->fesq){
-			Celula *aux = grafo->fesq;
+			Celula *aux = grafo;
 			while(aux != NULL){
 				push(aux);
 				aux = aux->fesq;
