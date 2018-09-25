@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define N 100000000
 #define H 10000000
@@ -367,6 +368,8 @@ int main(){
 	 * Criação e alocação do grafo.
 	 * */
 	Celula *grafo = cria_grafo(string);
+	printf("\n");
+	printf("Tempo Criação do grafo = %lf", (double)(clock()/CLOCKS_PER_SEC));
 	/*
 	imprime_grafo(grafo);
 	Freelist fl;
@@ -396,6 +399,9 @@ int main(){
 	if(grafo != NULL){
 		printf("%c",grafo->tipo);
 	}
+
+	printf("\n");
+	printf("Tempo Redução grafo = %lf", (double)(clock()/CLOCKS_PER_SEC));
 
 	return 0;
 }
