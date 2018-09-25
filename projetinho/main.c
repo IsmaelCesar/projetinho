@@ -397,7 +397,7 @@ int main(){
 
 
 	if(grafo != NULL){
-		printf("%c",grafo->tipo);
+		printf("\n\n%c\n\n",grafo->tipo);
 	}
 
 	printf("\n");
