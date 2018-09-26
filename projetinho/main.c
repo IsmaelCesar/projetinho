@@ -367,9 +367,12 @@ int main(){
 	/**
 	 * Criação e alocação do grafo.
 	 * */
+	double clk_ps = (double)  CLOCKS_PER_SEC;
+	clock_t toc = clock();
 	Celula *grafo = cria_grafo(string);
+	clock_t tic = clock();
 	printf("\n");
-	printf("Tempo Criação do grafo = %lf", (double)(clock()/CLOCKS_PER_SEC));
+	printf("Tempo Criação do grafo = %lf", (double)((tic - toc)/clk_ps));
 	/*
 	imprime_grafo(grafo);
 	Freelist fl;
@@ -381,8 +384,10 @@ int main(){
 	l.l_pointer  = &heap[0];
 
 	char tipo = '\0';*/
+	int iterations  = 0;
+	toc = clock();
+	double a = (double) toc;
 	empilha_grafo(grafo);
-
 	while(topo != NULL){
 		//tipo = topo->dado->tipo;
 		switch(topo->dado->tipo){
@@ -393,15 +398,17 @@ int main(){
 				reduz_S(grafo);
 				break;
 		}
+		iterations++;
 	}
+	tic = clock();
+	double b = (double) tic;
 
 
 	if(grafo != NULL){
 		printf("\n\n%c\n\n",grafo->tipo);
 	}
-
 	printf("\n");
-	printf("Tempo Redução grafo = %lf", (double)(clock()/CLOCKS_PER_SEC));
-
+	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
+	printf("\n\nNumero de iterações = %d\n",iterations);
 	return 0;
 }
