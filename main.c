@@ -9,10 +9,12 @@
 
 //Outros diretórios
 #include "maquina_ks/maquina_ks.h"
+#include "maquina_turner/maquina_turner.h"
 
 int main(){
-
-	maquina_ks();
-	return 0;
+	int retorno = 0;
+	//retorno  = maquina_ks();
+	retorno = maquina_turner();
+	return retorno;
 }
 
