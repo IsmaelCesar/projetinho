@@ -13,8 +13,8 @@
 
 int main(){
 	int retorno = 0;
-	//retorno  = maquina_ks();
-	retorno = maquina_turner();
+	retorno  = maquina_ks();
+	//retorno = maquina_turner();
 	return retorno;
 }
 
