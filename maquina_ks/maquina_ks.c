@@ -30,20 +30,6 @@ Celula heap[H];
 ///      Alocação de dados
 Celula *fl;
 
-/*Procedimento cria um grafo dedicado a free list, gerando uma �rvore em pr� ordem
- * */
-void aloca_freelist(){
-	fl = heap;
-	Celula *ptr = fl;
-	for(int i = 1;i < H;i++){
-		ptr->tipo = 0;
-		ptr->fesq = NULL;
-		ptr->fdir = &heap[i];
-		ptr = ptr->fdir;
-	}
-}
-
-
 /*Estrutura auxiliar para empilhar os n�s
  * */
 typedef struct NodePilha{
@@ -52,6 +38,10 @@ typedef struct NodePilha{
 }NodePilha;
 
 NodePilha *topo = NULL;
+
+
+
+//						ALOCACAO FREELIST
 
 
 /*Procedimentos para inserir e remover elementos da pilha
@@ -71,6 +61,38 @@ void pop(){
 		topo = topo->prox;
 		free(aux);
 	}
+}
+
+
+/*Procedimento cria um grafo dedicado a free list, gerando uma �rvore em pr� ordem
+ * */
+void aloca_freelist(){
+	fl = heap;
+	Celula *ptr = fl;
+	for(int i = 1;i < H;i++){
+		ptr->tipo = 0;
+		ptr->fesq = NULL;
+		ptr->fdir = &heap[i];
+		ptr = ptr->fdir;
+	}
+}
+
+/*Procedimento auxiliar para alocação de espaço da freelist
+ * Retorna o elemento da free list
+ * Retorna nulo se a freelist está vazia
+ * */
+Celula *aloca_espaco(){
+	Celula *retorno;
+	retorno = fl;
+	if(fl != NULL){
+		fl = fl->fdir;
+	}
+	else{
+		printf("Heap Cheia!");
+		exit(0);
+	}
+
+	return retorno;
 }
 
 /*Procedimento cria uma c�lula do tipo combinador.
@@ -112,22 +134,8 @@ Celula *cria_aplicacao(){
 	}
 }
 
-/*Procedimento auxiliar para alocação de espaço da freelist
- * Retorna o elemento da free list
- * Retorna nulo se a freelist está vazia
- * */
-Celula *aloca_espaco(){
-	Celula *retorno  = fl;
-	if(fl != NULL){
-		fl = fl->fdir;
-	}
-	else{
-		printf("Heap Cheia!");
-		exit(0);
-	}
 
-	return retorno;
-}
+//							CRIACAO DO GRAFO
 
 //Procedimento que recebe duas vari�veis, uma que aponta para
 //um array e outra que aponta para um inteiro com a posi��o do
@@ -205,6 +213,9 @@ Celula* cria_grafo(char *entrada){
 	return raiz;
 }
 
+
+//						IMPRIMIR GRAFO
+
 /*Procedimento dedicado a impress�o do grado no console
  * para verificar se o grafo criado est� correto.
  * */
@@ -243,7 +254,11 @@ void imprime_grafo(Celula *cel){
 
 }
 
-//Redu��es
+
+
+//				REDUCOES
+
+
 /*Procedimento efetua a redu��o do combinador K segundo a regra
  * K a b -> A
  * */
@@ -261,8 +276,7 @@ void reduz_K(Celula *grafo){
 
 	//K a b -> a
 	//Celula *newA = calloc(1,sizeof(Celula));
-	Celula *newA = fl;
-	fl = fl->fdir;
+	Celula *newA = aloca_espaco();
 	newA->tipo = a->tipo;
 	newA->fdir = a->fdir;
 	newA->fesq = a->fesq;
@@ -388,13 +402,13 @@ int maquina_ks(){
 	/**
 	 * Criação e alocação do grafo.
 	 * */
+	aloca_freelist();
 	double clk_ps = (double)  CLOCKS_PER_SEC;
 	clock_t toc = clock();
 	Celula *grafo = cria_grafo(string);
 	clock_t tic = clock();
 	printf("\n");
 	printf("Tempo Criação do grafo = %lf", (double)((tic - toc)/clk_ps));
-
 
 	int iterations  = 0;
 	toc = clock();
