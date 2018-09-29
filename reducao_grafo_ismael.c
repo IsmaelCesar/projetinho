@@ -879,6 +879,24 @@ int main(){
 			case 'S':
 				reduz_S(grafo);
 				break;
+			case 'I':
+				reduz_I(grafo);
+				break;
+			case 'B':
+				reduz_B(grafo);
+				break;
+			case 'C':
+				reduz_C(grafo);
+				break;
+			case 'D':
+				reduz_D(grafo);
+				break;
+			case 'E':
+				reduz_E(grafo);
+				break;
+			case 'F':
+				reduz_F(grafo);
+				break;
 		}
 		iterations++;
 	}
