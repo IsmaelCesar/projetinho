@@ -508,7 +508,7 @@ void reduz_D(Celula *grafo){
 	if(topo != NULL){
 		pai = topo->dado;
 		pai->fesq = ap2;
-		Celula *aux = pai;
+		Celula *aux = pai->fesq;
 		while(aux != NULL){
 			push(aux);
 			aux->fesq;
@@ -522,9 +522,8 @@ void reduz_D(Celula *grafo){
 			aux->fesq;
 		}
 	}
-
-
 }
+
 
 /*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
  *  a regra:
@@ -575,21 +574,22 @@ void reduz_E(Celula *grafo){
 	Celula *ap1 = cria_aplicacao();
 	Celula *ap2 = cria_aplicacao();
 	Celula *ap3 = cria_aplicacao();
-	Celula *ap4 = cria_aplicacao();
 
-	ap1->fesq = c;
-	ap1->fdir = f;
+	ap1->fesq = newC;
+	ap1->fdir = newF;
 
-	ap4->fesq = g;
-	ap4->fdir = x;
+	ap3->fesq = newG;
+	ap3->fdir = newX;
 
+	ap2->fesq = ap1;
+	ap2->fdir = ap3;
 
 	Celula *pai = NULL;
 
 	if(topo != NULL){
 		pai = topo->dado;
 		pai->fesq = ap2;
-		Celula *aux = pai;
+		Celula *aux = pai->fesq;
 		while(aux != NULL){
 			push(aux);
 			aux->fesq;
@@ -603,7 +603,86 @@ void reduz_E(Celula *grafo){
 			aux->fesq;
 		}
 	}
+}
 
+/*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
+ *  a regra:
+ * F c f g x -> c (f g ) x
+ * */
+void reduz_F(Celula *grafo){
+	pop();//Desempilha E
+
+	//Busca argumentos
+	Celula *c = topo->dado->fdir;
+	pop();//Desaloca c
+
+	Celula *f = topo->dado->fdir;
+	pop();//Desaloca f
+
+	Celula *g = topo->dado->fdir;
+	pop();//Desaloca g
+
+	Celula *x = topo->dado->fdir;
+	pop();//Desaloca x
+
+	Celula *pai = NULL;
+
+	//F c f g x -> c (f g ) x
+
+	Celula *newC = aloca_espaco();
+	Celula *newF = aloca_espaco();
+	Celula *newG = aloca_espaco();
+	Celula *newX = aloca_espaco();
+
+	newC->tipo = c->tipo;
+	newC->fesq = c->fesq;
+	newC->fdir = c->fdir;
+
+	newF->tipo = f->tipo;
+	newF->fesq = f->fesq;
+	newF->fdir = f->fdir;
+
+	newG->tipo = g->tipo;
+	newG->fesq = g->fesq;
+	newG->fdir = g->fdir;
+
+	newX->tipo = x->tipo;
+	newX->fesq = x->fesq;
+	newX->fdir = x->fdir;
+
+
+	Celula *ap1 = cria_aplicacao();
+	Celula *ap2 = cria_aplicacao();
+	Celula *ap3 = cria_aplicacao();
+
+	ap2->fesq = newF;
+	ap2->fdir = newX;
+
+	ap1->fesq = newC;
+	ap1->fdir = ap2;
+
+	ap3->fesq = ap1;
+	ap3->fdir = newG;
+
+	Celula *pai = NULL;
+
+	if(topo != NULL){
+		pai = topo->dado;
+		pai->fesq = ap3;
+		Celula *aux = pai->fesq;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
+	else{
+		grafo = ap3;
+		Celula *aux = grafo;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
 }
 
 int main(){
