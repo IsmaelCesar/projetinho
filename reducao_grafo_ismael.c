@@ -429,10 +429,12 @@ void reduz_I(Celula *grafo){
 		grafo->tipo = newA->tipo;
 		grafo->fesq	 = newA->fesq;
 		grafo->fdir = newA->fdir;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+			Celula *aux = grafo;
+		if(grafo->fesq){
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
@@ -506,11 +508,15 @@ void reduz_B(Celula *grafo){
 		}
 	}
 	else{
-		grafo = ap2;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+		grafo->tipo = ap2->tipo;
+		grafo->fesq	 = ap2->fesq;
+		grafo->fdir = ap2->fdir;
+		if(grafo->fesq){
+			Celula *aux = grafo;
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
@@ -575,11 +581,15 @@ void reduz_B(Celula *grafo){
 		}
 	}
 	else{
-		grafo = ap2;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+		grafo->tipo = ap2->tipo;
+		grafo->fesq	 = ap2->fesq;
+		grafo->fdir = ap2->fdir;
+		if(grafo->fesq){
+			Celula *aux = grafo;
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
@@ -663,11 +673,15 @@ void reduz_D(Celula *grafo){
 		}
 	}
 	else{
-		grafo = ap2;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+		grafo->tipo = ap2->tipo;
+		grafo->fesq	 = ap2->fesq;
+		grafo->fdir = ap2->fdir;
+		if(grafo->fesq){
+			Celula *aux = grafo;
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
@@ -743,11 +757,15 @@ void reduz_E(Celula *grafo){
 		}
 	}
 	else{
-		grafo = ap2;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+		grafo->tipo = ap2->tipo;
+		grafo->fesq	 = ap2->fesq;
+		grafo->fdir = ap2->fdir;
+		if(grafo->fesq){
+			Celula *aux = grafo;
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
@@ -823,11 +841,15 @@ void reduz_F(Celula *grafo){
 		}
 	}
 	else{
-		grafo = ap3;
-		Celula *aux = grafo;
-		while(aux != NULL){
-			push(aux);
-			aux->fesq;
+		grafo->tipo = ap3->tipo;
+		grafo->fesq	 = ap3->fesq;
+		grafo->fdir = ap3->fdir;
+		if(grafo->fesq){
+			Celula *aux = grafo;
+			while(aux != NULL){
+				push(aux);
+				aux->fesq;
+			}
 		}
 	}
 }
