@@ -437,6 +437,154 @@ void reduz_I(Celula *grafo){
 	}
 }
 
+//		CURRY
+/*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
+ *  a regra:
+ * B f g x -> f x ( g  x)
+ * */
+void reduz_B(Celula *grafo){
+	pop();//Desempilha B
+
+	//Busca argumentos
+
+	Celula *f = topo->dado->fdir;
+	pop();//Desaloca f
+
+	Celula *g = topo->dado->fdir;
+	pop();//Desaloca g
+
+	Celula *x = topo->dado->fdir;
+	pop();//Desaloca x
+
+	Celula *pai = NULL;
+	//B f g x -> f x ( g  x)
+	Celula *newF = aloca_espaco();
+	Celula *newG = aloca_espaco();
+	Celula *newX1 = aloca_espaco();
+	Celula *newX2 = aloca_espaco();
+
+	newF->tipo = f->tipo;
+	newF->fesq = f->fesq;
+	newF->fdir = f->fdir;
+
+	newG->tipo = g->tipo;
+	newG->fesq = g->fesq;
+	newG->fdir = g->fdir;
+
+	newX1->tipo = x->tipo;
+	newX1->fesq = x->fesq;
+	newX1->fdir = x->fdir;
+
+	newX2->tipo = x->tipo;
+	newX2->fesq = x->fesq;
+	newX2->fdir = x->fdir;
+
+
+	Celula *ap1 = cria_aplicacao();
+	Celula *ap2 = cria_aplicacao();
+	Celula *ap3 = cria_aplicacao();
+	Celula *ap4 = cria_aplicacao();
+
+	ap1->fesq = newF;
+	ap1->fdir = newX1;
+
+	ap3->fesq = newG;
+	ap3->fesq = newX2;
+
+	ap2->fesq = ap1;
+	ap2->fdir = ap3;
+
+	Celula *pai = NULL;
+
+	if(topo != NULL){
+		pai = topo->dado;
+		pai->fesq = ap2;
+		Celula *aux = pai->fesq;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
+	else{
+		grafo = ap2;
+		Celula *aux = grafo;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
+}
+
+/*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
+ *  a regra:
+ * C f g x -> f x g
+ * */
+void reduz_B(Celula *grafo){
+	pop();//Desempilha B
+
+	//Busca argumentos
+
+	Celula *f = topo->dado->fdir;
+	pop();//Desaloca f
+
+	Celula *g = topo->dado->fdir;
+	pop();//Desaloca g
+
+	Celula *x = topo->dado->fdir;
+	pop();//Desaloca x
+
+	Celula *pai = NULL;
+	//C f g x -> f x g
+	Celula *newF = aloca_espaco();
+	Celula *newG = aloca_espaco();
+	Celula *newX = aloca_espaco();
+
+
+	newF->tipo = f->tipo;
+	newF->fesq = f->fesq;
+	newF->fdir = f->fdir;
+
+	newG->tipo = g->tipo;
+	newG->fesq = g->fesq;
+	newG->fdir = g->fdir;
+
+	newX->tipo = x->tipo;
+	newX->fesq = x->fesq;
+	newX->fdir = x->fdir;
+
+	Celula *ap1 = cria_aplicacao();
+	Celula *ap2 = cria_aplicacao();
+	//Celula *ap3 = cria_aplicacao();
+	//Celula *ap4 = cria_aplicacao();
+
+	ap1->fesq = newF;
+	ap1->fdir = newX;
+
+	ap2->fesq = ap1;
+	ap2->fdir = newG;
+
+	Celula *pai = NULL;
+
+	if(topo != NULL){
+		pai = topo->dado;
+		pai->fesq = ap2;
+		Celula *aux = pai->fesq;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
+	else{
+		grafo = ap2;
+		Celula *aux = grafo;
+		while(aux != NULL){
+			push(aux);
+			aux->fesq;
+		}
+	}
+}
+
+//		TURNER
 /*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
  *  a regra:
  * D c f g x -> c(f x)( g x)
@@ -523,7 +671,6 @@ void reduz_D(Celula *grafo){
 		}
 	}
 }
-
 
 /*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
  *  a regra:
