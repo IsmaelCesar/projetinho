@@ -143,7 +143,17 @@ void empilha_filho_esquerda(Celula *cel){
 	}
 }
 
-
+/*Procedimento auxiliar para alocar alocar um espaço na heap e
+ * copiar os dados dcelula desejada para o novo espaco alocado
+ * retornando o novo espaco alocado
+ * */
+Celula* copiar_alocar(Celula *cel){
+	Celula *newCel = aloca_espaco();
+	newCel->tipo = cel->tipo;
+	newCel->fesq = cel->fesq;
+	newCel->fdir = cel->fdir;
+	return newCel;
+}
 
 //							CRIACAO DO GRAFO
 
@@ -509,6 +519,49 @@ void reduz_I(Celula *grafo){
  * B f g x -> f x ( g  x)
  * */
 void reduz_B(Celula *grafo){
+	pop();//Desempilha B
+
+	//busca argumentos
+	Celula *f = topo->dado->fdir;
+	pop();//desempilha f
+
+	Celula *g = topo->dado->fdir;
+	pop();//desempilha g
+
+	Celula *x = topo->dado->fdir;
+	pop();//desempilha x
+
+	//aloca espaco
+	Celula *newF  = copiar_alocar(f);
+	Celula *newG  = copiar_alocar(g);
+	Celula *newX1 = copiar_alocar(x);
+	Celula *newX2 = copiar_alocar(x);
+
+	//B f g x -> f x ( g  x)
+	Celula *pai   = topo->dado;
+	Celula *ap1   = cria_aplicacao();
+	Celula *ap2   = cria_aplicacao();
+	Celula *ap3   = cria_aplicacao();
+
+	ap1->fesq = newF;
+	ap1->fdir = newX1;
+
+	ap3->fesq = newG;
+	ap3->fdir = newX2;
+
+	ap2->fesq = ap1;
+	ap2->fdir = ap3;
+
+	empilha__filho_esquerda(ap2);
+
+	if(pai != NULL){
+		pai->fesq = ap2;
+	}
+	else{
+		grafo->tipo = ap2->tipo;
+		grafo->fesq = ap2->fesq;
+		grafo->fdir = ap2->fdir;
+	}
 
 }
 
