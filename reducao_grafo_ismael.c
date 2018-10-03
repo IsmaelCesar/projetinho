@@ -543,13 +543,11 @@ void reduz_B(Celula *grafo){
 	}
 	Celula *ap_filha2   = cria_aplicacao();
 	ap_filha2->fesq = newG;
-	ap_filha2->fesq = newX;
-
-	Celula *ap_filha1   = cria_aplicacao();
-	ap_filha1->fesq = newF;
-	ap_filha1->fdir = ap_filha2;
+	ap_filha2->fdir = newX;
 
 	Celula *ap_pai   = cria_aplicacao();
+	ap_pai->fesq = newF;
+	ap_pai->fdir = ap_filha2;
 
 	empilha_filho_esquerda(ap_pai);
 
