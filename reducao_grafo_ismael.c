@@ -602,6 +602,11 @@ void reduz_C(Celula *grafo){
 	if(pai!= NULL){
 		pai->fesq = ap_pai;
 	}
+	else{
+		grafo->tipo = ap_pai->tipo;
+		grafo->fesq = ap_pai->fesq;
+		grafo->fdir = ap_pai->fdir;
+	}
 
 }
 
