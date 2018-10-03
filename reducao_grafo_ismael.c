@@ -678,6 +678,56 @@ void reduz_D(Celula *grafo){
  * E c f g x -> c f (g x)
  * */
 void reduz_E(Celula *grafo){
+	pop();//Desempilha E
+
+	//Busca argumentos
+	Celula *c = topo->dado->fdir;
+	pop();//Desempilha c
+
+	Celula *f = topo->dado->fdir;
+	pop();//Desempilha f
+
+	Celula *g = topo->dado->fdir;
+	pop();//Desempilha g
+
+	Celula *x = topo->dado->fdir;
+	pop();//Desempilha x
+
+	//Alocacao de dados
+	Celula *pai = NULL;
+	if(topo != NULL){
+		pai = topo->dado;
+	}
+	Celula *newC  = copiar_alocar(c);
+	Celula *newF  = copiar_alocar(f);
+	Celula *newG  = copiar_alocar(g);
+	Celula *newX  = copiar_alocar(x);
+
+	//E c f g x -> c f (g x)
+	Celula *ap_filha1 = cria_aplicacao();
+	ap_filha1->fesq = newC;
+	ap_filha1->fdir = newF;
+
+	Celula *ap_filha2 = cria_aplicacao();
+	ap_filha2->fesq = newG;
+	ap_filha2->fdir = newX;
+
+	Celula *ap_pai = cria_aplicacao();
+	ap_pai->fesq = ap_filha1;
+	ap_pai->fdir = ap_filha2;
+
+	empilha_filho_esquerda(ap_pai);
+
+	if(pai!= NULL){
+		pai->fesq = ap_pai;
+	}
+	else{
+		grafo->tipo = ap_pai->tipo;
+		grafo->fesq = ap_pai->fesq;
+		grafo->fdir = ap_pai->fdir;
+	}
+
+
 
 }
 
