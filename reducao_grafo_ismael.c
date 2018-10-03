@@ -184,6 +184,7 @@ void casa_parenteses(char* array1, int* p) {
 /*Procedimento pega a string de entrada e a partir da mesma cria o grafo
  * fazendo uma busca em ordem de baixo para cima
  * */
+/*
 Celula* cria_grafo(char *entrada){
 
 	Celula *raiz = cria_aplicacao();
@@ -232,9 +233,9 @@ Celula* cria_grafo(char *entrada){
 	}
 
 	return raiz;
-}
+}*/
 
-Celula* cria_grafo2(char *entrada){
+Celula* cria_grafo(char *entrada){
 
 	Celula *raiz = NULL;
 
@@ -251,10 +252,10 @@ Celula* cria_grafo2(char *entrada){
 					ap = cria_aplicacao();
 					//aux = raiz;
 					ap->fesq = raiz;
-					ap->fdir = cria_grafo2(entrada + 1);
+					ap->fdir = cria_grafo(entrada + 1);
 				}
 				else{
-					ap = cria_grafo2(entrada + 1);
+					ap = cria_grafo(entrada + 1);
 				}
 				int end   = 1;
 				casa_parenteses(entrada,&end);
@@ -791,7 +792,7 @@ int main(){
 	aloca_freelist();
 	double clk_ps = (double)  CLOCKS_PER_SEC;
 	clock_t toc = clock();
-	Celula *grafo = cria_grafo2(string);
+	Celula *grafo = cria_grafo(string);
 	//imprime_grafo_para_string(grafo);
 	//imprime_grafo(grafo);
 	clock_t tic = clock();
