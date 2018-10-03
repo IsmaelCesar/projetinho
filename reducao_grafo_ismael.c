@@ -617,6 +617,60 @@ void reduz_C(Celula *grafo){
  * */
 void reduz_D(Celula *grafo){
 
+	pop();//Desempilha D
+
+		//Busca argumentos
+		Celula *c = topo->dado->fdir;
+		pop();//Desempilha c
+
+		Celula *f = topo->dado->fdir;
+		pop();//Desempilha f
+
+		Celula *g = topo->dado->fdir;
+		pop();//Desempilha g
+
+		Celula *x = topo->dado->fdir;
+		pop();//Desempilha x
+
+		//alocacao de dados
+		Celula *pai = NULL;
+		if(topo != NULL){
+			pai = topo->dado;
+		}
+		Celula *newC  = copiar_alocar(c);
+		Celula *newF  = copiar_alocar(f);
+		Celula *newG  = copiar_alocar(g);
+		Celula *newX1 = copiar_alocar(x);
+		Celula *newX2 = copiar_alocar(x);
+
+		//D c f g x -> c(f x)( g x)
+		Celula *ap_filha3 = cria_aplicacao();
+		ap_filha3->fesq = newF;
+		ap_filha3->fdir = newX1;
+
+		Celula *ap_filha4 = cria_aplicacao();
+		ap_filha4->fesq = newG;
+		ap_filha4->fdir = newX2;
+
+		Celula *ap_filha1 = cria_aplicacao();
+		ap_filha4->fesq = newC;
+		ap_filha4->fdir = ap_filha3;
+
+		Celula *ap_pai = cria_aplicacao();
+		ap_pai->fesq = ap_filha1;
+		ap_pai->fdir = ap_filha4;
+
+		empilha_filho_esquerda(ap_pai);
+
+		if(pai!= NULL){
+			pai->fesq = ap_pai;
+		}
+		else{
+			grafo->tipo = ap_pai->tipo;
+			grafo->fesq = ap_pai->fesq;
+			grafo->fdir = ap_pai->fdir;
+		}
+
 }
 
 /*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
