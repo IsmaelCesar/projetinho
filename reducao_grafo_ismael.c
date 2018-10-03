@@ -726,9 +726,6 @@ void reduz_E(Celula *grafo){
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
-
-
-
 }
 
 /*Procedimnto efetua a reducao do combinador de turner D segundo no grafo
@@ -736,6 +733,54 @@ void reduz_E(Celula *grafo){
  * F c f g x -> c (f x ) g
  * */
 void reduz_F(Celula *grafo){
+	pop();//Desempilha F
+
+	//Busca argumentos
+	Celula *c = topo->dado->fdir;
+	pop();//Desempilha c
+
+	Celula *f = topo->dado->fdir;
+	pop();//Desempilha f
+
+	Celula *g = topo->dado->fdir;
+	pop();//Desempilha g
+
+	Celula *x = topo->dado->fdir;
+	pop();//Desempilha x
+
+	//Aloca dados
+	Celula *pai = NULL;
+	if(topo != NULL){
+		pai = topo->dado;
+	}
+	Celula *newC  = copiar_alocar(c);
+	Celula *newF  = copiar_alocar(f);
+	Celula *newG  = copiar_alocar(g);
+	Celula *newX  = copiar_alocar(x);
+
+	//F c f g x -> c (f x ) g
+	Celula *ap_filha1 = cria_aplicacao();
+	ap_filha1->fesq = newF;
+	ap_filha1->fdir = newX;
+
+	Celula *ap_filha2 = cria_aplicacao();
+	ap_filha2->fesq = newC;
+	ap_filha2->fdir = ap_filha1;
+
+	Celula *ap_pai = cria_aplicacao();
+	ap_pai->fesq = ap_filha2;
+	ap_pai->fdir = newG;
+
+	empilha_filho_esquerda(ap_pai);
+
+	if(pai!= NULL){
+		pai->fesq = ap_pai;
+	}
+	else{
+		grafo->tipo = ap_pai->tipo;
+		grafo->fesq = ap_pai->fesq;
+		grafo->fdir = ap_pai->fdir;
+	}
 
 }
 
