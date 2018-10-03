@@ -184,57 +184,6 @@ void casa_parenteses(char* array1, int* p) {
 /*Procedimento pega a string de entrada e a partir da mesma cria o grafo
  * fazendo uma busca em ordem de baixo para cima
  * */
-/*
-Celula* cria_grafo(char *entrada){
-
-	Celula *raiz = cria_aplicacao();
-	//Celula *raiz = NULL;
-
-	while(entrada[0] != '\0'){
-
-			if(entrada[0] == ')'){
-					return raiz;
-			}
-			else if(entrada[0] == '('){
-				if(raiz->fdir != NULL){
-					Celula *ap = cria_aplicacao();
-					Celula *aux = raiz;
-					ap->fesq = aux;
-					ap->fdir = cria_grafo(entrada + 1);
-					raiz = ap;
-				}
-				else{
-					raiz->fdir= cria_grafo(entrada + 1);
-				}
-				int end   = 1;
-				casa_parenteses(entrada,&end);
-				for(int i = 0; i < end; i++){
-					entrada++;
-				}
-			}
-			else{
-				if(raiz->fesq == NULL){
-					Celula *comb = cria_combinador(entrada);
-					raiz->fesq = comb;
-					entrada++;
-				}
-				else if(raiz->fdir == NULL){
-					Celula *comb = cria_combinador(entrada);
-					raiz->fdir = comb;
-					entrada++;
-				}
-				else{
-					Celula *ap = cria_aplicacao();
-					Celula *aux  = raiz;
-					ap->fesq  = aux;
-					raiz  = ap;
-				}
-			}
-	}
-
-	return raiz;
-}*/
-
 Celula* cria_grafo(char *entrada){
 
 	Celula *raiz = NULL;
