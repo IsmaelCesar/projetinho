@@ -1,1 +1,9 @@
 /Debug/
+.cproject
+.project
+.settings/org.eclipse.cdt.managedbuilder.core.prefs
+.settings/language.settings.xml
+graph_redux.exe
+main.exe
+reducao_grafo_ismael.exe
+gmon.out
