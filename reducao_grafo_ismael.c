@@ -154,6 +154,24 @@ Celula* copiar_alocar(Celula *cel){
 	newCel->fdir = cel->fdir;
 	return newCel;
 }
+/*Procedimento auxiliar para contar se a free list
+ * tem argumentos suficientes para serem utilizados
+ * nas reducoes.
+ * */
+void contar_argumentos(int cont){
+	Celula *aux = fl;
+	for(int i = 0; i < cont; cont++){
+		if(!aux){
+			aux ->fdir;
+		}
+		else{
+			print("\n####################################\n");
+			print("Naha elementos suficientes na freelist\n");
+			print("\n####################################\n");
+			exit(0);
+		}
+	}
+}
 
 //							CRIACAO DO GRAFO
 
