@@ -160,7 +160,7 @@ Celula* copiar_alocar(Celula *cel){
  * */
 void contar_argumentos(int cont){
 	Celula *aux = fl;
-	for(int i = 0; i < cont; cont++){
+	for(int i = 0; i < cont; i++){
 		if(aux){
 			aux = aux->fdir;
 		}
