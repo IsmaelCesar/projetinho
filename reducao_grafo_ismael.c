@@ -65,7 +65,15 @@ void pop(){
 
 void push(Celula *c){
 	//++ vem antes pois o topo começa em -1
-	pilha[++topo] = c;
+	if(topo < P){
+		pilha[++topo] = c;
+	}
+	else{
+		printf("\n##############################\n");
+		printf("\n\tPilha cheia\n");
+		printf("\n##############################\n");
+		exit(0);
+	}
 }
 
 void pop(){
