@@ -320,6 +320,22 @@ void casa_parenteses(char* array1, int* p) {
     *p = c;
 }
 
+
+/*Procedimento auxiliar para verificar se o caractere avaliado é um
+ * combinador, operador ou um número
+ * */
+Celula* compara_atribui_celula(char *entrada,int is_digito,int *cont_digito){
+	Celula *retorno = NULL;
+	if(is_digito != -1){
+			retorno = cria_combinador(entrada);
+	}
+	else{
+			//int cont_digito  = 0;
+			retorno = adiciona_numero(entrada,cont_digito);
+	}
+	return retorno;
+}
+
 /*Procedimento pega a string de entrada e a partir da mesma cria o grafo
  * fazendo uma busca em ordem de baixo para cima
  * */
@@ -352,6 +368,7 @@ Celula* cria_grafo(char *entrada){
 				raiz = ap;
 			}
 			else{
+				int cont_digito  = 0;
 				if(raiz != NULL){
 					Celula *aux = NULL;
 					if(raiz->tipo == 0xF0000008 ){
@@ -359,33 +376,37 @@ Celula* cria_grafo(char *entrada){
 							aux = cria_aplicacao();
 							aux->fesq = raiz;
 							raiz = aux;
-							aux->fdir = cria_combinador(entrada);
+							//aux->fdir = cria_combinador(entrada);
+							raiz->fdir = compara_atribui_celula(entrada,is_digito,&cont_digito);
 						}
 						else{
-							raiz->fdir = cria_combinador(entrada);
+							//raiz->fdir = cria_combinador(entrada);
+							raiz->fdir = compara_atribui_celula(entrada,is_digito,&cont_digito);
 						}
 					}
 					else{
 						aux = cria_aplicacao();
 						aux->fesq = raiz;
 						raiz = aux;
-						raiz->fdir = cria_combinador(entrada);
+						//raiz->fdir = cria_combinador(entrada);
+						raiz->fdir = compara_atribui_celula(entrada,is_digito,&cont_digito);
 					}
 				}
 				else{
-
-					if(is_digito != -1){
+					int cont_digito  = 0;
+					raiz = compara_atribui_celula(entrada,is_digito,&cont_digito);
+					/*if(is_digito != -1){
 						raiz = cria_combinador(entrada);
 					}
 					else{
-						int cont_digito  = 0;
+
 						raiz = adiciona_numero(entrada,&cont_digito);
-						for(int i = 0; i<=cont_digito; i++){
-							entrada++;
-						}
-					}
+					}*/
 				}
-				entrada++;
+				//entrada++;
+				for(int i = 0; i<=cont_digito; i++){
+					entrada++;
+				}
 			}
 	}
 
