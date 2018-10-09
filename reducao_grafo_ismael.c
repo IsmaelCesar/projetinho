@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="K-3333K\0";
+char string[N] ="K(K-3333K)K\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -330,7 +330,6 @@ Celula* compara_atribui_celula(char *entrada,int is_digito,int *cont_digito){
 			retorno = cria_combinador(entrada);
 	}
 	else{
-			//int cont_digito  = 0;
 			retorno = adiciona_numero(entrada,cont_digito);
 	}
 	return retorno;
