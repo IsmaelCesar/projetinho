@@ -31,38 +31,54 @@ Celula *fl;
 
 /*Estrutura auxiliar para empilhar as celulas
  * */
-/*typedef struct NodePilha{
-	struct Celula *dado;
-	struct NodePilha *prox;
-}NodePilha;
-
-NodePilha *topo = NULL;*/
-
 Celula *pilha[P];
 int topo = -1;
+
+// 			Checando simbolos
+/*Procedimento auxiliar para avaliar o valor de um caracter da
+ * string e retornar o número refenente a ele.
+ * O número será utilizado no campo tipo durante a redução do grafo
+ * Codificação de FFF01 a FFF08
+ * */
+int cria_valor_combinador(char *valor){
+
+	int retorno = 0;
+
+	switch(*valor){
+		case 'K':
+			retorno = 0xFFF00;
+			break;
+		case 'S':
+			retorno = 0xFFF01;
+			break;
+		case 'I':
+			retorno = 0xFFF02;
+			break;
+		case 'B':
+			retorno = 0xFFF03;
+			break;
+		case 'C':
+			retorno = 0xFFF04;
+			break;
+		case 'D':
+			retorno = 0xFFF05;
+			break;
+		case 'E':
+			retorno = 0xFFF06;
+			break;
+		case 'F':
+			retorno = 0xFFF07;
+			break;
+	}
+
+	return retorno;
+}
 
 //						ALOCACAO DADOS
 
 
 /*Procedimentos para inserir e remover elementos da pilha
  * */
-/*void push(Celula *c){
-
-	NodePilha *nptr = calloc(1,sizeof(NodePilha));
-	nptr->dado = c;
-	nptr->prox = topo;
-	topo = nptr;
-}
-
-void pop(){
-	if(topo != NULL){
-		NodePilha *aux;
-		aux =topo;
-		topo = topo->prox;
-		free(aux);
-	}
-}*/
-
 void push(Celula *c){
 	//++ vem antes pois o topo começa em -1
 	if(topo < P){
@@ -807,7 +823,7 @@ int main(){
 	double clk_ps = (double)  CLOCKS_PER_SEC;
 	clock_t toc = clock();
 	Celula *grafo = cria_grafo(string);
-	imprime_grafo_para_string(grafo);
+	//imprime_grafo_para_string(grafo);
 	//imprime_grafo(grafo);
 	clock_t tic = clock();
 	printf("\n");
