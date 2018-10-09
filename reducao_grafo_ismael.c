@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="+(1)(1)\0";
+char string[N] ="-(2)(2)\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -1049,45 +1049,6 @@ void reduz_F(Celula *grafo){
 Celula * eval(Celula *grafo){
 
 	if(grafo->tipo == 0xF0000008){
-		int velho_topo = topo;
-		empilha_grafo(grafo);
-		while(topo>=velho_topo){
-			switch(pilha[topo]->tipo){
-					//case'K':
-					case 0xF0000000:
-						reduz_K(grafo);
-						break;
-					//case 'S':
-					case 0xF0000001:
-						reduz_S(grafo);
-						break;
-					//case 'I':
-					case 0xF0000002:
-						reduz_I(grafo);
-						break;
-					//case 'B':
-					case 0xF0000003:
-						reduz_B(grafo);
-						break;
-					//case 'C':
-					case 0xF0000004:
-						reduz_C(grafo);
-						break;
-					//case 'D':
-					case 0xF0000005:
-						reduz_D(grafo);
-						break;
-					//case 'E':
-					case 0xF0000006:
-						reduz_E(grafo);
-						break;
-					//case 'F':
-					case 0xF0000007:
-						reduz_F(grafo);
-						break;
-				}
-		}
-		return grafo;
 	}
 	else{
 		return grafo;
@@ -1103,8 +1064,10 @@ void reduz_SOMA(Celula *grafo){
 	pop();//desempilha +
 
 	//Busca argumento
-	Celula *a = eval(pilha[topo--]->fdir); //avalia e atribui A
-	Celula *b = eval(pilha[topo--]->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	pop();
+	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
+	pop();
 	//Aloca dados
 	Celula *result  = aloca_espaco();
 	result->tipo = a->tipo + b->tipo;
@@ -1128,6 +1091,40 @@ void reduz_SOMA(Celula *grafo){
 }
 
 
+/*Procedimento efetua a redução do operador soma segundo a notação prefixa
+ * - a b = (eval a) - (eval b)
+ * Onde eval é a redução da sub arvore do argumento do operador
+ * */
+void reduz_SUBTRACAO(Celula *grafo){
+	contar_argumentos(2);
+	pop();//desempilha -
+
+	//Busca argumento
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	pop();
+	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
+	pop();
+	//Aloca dados
+	Celula *result  = aloca_espaco();
+	result->tipo = a->tipo - b->tipo;
+	result->fesq = NULL;
+	result->fdir = NULL;
+
+	Celula *pai = NULL;
+
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai!=NULL){
+		pai->fesq = result;
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fesq = result->fesq;
+		grafo->fdir = result->fdir;
+	}
+}
 
 int main(){
 	/**
@@ -1185,6 +1182,9 @@ int main(){
 				break;
 			case 0xF0000009:
 				reduz_SOMA(grafo);
+				break;
+			case 0xF000000A:
+				reduz_SUBTRACAO(grafo);
 				break;
 		}
 		iterations++;
