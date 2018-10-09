@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="747477\0";
+char string[N] ="K-3333K\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -105,31 +105,31 @@ int cria_tipo_celula(char *valor){
 
 	switch(*valor){
 		case 'K':
-			retorno = 0xFFFFFF00;//-256
+			retorno = 0xF0000000;
 			break;
 		case 'S':
-			retorno = 0xFFFFFF01;//-255
+			retorno = 0xF0000001;
 			break;
 		case 'I':
-			retorno = 0xFFFFFF02;//-254
+			retorno = 0xF0000002;
 			break;
 		case 'B':
-			retorno = 0xFFFFFF03;//-253
+			retorno = 0xF0000003;
 			break;
 		case 'C':
-			retorno = 0xFFFFFF04;//-252
+			retorno = 0xF0000004;
 			break;
 		case 'D':
-			retorno = 0xFFFFFF05;//-251
+			retorno = 0xF0000005;
 			break;
 		case 'E':
-			retorno = 0xFFFFFF06;//-250
+			retorno = 0xF0000006;
 			break;
 		case 'F':
-			retorno = 0xFFFFFF07;//-249
+			retorno = 0xF0000007;
 			break;
 		case '@':
-			retorno = 0xFFFFFF08;//-248
+			retorno = 0xF0000008;
 			break;
 		case '\0':
 			retorno = 0;
@@ -182,7 +182,16 @@ int cria_valor_digito(char* valor){
  * O número será utilizado no campo tipo durante a redução do grafo
  * Contando quan dígito esta sendo computado para a criação do valor
  * */
+//Se o primeiro item da entrada for menos
+//O número será multiplicado por -1 para se obter sua versão
+//negativa
 Celula* adiciona_numero(char *entrada,int *contador_digito){
+		int mult = 1;
+		if(*entrada == '-'){
+			mult = -1;
+			entrada++;
+			(*contador_digito)++;
+		}
 
 		int numero_atual = cria_valor_digito(entrada++);
 		int val = cria_tipo_celula(entrada);
@@ -196,7 +205,7 @@ Celula* adiciona_numero(char *entrada,int *contador_digito){
 		}
 		//pega espaco da freelist
 		Celula *cel = aloca_espaco();
-		cel->tipo = numero_atual;
+		cel->tipo = numero_atual * mult;
 		cel->fesq = NULL;
 		cel->fdir = NULL;
 		return cel;
@@ -345,7 +354,7 @@ Celula* cria_grafo(char *entrada){
 			else{
 				if(raiz != NULL){
 					Celula *aux = NULL;
-					if(raiz->tipo == 0xFFFFFF08 ){
+					if(raiz->tipo == 0xF0000008 ){
 						if(raiz->fdir != NULL){
 							aux = cria_aplicacao();
 							aux->fesq = raiz;
