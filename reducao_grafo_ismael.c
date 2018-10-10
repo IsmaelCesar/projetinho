@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="+(K1K)(K1K)\0";
+char string[N] = "&(KTK)(KAK)\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -1798,9 +1798,9 @@ int main(){
 
 	if(grafo != NULL){
 		//printf("\n%c\n",converte_celula_caractere(grafo->tipo));
-		printf("\n%d\n",grafo->tipo);
-		//printf("\n");
-		//imprime_grafo_para_string(grafo);
+		//printf("\n%d\n",grafo->tipo);
+		printf("\n");
+		imprime_grafo_para_string(grafo);
 	}
 	printf("\n");
 	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
