@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] =">(100)(11)\0";
+char string[N] ="=(11)(11)KI\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -1354,8 +1354,96 @@ void reduz_GT(Celula *grafo){
 			empilha_filho_esquerda(grafo);
 		}
 	}
+}
 
+/* Procedimento implementa a reducao do operador logico
+ * < segundo a regra
+ * < a b -> (eval a) < (eval b)
+ */
+void reduz_LT(Celula *grafo){
+	contar_argumentos(2);
+	pop();
 
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	Celula *result = NULL;
+	// > a b -> (eval a)<(eval b)
+	if(a->tipo < b->tipo){
+		result = aloca_espaco();
+		result->tipo = 0xF000000D;//TRUE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+	else{
+		result = aloca_espaco();
+		result->tipo = 0xF000000E;//FALSE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+
+	Celula *pai  = NULL;
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai != NULL){
+		pai->fesq = result;
+		empilha_filho_esquerda(result);
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fdir = result->fdir;
+		grafo->fesq = result->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+}
+
+/* Procedimento implementa a reducao do operador logico
+ * = segundo a regra
+ * = a b -> (eval a) = (eval b)
+ */
+void reduz_EQ(Celula *grafo){
+	contar_argumentos(2);
+	pop();
+
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	Celula *result = NULL;
+	// = a b -> (eval a)=(eval b)
+	if(a->tipo == b->tipo){
+		result = aloca_espaco();
+		result->tipo = 0xF000000D;//TRUE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+	else{
+		result = aloca_espaco();
+		result->tipo = 0xF000000E;//FALSE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+
+	Celula *pai  = NULL;
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai != NULL){
+		pai->fesq = result;
+		empilha_filho_esquerda(result);
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fdir = result->fdir;
+		grafo->fesq = result->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
 }
 
 int main(){
@@ -1429,6 +1517,15 @@ int main(){
 				break;
 			case 0xF000000E:
 				reduz_FALSE(grafo);
+				break;
+			case 0xF0000010:// >
+				reduz_GT(grafo);
+				break;
+			case 0xF0000011:// <
+				reduz_LT(grafo);
+				break;
+			case 0xF0000012:// =
+				reduz_EQ(grafo);
 				break;
 		}
 		iterations++;
