@@ -1446,6 +1446,69 @@ void reduz_EQ(Celula *grafo){
 	}
 }
 
+/* Procedimento implementa a reducao do operador logico
+ * AND segundo a regra
+ * AND a b -> (eval a) AND (eval b)
+ */
+void reduz_AND(Celula *grafo){
+	contar_argumentos(2);
+	pop();
+
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	Celula *result = NULL;
+	result  = aloca_espaco();
+	switch(a){
+		case 0xF000000D:// TRUE
+			switch(b){
+				case 0xF000000D:// TRUE
+					result->tipo = 0xF000000D; //TRUE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+				case 0xF000000E:// FALSE
+					result->tipo = 0xF000000E; //FALSE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+			}
+			break;
+		case 0xF000000E:// FALSE
+			switch(b){
+				case 0xF000000D:// TRUE
+					result->tipo = 0xF000000E; //TRUE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+				case 0xF000000E:// FALSE
+					result->tipo = 0xF000000E; //FALSE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+			}
+			break;
+	}
+
+	Celula *pai  = NULL;
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai != NULL){
+		pai->fesq = result;
+		empilha_filho_esquerda(result);
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fdir = result->fdir;
+		grafo->fesq = result->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+}
+
 int main(){
 	/**
 	 * Criação e alocaçao do grafo.
@@ -1526,6 +1589,9 @@ int main(){
 				break;
 			case 0xF0000012:// =
 				reduz_EQ(grafo);
+				break;
+			case 0xF0000012:// &
+				reduz_AND(grafo);
 				break;
 		}
 		iterations++;
