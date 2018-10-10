@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="/(300)(3)\0";
+char string[N] ="*(50)(300)\0";
 
 typedef struct  Celula{
 	int tipo;
