@@ -1457,6 +1457,7 @@ void reduz_AND(Celula *grafo){
 	Celula *a = eval(pilha[topo--]->fdir);
 	Celula *b = eval(pilha[topo--]->fdir);
 
+	// AND a b -> (eval a) AND (eval b)
 	Celula *result = NULL;
 	result  = aloca_espaco();
 	switch(a->tipo){
@@ -1478,6 +1479,61 @@ void reduz_AND(Celula *grafo){
 			switch(b->tipo){
 				case 0xF000000D:// TRUE
 					result->tipo = 0xF000000E; //TRUE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+				case 0xF000000E:// FALSE
+					result->tipo = 0xF000000E; //FALSE
+					result->fesq = NULL;
+					result->fdir = NULL;
+				break;
+			}
+			break;
+	}
+
+	Celula *pai  = NULL;
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai != NULL){
+		pai->fesq = result;
+		empilha_filho_esquerda(result);
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fdir = result->fdir;
+		grafo->fesq = result->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+}
+
+/* Procedimento implementa a reducao do operador logico
+ * OR segundo a regra
+ * OR a b -> (eval a) OR (eval b)
+ */
+void reduz_OR(Celula *grafo){
+	contar_argumentos(2);
+	pop();
+
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	// OR a b -> (eval a) OR (eval b)
+	Celula *result = NULL;
+	result  = aloca_espaco();
+	switch(a->tipo){
+		case 0xF000000D:// TRUE
+			result->tipo = 0xF000000D; //TRUE
+			result->fesq = NULL;
+			result->fdir = NULL;
+			break;
+		case 0xF000000E:// FALSE
+			switch(b->tipo){
+				case 0xF000000D:// TRUE
+					result->tipo = 0xF000000D; //TRUE
 					result->fesq = NULL;
 					result->fdir = NULL;
 				break;
