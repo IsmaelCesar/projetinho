@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="|AAKI\0";
+char string[N] ="YK\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -165,6 +165,10 @@ int cria_tipo_celula(char *valor){
 			break;
 		case '|'://Or logico
 			retorno = 0xF0000014;
+			break;
+		//Operador de turner Y
+		case'Y':
+			retorno = 0xF0000015;
 			break;
 		default:
 			retorno = -1;
@@ -1102,17 +1106,53 @@ void reduz_F(Celula *grafo){
 
 }
 
-// Operadores lÛgicos aritmÈticos
-/*Procedimento auxiliar para efetuar a  avaliaÁ„o de subarvore de um operador
+/*Procedimento para efetuar a reducao do combinador de turner
+ * Segundo a regra
+ * Y a -> a ( Y a )
  * */
-Celula * eval(Celula *grafo){
+void reduz_Y(Celula *grafo){
+	contar_argumentos(1);
+	pop();//Desempilha Y
 
-	if(grafo->tipo == 0xF0000008){
+	//Busca argumentos
+	Celula *a = pilha[topo--]->fdir;
+	//alocacao
+	Celula *newA1 = copiar_alocar(a);
+	Celula *newA2 = copiar_alocar(a);
+	char comb = 'Y';
+	Celula *newY = cria_combinador(&comb);//Y
+
+	Celula *pai = NULL;
+	// Y a -> a ( Y a )
+	Celula *ap_filha = cria_aplicacao();
+	ap_filha->fesq = newY;
+	ap_filha->fdir = newA2;
+
+	Celula *ap_pai = cria_aplicacao();
+	ap_pai->fesq = newA1;
+	ap_pai->fdir = ap_filha;
+
+	if(topo >= 0){
+		pai = pilha[topo];
+		empilha_filho_esquerda(grafo);
+	}
+
+	if(pai!= NULL){
+		pai->fesq = ap_pai;
 	}
 	else{
-		return grafo;
+		grafo->tipo = ap_pai->tipo;
+		grafo->fesq = ap_pai->fesq;
+		grafo->fdir = ap_pai->fdir;
+		empilha_filho_esquerda(grafo);
 	}
+
 }
+
+// Operadores lÛgicos aritmÈticos
+
+Celula * eval(Celula *grafo);
+
 //	Operadores aritmÈticos
 /*Procedimento efetua a reduÁ„o do operador soma segundo a notaÁ„o prefixa
  * + a b = (eval a) + (eval b)
@@ -1565,6 +1605,17 @@ void reduz_OR(Celula *grafo){
 	}
 }
 
+/*Procedimento auxiliar para efetuar a  avaliaÁ„o de subarvore de um operador
+ * */
+Celula * eval(Celula *grafo){
+
+	if(grafo->tipo == 0xF0000008){
+	}
+	else{
+		return grafo;
+	}
+}
+
 int main(){
 	/**
 	 * Cria√ß√£o e aloca√ßao do grafo.
@@ -1651,6 +1702,10 @@ int main(){
 				break;
 			case 0xF0000014:// |
 				reduz_OR(grafo);
+			break;
+			//Operador de turner Y
+			case 0xF0000015:
+				reduz_Y(grafo);
 				break;
 		}
 		iterations++;
