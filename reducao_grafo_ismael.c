@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="=(11)(11)KI\0";
+char string[N] ="&TTKI\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -1459,9 +1459,9 @@ void reduz_AND(Celula *grafo){
 
 	Celula *result = NULL;
 	result  = aloca_espaco();
-	switch(a){
+	switch(a->tipo){
 		case 0xF000000D:// TRUE
-			switch(b){
+			switch(b->tipo){
 				case 0xF000000D:// TRUE
 					result->tipo = 0xF000000D; //TRUE
 					result->fesq = NULL;
@@ -1475,7 +1475,7 @@ void reduz_AND(Celula *grafo){
 			}
 			break;
 		case 0xF000000E:// FALSE
-			switch(b){
+			switch(b->tipo){
 				case 0xF000000D:// TRUE
 					result->tipo = 0xF000000E; //TRUE
 					result->fesq = NULL;
@@ -1590,7 +1590,7 @@ int main(){
 			case 0xF0000012:// =
 				reduz_EQ(grafo);
 				break;
-			case 0xF0000012:// &
+			case 0xF0000013:// &
 				reduz_AND(grafo);
 				break;
 		}
