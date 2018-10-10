@@ -34,6 +34,7 @@ Celula *fl;
  * */
 Celula *pilha[P];
 int topo = -1;
+int t_eval = -1;
 
 //						ALOCACAO DADOS
 
@@ -675,13 +676,13 @@ void reduz_K(Celula *grafo){
 	newA->fesq = a->fesq;
 	//Adicionou verifica��o do pai
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
 	//Mudou de topo para pai
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai->fesq = newA;
 		empilha_filho_esquerda(newA);
 		//push(newA);
@@ -747,7 +748,7 @@ void reduz_S(Celula *grafo){
 	aplicacaoPai->fdir = aplicacaoFdir;
 
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -796,13 +797,13 @@ void reduz_I(Celula *grafo){
 	newA->fesq = a->fesq;
 
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai->fesq = newA;
 		empilha_filho_esquerda(newA);
 	}
@@ -844,7 +845,7 @@ void reduz_B(Celula *grafo){
 	//B f g x -> f ( g  x)
 	Celula *pai   = NULL;
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -892,7 +893,7 @@ void reduz_C(Celula *grafo){
 	//aloca espaco
 	Celula *pai = NULL;
 	//if(topo!= NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -947,7 +948,7 @@ void reduz_D(Celula *grafo){
 	//alocacao de dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -1012,7 +1013,7 @@ void reduz_E(Celula *grafo){
 	//Alocacao de dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -1071,7 +1072,7 @@ void reduz_F(Celula *grafo){
 	//Aloca dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
-	if(topo >= 0){
+	if(topo >= t_eval){
 		//pai = topo->dado;
 		pai = pilha[topo];
 	}
@@ -1132,13 +1133,13 @@ void reduz_Y(Celula *grafo){
 	ap_pai->fesq = newA1;
 	ap_pai->fdir = ap_filha;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
-		empilha_filho_esquerda(grafo);
 	}
 
 	if(pai!= NULL){
 		pai->fesq = ap_pai;
+		empilha_filho_esquerda(ap_pai);
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
@@ -1175,7 +1176,7 @@ void reduz_SOMA(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1211,7 +1212,7 @@ void reduz_SUB(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1246,7 +1247,7 @@ void reduz_MULT(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1281,7 +1282,7 @@ void reduz_DIV(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1310,7 +1311,7 @@ void reduz_TRUE(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai->fesq = a;
 		empilha_filho_esquerda(a);
 	}
@@ -1337,7 +1338,7 @@ void reduz_FALSE(Celula *grafo){
 
 	Celula *pai = NULL;
 
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai->fesq = b;
 		empilha_filho_esquerda(b);
 	}
@@ -1378,7 +1379,7 @@ void reduz_GT(Celula *grafo){
 	}
 
 	Celula *pai  = NULL;
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1423,7 +1424,7 @@ void reduz_LT(Celula *grafo){
 	}
 
 	Celula *pai  = NULL;
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1468,7 +1469,7 @@ void reduz_EQ(Celula *grafo){
 	}
 
 	Celula *pai  = NULL;
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1532,7 +1533,7 @@ void reduz_AND(Celula *grafo){
 	}
 
 	Celula *pai  = NULL;
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1587,7 +1588,7 @@ void reduz_OR(Celula *grafo){
 	}
 
 	Celula *pai  = NULL;
-	if(topo >= 0){
+	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
@@ -1610,6 +1611,82 @@ void reduz_OR(Celula *grafo){
 Celula * eval(Celula *grafo){
 
 	if(grafo->tipo == 0xF0000008){
+			empilha_grafo(grafo);
+			//while(topo != NULL){
+			while(topo >= 0){
+				//switch(topo->dado->tipo){
+				switch(pilha[topo]->tipo){
+					//case'K':
+					case 0xF0000000:
+						reduz_K(grafo);
+						break;
+					//case 'S':
+					case 0xF0000001:
+						reduz_S(grafo);
+						break;
+					//case 'I':
+					case 0xF0000002:
+						reduz_I(grafo);
+						break;
+					//case 'B':
+					case 0xF0000003:
+						reduz_B(grafo);
+						break;
+					//case 'C':
+					case 0xF0000004:
+						reduz_C(grafo);
+						break;
+					//case 'D':
+					case 0xF0000005:
+						reduz_D(grafo);
+						break;
+					//case 'E':
+					case 0xF0000006:
+						reduz_E(grafo);
+						break;
+					//case 'F':
+					case 0xF0000007:
+						reduz_F(grafo);
+						break;
+					case 0xF0000009:
+						reduz_SOMA(grafo);
+						break;
+					case 0xF000000A:
+						reduz_SUB(grafo);
+						break;
+					case 0xF000000B:
+						reduz_MULT(grafo);
+						break;
+					case 0xF000000C:
+						reduz_DIV(grafo);
+						break;
+					case 0xF000000D:
+						reduz_TRUE(grafo);
+						break;
+					case 0xF000000E:
+						reduz_FALSE(grafo);
+						break;
+					case 0xF0000010:// >
+						reduz_GT(grafo);
+						break;
+					case 0xF0000011:// <
+						reduz_LT(grafo);
+						break;
+					case 0xF0000012:// =
+						reduz_EQ(grafo);
+						break;
+					case 0xF0000013:// &
+						reduz_AND(grafo);
+						break;
+					case 0xF0000014:// |
+						reduz_OR(grafo);
+					break;
+					//Operador de turner Y
+					case 0xF0000015:
+						reduz_Y(grafo);
+						break;
+				}
+			}
 	}
 	else{
 		return grafo;
@@ -1633,6 +1710,7 @@ int main(){
 	int iterations  = 0;
 	toc = clock();
 	double a = (double) toc;
+	t_eval = 0;
 	empilha_grafo(grafo);
 	//while(topo != NULL){
 	while(topo >= 0){
