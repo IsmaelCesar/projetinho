@@ -1612,7 +1612,7 @@ Celula * eval(Celula *grafo){
 
 	if(grafo->tipo == 0xF0000008){
 			int antigo_t_eval = t_eval;
-			t_eval = topo;
+			t_eval = topo + 2;
 			empilha_grafo(grafo);
 			//while(topo != NULL){
 			while(topo >= t_eval){
@@ -1689,6 +1689,7 @@ Celula * eval(Celula *grafo){
 						break;
 				}
 			}
+		t_eval = antigo_t_eval;
 		return grafo;
 	}
 	else{
@@ -1797,9 +1798,9 @@ int main(){
 
 	if(grafo != NULL){
 		//printf("\n%c\n",converte_celula_caractere(grafo->tipo));
-		//printf("\n%d\n",grafo->tipo);
-		printf("\n");
-		imprime_grafo_para_string(grafo);
+		printf("\n%d\n",grafo->tipo);
+		//printf("\n");
+		//imprime_grafo_para_string(grafo);
 	}
 	printf("\n");
 	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
