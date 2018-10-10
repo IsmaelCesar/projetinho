@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="*(50)(300)\0";
+char string[N] =">(100)(11)\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -143,6 +143,28 @@ int cria_tipo_celula(char *valor){
 			break;
 		case '/':
 			retorno = 0xF000000C;
+			break;
+		// Combinadores lÛgicos
+		case 'T'://TRUE
+			retorno = 0xF000000D;
+			break;
+		case 'A'://FALSE
+			retorno = 0xF000000E;
+			break;
+		case '>':
+			retorno = 0xF0000010;
+			break;
+		case '<':
+			retorno = 0xF0000011;
+			break;
+		case '='://Igualdade
+			retorno = 0xF0000012;
+			break;
+		case '&'://And logico
+			retorno = 0xF0000013;
+			break;
+		case '|'://Or logico
+			retorno = 0xF0000014;
 			break;
 		default:
 			retorno = -1;
@@ -526,6 +548,41 @@ char converte_celula_caractere(int valor){
 			break;
 		case 0xF0000008:
 			retorno = '@';
+			break;
+		//Operadores aritmeticos
+		case 0xF0000009:
+			retorno = '+';
+			break;
+		case 0xF000000A:
+			retorno = '-';
+			break;
+		case 0xF000000B:
+			retorno = '*';
+			break;
+		case 0xF000000C:
+			retorno = '/';
+			break;
+		// Combinadores lÛgicos
+		case 0xF000000D://TRUE
+			retorno = 'T';
+			break;
+		case 0xF000000E://FALSE
+			retorno = 'A';
+			break;
+		case 0xF0000010:
+			retorno = '>';
+			break;
+		case 0xF0000011:
+			retorno = '<';
+			break;
+		case 0xF0000012://Igualdade
+			retorno = '=';
+			break;
+		case 0xF0000013://And logico
+			retorno = '&';
+			break;
+		case 0xF0000014://Or logico
+			retorno = '|';
 			break;
 		case 0:
 			retorno = '\0';
@@ -1198,6 +1255,109 @@ void reduz_DIV(Celula *grafo){
 	}
 }
 
+// 			Operadores logicos
+
+/* Procedimento implementa a reducao do operador logico
+ * TRUE segundo a regra
+ * TRUE a b -> a
+ */
+void reduz_TRUE(Celula *grafo){
+	contar_argumentos(2);
+	pop();//Desempilha t
+
+	Celula *a = eval(pilha[topo--]->fdir);
+	pop();//Desempilha B
+
+	Celula *pai = NULL;
+
+	if(topo >= 0){
+		pai->fesq = a;
+		empilha_filho_esquerda(a);
+	}
+	else{
+		grafo->tipo = a->tipo;
+		grafo->fdir = a->fdir;
+		grafo->fesq = a->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+}
+
+/* Procedimento implementa a reducao do operador logico
+ * FALSE segundo a regra
+ * FALSE a b -> b
+ */
+void reduz_FALSE(Celula *grafo){
+	contar_argumentos(2);
+	pop();//Desempilha FALSE
+
+	pop();//Desempilha B
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	Celula *pai = NULL;
+
+	if(topo >= 0){
+		pai->fesq = b;
+		empilha_filho_esquerda(b);
+	}
+	else{
+		grafo->tipo = b->tipo;
+		grafo->fdir = b->fdir;
+		grafo->fesq = b->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+}
+
+/* Procedimento implementa a reducao do operador logico
+ * > segundo a regra
+ * > a b -> (eval a) > (eval b)
+ */
+void reduz_GT(Celula *grafo){
+	contar_argumentos(2);
+	pop();
+
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
+
+	Celula *result = NULL;
+	// > a b -> (eval a)>(eval b)
+	if(a->tipo > b->tipo){
+		result = aloca_espaco();
+		result->tipo = 0xF000000D;//TRUE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+	else{
+		result = aloca_espaco();
+		result->tipo = 0xF000000E;//FALSE
+		result->fesq = NULL;
+		result->fdir = NULL;
+	}
+
+	Celula *pai  = NULL;
+	if(topo >= 0){
+		pai = pilha[topo];
+	}
+
+	if(pai != NULL){
+		pai->fesq = result;
+		empilha_filho_esquerda(result);
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fdir = result->fdir;
+		grafo->fesq = result->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
+	}
+
+
+}
+
 int main(){
 	/**
 	 * Cria√ß√£o e aloca√ßao do grafo.
@@ -1263,6 +1423,12 @@ int main(){
 				break;
 			case 0xF000000C:
 				reduz_DIV(grafo);
+				break;
+			case 0xF000000D:
+				reduz_TRUE(grafo);
+				break;
+			case 0xF000000E:
+				reduz_FALSE(grafo);
 				break;
 		}
 		iterations++;
