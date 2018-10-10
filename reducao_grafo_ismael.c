@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="YK\0";
+char string[N] ="+(K1K)(K1K)\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -1611,9 +1611,11 @@ void reduz_OR(Celula *grafo){
 Celula * eval(Celula *grafo){
 
 	if(grafo->tipo == 0xF0000008){
+			int antigo_t_eval = t_eval;
+			t_eval = topo;
 			empilha_grafo(grafo);
 			//while(topo != NULL){
-			while(topo >= 0){
+			while(topo >= t_eval){
 				//switch(topo->dado->tipo){
 				switch(pilha[topo]->tipo){
 					//case'K':
@@ -1687,6 +1689,7 @@ Celula * eval(Celula *grafo){
 						break;
 				}
 			}
+		return grafo;
 	}
 	else{
 		return grafo;
