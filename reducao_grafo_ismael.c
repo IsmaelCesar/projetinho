@@ -15,7 +15,7 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] ="/(3)(3)\0";
+char string[N] ="/(300)(3)\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -200,27 +200,29 @@ int cria_valor_digito(char* valor){
  * */
 Celula* adiciona_numero(char *entrada,int *contador_digito){
 		int mult = 1;
+		int cont = *contador_digito;
 		if(*entrada == '-'){
 			mult = -1;
 			entrada++;
-			(*contador_digito)++;
+			cont++;
 		}
 
 		int numero_atual = cria_valor_digito(entrada++);
 		int val = cria_valor_digito(entrada);
-		while(val >= 0){ //Enquanto não for um combinador
+		while(val >= 0){
 			numero_atual = numero_atual * 10;
-			int aux = cria_valor_digito(entrada++);
+			int aux      = cria_valor_digito(entrada++);
 			numero_atual = numero_atual + aux;
-			(*contador_digito)++;
-			//numero_atual = cria_valor_digito(entrada++);
+			cont++;
 			val = cria_valor_digito(entrada);
 		}
+
 		//pega espaco da freelist
 		Celula *cel = aloca_espaco();
 		cel->tipo = numero_atual * mult;
 		cel->fesq = NULL;
 		cel->fdir = NULL;
+		*contador_digito = cont;
 		return cel;
 }
 
@@ -406,7 +408,7 @@ Celula* cria_grafo(char *entrada){
 					}
 				}
 				else{
-					int cont_digito  = 0;
+					//int cont_digito  = 0;
 					raiz = compara_atribui_celula(entrada,is_digito,&cont_digito);
 				}
 				//entrada++;
