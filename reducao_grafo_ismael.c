@@ -18,7 +18,8 @@
 // Strings de teste
 //fatorial
 char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
-//char stirng[N] = " S(C(C'=I0)1)(S'+I(B(Y(B'S(C'I(C'=I0)1)(B'(S'+)I(C'BI(C'-I1)))))(C'-I1)))\0";//fab2
+//char string[N] = "S(C(C'=I0)1)(S'+I(B(Y(B'S(C'I(C'=I0)1)(B'(S'+)I(C'BI(C'-I1)))))(C'-I1)))\0";//fab2
+//char string[N] = "S(C(C=I0)1)(S+I(B(Y(BS(CI(C=I0)1)(B(S+)I(CBI(C-I1)))))(C-I1)))6\0";//fab2
 //fibonacci
 //char stirng[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0"; //fib1 (SKI)
 //char stirng[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0"; //fib2 (TURNER)
@@ -1313,18 +1314,22 @@ void reduz_TRUE(Celula *grafo){
 	contar_argumentos(2);
 	pop();//Desempilha t
 
-	Celula *a = eval(pilha[topo--]->fdir);
+	//Celula *a = eval(pilha[topo--]->fdir);
+	Celula *a = pilha[topo--]->fdir;
 	pop();//Desempilha B
 
+	//alocacao de espaco
 	Celula *pai = NULL;
+	Celula *newA = copiar_alocar(a);
 
+	//TRUE a b -> a
 	if(topo>= t_eval){
 		pai = pilha[topo];
 	}
 
 	if(topo >= t_eval){
-		pai->fesq = a;
-		empilha_filho_esquerda(a);
+		pai->fesq = newA;
+		empilha_filho_esquerda(newA);
 	}
 	else{
 		grafo->tipo = a->tipo;
@@ -1344,18 +1349,23 @@ void reduz_FALSE(Celula *grafo){
 	contar_argumentos(2);
 	pop();//Desempilha FALSE
 
-	pop();//Desempilha B
-	Celula *b = eval(pilha[topo--]->fdir);
+	pop();//Desempilha A
+	//Celula *b = eval(pilha[topo]->fdir);
+	Celula *b = pilha[topo--]->fdir;
+	//pop();
 
+	//aloca espaco
 	Celula *pai = NULL;
+	Celula *newB = copiar_alocar(b);
 
+	//FALSE a b -> b
 	if(topo>= t_eval){
 		pai = pilha[topo];
 	}
 
 	if(topo >= t_eval){
-		pai->fesq = b;
-		empilha_filho_esquerda(b);
+		pai->fesq = newB;
+		empilha_filho_esquerda(newB);
 	}
 	else{
 		grafo->tipo = b->tipo;
