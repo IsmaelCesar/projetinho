@@ -16,11 +16,10 @@
 // Strings de teste
 //fatorial
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
-//char string[N] = "S(C(C'=I0)1)(S'+I(B(Y(B'S(C'I(C'=I0)1)(B'(S'+)I(C'BI(C'-I1)))))(C'-I1)))20\0";//fab2
-//char string[N] = "S(C(C=I0)1)(S+I(B(Y(BS(CI(C=I0)1)(B(S+)I(CBI(C-I1)))))(C-I1)))20\0";//fab2
+char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib1 (SKI)
-char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib2 (TURNER)
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib2 (TURNER)
 
 
 typedef struct  Celula{
