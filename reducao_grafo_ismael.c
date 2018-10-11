@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 100000000
-//#define N 10000
-#define H 10000000
-//#define H 10000
+//#define N 100000000
+#define N 950000
+//#define H 10000000
+#define H 950000
 #define P 20000
 
 
@@ -14,7 +14,7 @@
 //char string[N] ="K(((IK)(IS)((K(IS)K)(KKI)(IIK)(IK)))(SKKK)(IK)K)K\0";
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
-//char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
+//char string[N] ="<(K20K)(K100K)\0";
 // Strings de teste
 //fatorial
 char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
@@ -1637,7 +1637,9 @@ Celula * eval(Celula *grafo){
 
 	if(grafo->tipo == 0xF0000008){
 			int antigo_t_eval = t_eval;
-			t_eval = topo + 2;
+			int antigo_topo = topo;
+			topo = topo+1;
+			t_eval = topo+1;
 			empilha_grafo(grafo);
 			//while(topo != NULL){
 			while(topo >= t_eval){
@@ -1715,6 +1717,7 @@ Celula * eval(Celula *grafo){
 				}
 			}
 		t_eval = antigo_t_eval;
+		topo = antigo_topo;
 		return grafo;
 	}
 	else{
@@ -1823,9 +1826,9 @@ int main(){
 
 	if(grafo != NULL){
 		//printf("\n%c\n",converte_celula_caractere(grafo->tipo));
-		//printf("\n%d\n",grafo->tipo);
-		printf("\n");
-		imprime_grafo_para_string(grafo);
+		printf("\n%d\n",grafo->tipo);
+		//printf("\n");
+		//imprime_grafo_para_string(grafo);
 	}
 	printf("\n");
 	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
