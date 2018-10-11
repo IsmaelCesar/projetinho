@@ -15,12 +15,15 @@
 //char string[N] ="<(K20K)(K100K)\0";
 // Strings de teste
 //fatorial
-//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
-//char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0";//fab1 (KSI)
+//char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))3\0";//fab2
+char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))16\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib2 (TURNER)
-char string[N] = "&(>(+(K1K)(K1K))(-(K2K)(K1K)))(<(-(K2K)(K1K))(+(K1K)(K1K)))\0";
+//char string[N] = "&(>(+(K1K)(K1K))(-(K2K)(K1K)))(<(-(K2K)(K1K))(+(K1K)(K1K)))\0";
+
+
 
 typedef struct  Celula{
 	int tipo;
@@ -1311,8 +1314,8 @@ void reduz_TRUE(Celula *grafo){
 	contar_argumentos(2);
 	pop();//Desempilha t
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	Celula *a = pilha[topo--]->fdir;
+	Celula *a = eval(pilha[topo--]->fdir);
+	//Celula *a = pilha[topo--]->fdir;
 	pop();//Desempilha B
 
 	//alocacao de espaco
@@ -1347,8 +1350,8 @@ void reduz_FALSE(Celula *grafo){
 	pop();//Desempilha FALSE
 
 	pop();//Desempilha A
-	//Celula *b = eval(pilha[topo]->fdir);
-	Celula *b = pilha[topo--]->fdir;
+	Celula *b = eval(pilha[topo--]->fdir);
+	//Celula *b = pilha[topo--]->fdir;
 	//pop();
 
 	//aloca espaco
@@ -1823,9 +1826,9 @@ int main(){
 
 	if(grafo != NULL){
 		//printf("\n%c\n",converte_celula_caractere(grafo->tipo));
-		//printf("\n%d\n",grafo->tipo);
-		printf("\n");
-		imprime_grafo_para_string(grafo);
+		printf("\n%d\n",grafo->tipo);
+		//printf("\n");
+		//imprime_grafo_para_string(grafo);
 	}
 	printf("\n");
 	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
