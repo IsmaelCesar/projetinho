@@ -3,9 +3,9 @@
 #include <time.h>
 
 //#define N 100000000
-#define N 500
+#define N 1000
 //#define H 10000000
-#define H 500
+#define H 1000
 #define P 20000
 
 
@@ -15,7 +15,14 @@
 //char string[N] ="S(S(S(SKIK)(KIK)(KKK))(SKKI)(S(SKIK)(SKIK)(SKIK)))(II)(KKK)\0";
 //char string[N] ="BIIK\0";
 //char string[N] ="K((K(KIK)I)(KKK)KK)K\0";
-char string[N] = "&(KTK)(KAK)\0";
+// Strings de teste
+//fatorial
+char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0";//fab1 (KSI)
+//char stirng[N] = " S(C(C'=I0)1)(S'+I(B(Y(B'S(C'I(C'=I0)1)(B'(S'+)I(C'BI(C'-I1)))))(C'-I1)))\0";//fab2
+//fibonacci
+//char stirng[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0"; //fib1 (SKI)
+//char stirng[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0"; //fib2 (TURNER)
+
 
 typedef struct  Celula{
 	int tipo;
