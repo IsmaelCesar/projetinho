@@ -17,10 +17,10 @@
 //fatorial
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))\0";//fab1 (KSI)
 //char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))3\0";//fab2
-//char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))18\0";//fatorial
+char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib1 (SKI)
-char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib2 (TURNER)
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))22\0"; //fib2 (TURNER)
 //char string[N] = "&(>(+(K1K)(K1K))(-(K2K)(K1K)))(<(-(K2K)(K1K))(+(K1K)(K1K)))\0";
 
 
@@ -49,7 +49,7 @@ int t_eval = -1;
 /*Procedimentos para inserir e remover elementos da pilha
  * */
 void push(Celula *c){
-	//++ vem antes pois o topo começa em -1
+	//++ vem antes pois o topo comeï¿½a em -1
 	if(topo < P){
 		pilha[++topo] = c;
 	}
@@ -103,10 +103,10 @@ Celula *aloca_espaco(){
 //			 			Checando simbolos
 
 /*Procedimento auxiliar para avaliar o valor de um caracter da
- * string e retornar o número refenente a ele.
- * Este procedimento criará combinadores e operadores lógicos aritméticos
- * O número será utilizado no campo tipo durante a redução do grafo
- * Codificação de FFF00 a FFFFF
+ * string e retornar o nï¿½mero refenente a ele.
+ * Este procedimento criarï¿½ combinadores e operadores lï¿½gicos aritmï¿½ticos
+ * O nï¿½mero serï¿½ utilizado no campo tipo durante a reduï¿½ï¿½o do grafo
+ * Codificaï¿½ï¿½o de FFF00 a FFFFF
  * */
 int cria_tipo_celula(char *valor){
 
@@ -153,7 +153,7 @@ int cria_tipo_celula(char *valor){
 		case '/':
 			retorno = 0xF000000C;
 			break;
-		// Combinadores lógicos
+		// Combinadores lï¿½gicos
 		case 'T'://TRUE
 			retorno = 0xF000000D;
 			break;
@@ -187,7 +187,7 @@ int cria_tipo_celula(char *valor){
 	return retorno;
 }
 
-//Procedimento auxiliar para retornar o valor de número baseado um caractere lido
+//Procedimento auxiliar para retornar o valor de nï¿½mero baseado um caractere lido
 int cria_valor_digito(char* valor){
 	int retorno = -1;
 	switch(*valor){
@@ -226,11 +226,11 @@ int cria_valor_digito(char* valor){
 }
 
 /*Procedimento auxiliar para avaliar para acricao do grafo
- * onde o valor de um caracter da string e retornar o número refenente a ele.
- * O número será utilizado no campo tipo durante a redução do grafo
- * Contando quan dígito esta sendo computado para a criação do valor
+ * onde o valor de um caracter da string e retornar o nï¿½mero refenente a ele.
+ * O nï¿½mero serï¿½ utilizado no campo tipo durante a reduï¿½ï¿½o do grafo
+ * Contando quan dï¿½gito esta sendo computado para a criaï¿½ï¿½o do valor
  *Se o primeiro item da entrada for menos
- *O número será multiplicado por -1 para se obter sua versão
+ *O nï¿½mero serï¿½ multiplicado por -1 para se obter sua versï¿½o
  *negativa
  * */
 Celula* adiciona_numero(char *entrada,int *contador_digito){
@@ -372,8 +372,8 @@ void casa_parenteses(char* array1, int* p) {
 }
 
 
-/*Procedimento auxiliar para verificar se o caractere avaliado é um
- * combinador, operador ou um número
+/*Procedimento auxiliar para verificar se o caractere avaliado ï¿½ um
+ * combinador, operador ou um nï¿½mero
  * */
 Celula* compara_atribui_celula(char *entrada,int is_digito,int *cont_digito){
 	Celula *retorno = NULL;
@@ -528,7 +528,7 @@ Celula* cria_grafo(char *entrada){
 
 //						IMPRIMIR GRAFO
 
-/*Procedimento auxiliar para converter o valor inteiro de uma célula para caractere
+/*Procedimento auxiliar para converter o valor inteiro de uma cï¿½lula para caractere
  * */
 char converte_celula_caractere(int valor){
 
@@ -575,7 +575,7 @@ char converte_celula_caractere(int valor){
 		case 0xF000000C:
 			retorno = '/';
 			break;
-		// Combinadores lógicos
+		// Combinadores lï¿½gicos
 		case 0xF000000D://TRUE
 			retorno = 'T';
 			break;
@@ -1158,14 +1158,51 @@ void reduz_Y(Celula *grafo){
 
 }
 
-// Operadores lógicos aritméticos
+/*Procedimento para efetuar a reducao do combinador de turner
+ * Segundo a regra
+ * Y a -> a ( Y a )
+ * Utilizando otmisacao com knot tiening
+ * */
+void knot_tiening(Celula *grafo){
+	contar_argumentos(1);
+	pop();//Desempilha Y
+
+	//Busca argumentos
+	Celula *a = pilha[topo--]->fdir;
+	//alocacao
+	Celula *newA   = copiar_alocar(a);
+	Celula *ap_pai = cria_aplicacao();
+
+	Celula *pai = NULL;
+	// Y a -> a ( Y a )
+	ap_pai->fesq = newA;
+	ap_pai->fdir = ap_pai;
+
+	if(topo >= t_eval){
+		pai = pilha[topo];
+	}
+
+	if(pai!= NULL){
+		pai->fesq = ap_pai;
+		empilha_filho_esquerda(ap_pai);
+	}
+	else{
+		grafo->tipo = ap_pai->tipo;
+		grafo->fesq = ap_pai->fesq;
+		grafo->fdir = ap_pai->fdir;
+		empilha_filho_esquerda(grafo);
+	}
+
+}
+
+// Operadores lï¿½gicos aritmï¿½ticos
 
 Celula * eval(Celula *grafo);
 
-//	Operadores aritméticos
-/*Procedimento efetua a redução do operador soma segundo a notação prefixa
+//	Operadores aritmï¿½ticos
+/*Procedimento efetua a reduï¿½ï¿½o do operador soma segundo a notaï¿½ï¿½o prefixa
  * + a b = (eval a) + (eval b)
- * Onde eval é a redução da sub arvore do argumento do operador
+ * Onde eval ï¿½ a reduï¿½ï¿½o da sub arvore do argumento do operador
  * */
 void reduz_SOMA(Celula *grafo){
 	contar_argumentos(2);
@@ -1199,9 +1236,9 @@ void reduz_SOMA(Celula *grafo){
 }
 
 
-/*Procedimento efetua a redução do operador soma segundo a notação prefixa
+/*Procedimento efetua a reduï¿½ï¿½o do operador soma segundo a notaï¿½ï¿½o prefixa
  * - a b = (eval a) - (eval b)
- * Onde eval é a redução da sub arvore do argumento do operador
+ * Onde eval ï¿½ a reduï¿½ï¿½o da sub arvore do argumento do operador
  * */
 void reduz_SUB(Celula *grafo){
 	contar_argumentos(2);
@@ -1234,9 +1271,9 @@ void reduz_SUB(Celula *grafo){
 	}
 }
 
-/*Procedimento efetua a redução do operador soma segundo a notação prefixa
+/*Procedimento efetua a reduï¿½ï¿½o do operador soma segundo a notaï¿½ï¿½o prefixa
  * * a b = (eval a) * (eval b)
- * Onde eval é a redução da sub arvore do argumento do operador
+ * Onde eval ï¿½ a reduï¿½ï¿½o da sub arvore do argumento do operador
  * */
 void reduz_MULT(Celula *grafo){
 	contar_argumentos(2);
@@ -1269,9 +1306,9 @@ void reduz_MULT(Celula *grafo){
 	}
 }
 
-/*Procedimento efetua a redução do operador soma segundo a notação prefixa
+/*Procedimento efetua a reduï¿½ï¿½o do operador soma segundo a notaï¿½ï¿½o prefixa
  * div a b = (eval a) / (eval b)
- * Onde eval é a redução da sub arvore do argumento do operador
+ * Onde eval ï¿½ a reduï¿½ï¿½o da sub arvore do argumento do operador
  * */
 void reduz_DIV(Celula *grafo){
 	contar_argumentos(2);
@@ -1631,7 +1668,7 @@ void reduz_OR(Celula *grafo){
 	}
 }
 
-/*Procedimento auxiliar para efetuar a  avaliação de subarvore de um operador
+/*Procedimento auxiliar para efetuar a  avaliaï¿½ï¿½o de subarvore de um operador
  * */
 Celula * eval(Celula *grafo){
 
@@ -1815,7 +1852,8 @@ int main(){
 			break;
 			//Operador de turner Y
 			case 0xF0000015:
-				reduz_Y(grafo);
+				//reduz_Y(grafo);
+				knot_tiening(grafo);
 				break;
 		}
 		iterations++;
