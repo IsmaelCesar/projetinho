@@ -22,7 +22,7 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))26\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = "K(:12(:2122(:336[])))K\0";
+char string[N] = "K:12(:2122(:336[]))K\0";
 
 
 
@@ -419,6 +419,7 @@ Celula *cria_lista(char *entrada,int *cont_string_lista){
 		if(entrada[0]=='('){
 			if(parent==0){
 				parent++;
+				cont_string++;
 			}
 			entrada++;
 			isDigito = cria_tipo_celula(entrada);
@@ -429,22 +430,20 @@ Celula *cria_lista(char *entrada,int *cont_string_lista){
 		else if(entrada[0]=='['){
 			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
 			aux->fdir = cel;
-			if(parent == 0)
-				cont_string = cont_string + cont_digito;
 		}
 		else{
 			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
 			aux->fesq = cel;
-			if(parent == 0)
-				cont_string = cont_string + cont_digito;
 
 		}
 		for(int i = 0; i<= cont_digito; i++){
 			entrada++;
+			if(parent == 0)
+				cont_string++;
 		}
 	}
-
-	casa_parenteses(entrada,cont_string_lista);
+	cont_string++;
+	*cont_string_lista = cont_string;
 	return raiz;
 }
 
@@ -506,6 +505,7 @@ Celula* cria_grafo(char *entrada){
 				else{
 					raiz = cria_lista(entrada,&cont_lista);
 				}
+				casa_parenteses(entrada,&cont_lista);
 				for(int i = 0; i<cont_lista;i++){
 					entrada++;
 				}
