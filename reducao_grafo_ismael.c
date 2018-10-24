@@ -22,7 +22,7 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))26\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = "K:12(:2122(:336[]))K\0";
+char string[N] = "K(K:12(:2122(:336[])K(K:1(:33[])S)K\0";
 
 
 
@@ -187,6 +187,13 @@ int cria_tipo_celula(char *valor){
 		//O tipo lista vazia [] assumirá o valor 0xF0000017
 		case '[':
 			retorno = 0xF0000017;
+			break;
+		//Combinadores que reduzem listas
+		case 'G'://Mapeamento para o combinador TI
+			retorno = 0xF0000018;
+			break;
+		case 'H'://Mapeamento para o combinador Hd
+			retorno = 0xF0000019;
 			break;
 		default:
 			retorno = -1;
