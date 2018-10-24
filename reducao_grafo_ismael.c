@@ -189,7 +189,7 @@ int cria_tipo_celula(char *valor){
 			retorno = 0xF0000017;
 			break;
 		//Combinadores que reduzem listas
-		case 'G'://Mapeamento para o combinador TI
+		case 'G'://Mapeamento para o combinador Tl
 			retorno = 0xF0000018;
 			break;
 		case 'H'://Mapeamento para o combinador Hd
@@ -1768,6 +1768,98 @@ void reduz_OR(Celula *grafo){
 	}
 }
 
+/*Procedimento que efetua a regra de redução do combinador Tl
+ * segundo a regra
+ * Tl (:ab) -> b
+ * */
+void reduz_Tl(Celula *grafo){
+	contar_argumentos(1);
+
+	pop();//Desempilha Tl
+
+	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
+	Celula *raiz_lista = pilha[topo--]->fdir;
+
+	//Se o operador nao estiver sendo aplicado a uma lista vazia
+	if(raiz_lista->tipo !=  0xF0000017){
+		Celula *b = raiz_lista->fdir;
+
+		//Tl (:ab) -> b
+		Celula *newB = copiar_alocar(b);
+		Celula *pai  = NULL;
+
+		if(topo >= t_eval){
+			pai = pilha[topo];
+		}
+
+		if(pai!= NULL){
+			pai->fesq = newB;
+			empilha_filho_esquerda(newB);
+		}
+		else{
+			grafo->tipo = newB->tipo;
+			grafo->fdir = newB->fdir;
+			grafo->fesq = newB->fesq;
+			if(grafo->fesq){
+				empilha_filho_esquerda(grafo);
+			}
+		}
+
+	}
+	else{
+		printf("#######################################\n");
+		printf("\t Erro na aplicacao de tl Tl\n");
+		printf("#######################################\n");
+		exit(0);
+	}
+}
+
+/*Procedimento que efetua a regra de redução do combinador Tl
+ * segundo a regra
+ * Hd (:ab) -> a
+ * */
+void reduz_Hd(Celula *grafo){
+	contar_argumentos(1);
+
+	pop();//Desempilha b
+
+	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
+	Celula *raiz_lista = pilha[topo--]->fdir;
+
+	//Se o operador nao estiver sendo aplicado a uma lista vazia
+	if(raiz_lista->tipo !=  0xF0000017){
+		Celula *a = raiz_lista->fesq;
+
+		//Hd (:ab) -> a
+		Celula *newA = copiar_alocar(a);
+		Celula *pai  = NULL;
+
+		if(topo >= t_eval){
+			pai = pilha[topo];
+		}
+
+		if(pai!= NULL){
+			pai->fesq = newA;
+			empilha_filho_esquerda(newA);
+		}
+		else{
+			grafo->tipo = newA->tipo;
+			grafo->fdir = newA->fdir;
+			grafo->fesq = newA->fesq;
+			if(grafo->fesq){
+				empilha_filho_esquerda(grafo);
+			}
+		}
+
+	}
+	else{
+		printf("#######################################\n");
+		printf("\t Erro na aplicacao de tl Hb\n");
+		printf("#######################################\n");
+		exit(0);
+	}
+}
+
 /*Procedimento auxiliar para efetuar a  avalia��o de subarvore de um operador
  * */
 Celula * eval(Celula *grafo){
@@ -1851,7 +1943,16 @@ Celula * eval(Celula *grafo){
 					break;
 					//Operador de turner Y
 					case 0xF0000015:
-						reduz_Y(grafo);
+						//reduz_Y(grafo);
+						knot_tiening(grafo);
+						break;
+					//Case Tl
+					case 0xF0000018:
+						reduz_Tl(grafo);
+						break;
+					//Case Hd
+					case 0xF0000019:
+						reduz_Hd(grafo);
 						break;
 				}
 			}
@@ -1881,7 +1982,7 @@ int main(){
 	clock_t tic = clock();
 	printf("\n");
 	printf("Tempo Criação do grafo = %lf", (double)((tic - toc)/clk_ps));
-	/*
+
 	int iterations  = 0;
 	toc = clock();
 	double a = (double) toc;
@@ -1961,6 +2062,14 @@ int main(){
 				//reduz_Y(grafo);
 				knot_tiening(grafo);
 				break;
+			//Case Tl
+			case 0xF0000018:
+				reduz_Tl(grafo);
+				break;
+			//Case Hd
+			case 0xF0000019:
+				reduz_Hd(grafo);
+				break;
 		}
 		iterations++;
 	}
@@ -1977,6 +2086,6 @@ int main(){
 	printf("\n");
 	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
 	printf("\nNumero de iterações = %d\n",iterations);
-	*/
+
 	return 0;
 }
