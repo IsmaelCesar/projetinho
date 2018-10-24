@@ -22,7 +22,7 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))26\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = ":12(:2122(:336[]))\0";
+char string[N] = "K(:12(:2122(:336[])))K\0";
 
 
 
@@ -401,10 +401,14 @@ Celula* compara_atribui_celula(char *entrada,int is_digito,int *cont_digito){
  * grafo representando a lista, retornando a raiz da mesma
  * argumentos:
  *char entrada :: A string de entrada
+ *int  cont_stirng_lista :: contador auxiliar para saber onde termina a lista
  * */
-Celula *cria_lista(char *entrada){
+Celula *cria_lista(char *entrada,int *cont_string_lista){
 	//Criando raiz da lista
+	//So sera necessario fazer contagens a partir do primeiro abre parenteses
+	int cont_string = *cont_string_lista;
 	int cont_digito = 0;
+	int parent = 0;
 	Celula*raiz = compara_atribui_celula(entrada,1,&cont_digito);
 
 	entrada++;
@@ -413,6 +417,9 @@ Celula *cria_lista(char *entrada){
 		cont_digito = 0;
 		int isDigito = cria_tipo_celula(entrada);
 		if(entrada[0]=='('){
+			if(parent==0){
+				parent++;
+			}
 			entrada++;
 			isDigito = cria_tipo_celula(entrada);
 			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
@@ -422,16 +429,22 @@ Celula *cria_lista(char *entrada){
 		else if(entrada[0]=='['){
 			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
 			aux->fdir = cel;
+			if(parent == 0)
+				cont_string = cont_string + cont_digito;
 		}
 		else{
 			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
 			aux->fesq = cel;
-			//entrada++;
+			if(parent == 0)
+				cont_string = cont_string + cont_digito;
+
 		}
 		for(int i = 0; i<= cont_digito; i++){
 			entrada++;
 		}
 	}
+
+	casa_parenteses(entrada,cont_string_lista);
 	return raiz;
 }
 
@@ -465,6 +478,37 @@ Celula* cria_grafo(char *entrada){
 				}
 				//Transforma a aplicacao na nova raiz;
 				raiz = ap;
+			}
+			else if(entrada[0]==':'){
+				//Contador para marcar onde e o final da lista
+				int cont_lista = 0;
+				if(raiz != NULL){
+					Celula *aux=NULL;
+					if( raiz->tipo == 0xF0000008 ){
+						if(raiz->fdir!= NULL){
+							aux = cria_aplicacao();
+							aux->fesq = raiz;
+							raiz = aux;
+							raiz->fdir = cria_lista(entrada,&cont_lista);
+
+						}
+						else{
+							raiz->fdir = cria_lista(entrada,&cont_lista);
+						}
+					}
+					else{
+						aux = cria_aplicacao();
+						aux->fesq = raiz;
+						raiz = aux;
+						raiz->fdir = cria_lista(entrada,&cont_lista);
+					}
+				}
+				else{
+					raiz = cria_lista(entrada,&cont_lista);
+				}
+				for(int i = 0; i<cont_lista;i++){
+					entrada++;
+				}
 			}
 			else{
 				int cont_digito  = 0;
@@ -1823,8 +1867,8 @@ int main(){
 	aloca_freelist();
 	double clk_ps = (double)  CLOCKS_PER_SEC;
 	clock_t toc = clock();
-	//Celula *grafo = cria_grafo(string);
-	Celula *grafo = cria_lista(string);
+	Celula *grafo = cria_grafo(string);
+	//Celula *grafo = cria_lista(string);
 	//imprime_grafo_para_string(grafo);
 	//imprime_grafo(grafo);
 	clock_t tic = clock();
