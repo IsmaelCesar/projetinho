@@ -22,7 +22,7 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = ":*12(3)(:300(:2122[]))\0";
+char string[N] = "/100(10)\0";
 //char string[N] = "*12(3)\0";
 
 
@@ -1951,7 +1951,7 @@ Celula * eval(Celula *grafo){
 						break;
 				}
 			}
-		// GAMBIARRA! NÃO MEXER!!!==	
+		// GAMBIARRA! NÃO MEXER!!!==
 		/**/t_eval = antigo_t_eval;//
 		/**/topo = antigo_topo;	   //
 		//==========================
