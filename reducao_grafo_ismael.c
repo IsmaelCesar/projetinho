@@ -22,8 +22,8 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = ":2122[]\0";
-
+char string[N] = ":*12(3)(:300(:2122[]))\0";
+//char string[N] = "*12(3)\0";
 
 
 typedef struct  Celula{
@@ -402,58 +402,6 @@ Celula* compara_atribui_celula(char *entrada,int is_digito,int *cont_digito){
 	return retorno;
 }
 
-
-
-/*Procedimento auxiliar para a criação de uma lista, onde é criado um
- * grafo representando a lista, retornando a raiz da mesma
- * argumentos:
- *char entrada :: A string de entrada
- *int  cont_stirng_lista :: contador auxiliar para saber onde termina a lista
- * */
-Celula *cria_lista(char *entrada,int *cont_string_lista){
-	//Criando raiz da lista
-	//So sera necessario fazer contagens a partir do primeiro abre parenteses
-	int cont_string = *cont_string_lista;
-	int cont_digito = 0;
-	int parent = 0;
-	Celula*raiz = compara_atribui_celula(entrada,1,&cont_digito);
-
-	entrada++;
-	Celula *aux = raiz;
-	while(entrada[0] != ']'){
-		cont_digito = 0;
-		int isDigito = cria_tipo_celula(entrada);
-		if(entrada[0]=='('){
-			if(parent==0){
-				parent++;
-				cont_string++;
-			}
-			entrada++;
-			isDigito = cria_tipo_celula(entrada);
-			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
-			aux->fdir=cel;
-			aux = aux->fdir;
-		}
-		else if(entrada[0]=='['){
-			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
-			aux->fdir = cel;
-		}
-		else{
-			Celula *cel = compara_atribui_celula(entrada,isDigito,&cont_digito);
-			aux->fesq = cel;
-
-		}
-		for(int i = 0; i<= cont_digito; i++){
-			entrada++;
-			if(parent == 0)
-				cont_string++;
-		}
-	}
-	cont_string++;
-	*cont_string_lista = cont_string;
-	return raiz;
-}
-
 /*Procedimento pega a string de entrada e a partir da mesma cria o grafo
  * fazendo uma busca em ordem de baixo para cima
  * */
@@ -462,7 +410,7 @@ Celula* cria_grafo(char *entrada){
 	Celula *raiz = NULL;
 	while(entrada[0] != '\0'){
 		int is_digito = cria_tipo_celula(entrada);
-			if(entrada[0] == ')' | entrada[0] == ']' ){
+			if(entrada[0] == ')' || entrada[0] == ']' ){
 					return raiz;
 			}//Antes de criar a lista primeiro verificar se a raiz é nula
 			else if(entrada[0] == '('){
@@ -489,16 +437,16 @@ Celula* cria_grafo(char *entrada){
 				//Contador para marcar onde e o final da lista
 				Celula *raiz_lista = cria_combinador(entrada++);
 				int cont_lista = 0;
-
-
 				//raiz_lista->fesq = cria_grafo(++entrada);
 				//cont_lista++;
-				//Conta as entradas até o primeiro abre parênteses
-				while(entrada[cont_lista]!= '(' && entrada[cont_lista]!= '['){
+				//Conta as entradas até o primeiro operador de lista
+				while(entrada[cont_lista]!= ':' && entrada[cont_lista]!= '['){
 					//entrada++;
 					cont_lista++;
 				}
-
+				//Decrementando para o primeiro abre parênteses antes do
+				//Operador de lista
+				cont_lista--;
 				char *newEntrada = calloc(cont_lista,sizeof(char));
 
 				for(int i=0;i<cont_lista;i++){
@@ -512,9 +460,7 @@ Celula* cria_grafo(char *entrada){
 				if(entrada[0] != '[')
 					raiz_lista->fdir = cria_grafo(++entrada);
 				else
-					raiz_lista->fdir = cria_grafo(entrada);
-
-				cont_lista++;
+					raiz_lista->fdir = cria_grafo(entrada++);
 				//Jogo de ponteiros para verificacao da raiz
 				if(raiz!= NULL){
 					Celula *aux= NULL;
@@ -539,8 +485,11 @@ Celula* cria_grafo(char *entrada){
 				else{
 					raiz=raiz_lista;
 				}
-				//casa_parenteses(entrada,&cont_lista);
-				for(int i = 0; i<=cont_lista;i++){
+				//Zerando cont_lista para que o mesmo seja utilizado na funcao
+				//Casa parênteses
+				cont_lista=0;
+				casa_parenteses(entrada,&cont_lista);
+				for(int i = 0; i < cont_lista;i++){
 					entrada++;
 				}
 			}
