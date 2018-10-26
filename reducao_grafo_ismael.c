@@ -3,7 +3,7 @@
 #include <time.h>
 
 #define N 10000000
-#define N 250
+//#define N 250
 #define H 10000000
 //#define H 52800000
 //#define H 59000000//fib 23 (Estatico)
@@ -22,7 +22,7 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = ":12(:2122[])\0";
+char string[N] = ":2122[]\0";
 
 
 
@@ -462,7 +462,7 @@ Celula* cria_grafo(char *entrada){
 	Celula *raiz = NULL;
 	while(entrada[0] != '\0'){
 		int is_digito = cria_tipo_celula(entrada);
-			if(entrada[0] == ')'){
+			if(entrada[0] == ')' | entrada[0] == ']' ){
 					return raiz;
 			}//Antes de criar a lista primeiro verificar se a raiz é nula
 			else if(entrada[0] == '('){
@@ -487,18 +487,33 @@ Celula* cria_grafo(char *entrada){
 			}
 			else if(entrada[0]==':'){
 				//Contador para marcar onde e o final da lista
-				Celula *raiz_lista = cria_combinador(entrada);
+				Celula *raiz_lista = cria_combinador(entrada++);
 				int cont_lista = 0;
 
-				raiz_lista->fesq = cria_grafo(entrada++);
-				cont_lista++;
 
-				while(entrada[0]!= '(' || entrada[0]!= '['){
-					entrada++;
+				//raiz_lista->fesq = cria_grafo(++entrada);
+				//cont_lista++;
+				//Conta as entradas até o primeiro abre parênteses
+				while(entrada[cont_lista]!= '(' && entrada[cont_lista]!= '['){
+					//entrada++;
 					cont_lista++;
 				}
 
-				raiz_lista->fdir = cria_grafo(entrada++);
+				char *newEntrada = calloc(cont_lista,sizeof(char));
+
+				for(int i=0;i<cont_lista;i++){
+					newEntrada[i] = entrada[0];
+					entrada++;
+				}
+				//Pega os caracteres copiados para o novo aray e o fornece como entrada
+				//Para subarvore mais a esquerda da lista
+				raiz_lista->fesq = cria_grafo(newEntrada);
+
+				if(entrada[0] != '[')
+					raiz_lista->fdir = cria_grafo(++entrada);
+				else
+					raiz_lista->fdir = cria_grafo(entrada);
+
 				cont_lista++;
 				//Jogo de ponteiros para verificacao da raiz
 				if(raiz!= NULL){
