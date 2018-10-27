@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 
 #define N 10000000
@@ -23,10 +23,10 @@
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
 //Listas
-//char string[N] = "H(G:*(+6(6))(+1(2))(:+(-6(3))(*2(2))[]))\0";
+//char string[N] = "^2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
 //Letra A
-char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
+//char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -196,6 +196,16 @@ int cria_tipo_celula(char *valor){
 			break;
 		case 'H'://Mapeamento para o combinador Hd
 			retorno = 0xF0000019;
+			break;
+		//Operadores e caracteres adicionados a posteriori
+		case 'a'://Mapeamento para a letra a
+			retorno = 0xF000001A;
+			break;
+		case 'b'://Mapeamento para a letra b
+			retorno = 0xF000001B;
+			break;
+		case '^'://Mapeamento para  potencia
+			retorno = 0xF000001C;
 			break;
 		default:
 			retorno = -1;
@@ -532,76 +542,6 @@ Celula* cria_grafo(char *entrada){
 
 	return raiz;
 }
-/*Celula* cria_grafo(char *entrada){
-
-	Celula *raiz = NULL;
-	int numero_atual  = 0;
-	int cont_digito  = 0;
-	while(entrada[0] != '\0'){
-		int is_digito = cria_tipo_celula(entrada);
-
-			if(entrada[0] == ')'){
-					return raiz;
-			}
-			else if(entrada[0] == '('){
-				Celula *ap = NULL;
-				//Celula *aux = NULL;
-
-				if(raiz != NULL){
-					ap = cria_aplicacao();
-					//aux = raiz;
-					ap->fesq = raiz;
-					ap->fdir = cria_grafo(entrada + 1);
-				}
-				else{
-					ap = cria_grafo(entrada + 1);
-				}
-				int end   = 1;
-				casa_parenteses(entrada,&end);
-				for(int i = 0; i < end; i++){
-					entrada++;
-				}
-				//Transforma a aplicacao na nova raiz;
-				raiz = ap;
-			}
-			else{
-				if(raiz != NULL){
-					Celula *aux = NULL;
-					if(raiz->tipo == 0xFFFFFF08 ){
-						if(raiz->fdir != NULL){
-							aux = cria_aplicacao();
-							aux->fesq = raiz;
-							raiz = aux;
-							aux->fdir = cria_combinador(entrada);
-						}
-						else{
-							raiz->fdir = cria_combinador(entrada);
-						}
-					}
-					else{
-						aux = cria_aplicacao();
-						aux->fesq = raiz;
-						raiz = aux;
-						raiz->fdir = cria_combinador(entrada);
-					}
-				}
-				else{
-					if(is_digito == -1){
-						//cont_digito  = 0;
-						//numero_atual = 0;
-						raiz = cria_combinador(entrada);
-					}
-					else{
-
-					}
-				}
-				entrada++;
-			}
-	}
-
-	return raiz;
-}*/
-
 
 //						IMPRIMIR GRAFO
 
@@ -1402,6 +1342,53 @@ void reduz_MULT(Celula *grafo){
 	}
 }
 
+
+/*Procedimento auxiliar para efetuar o calculo
+ * da potencia: x**y
+ * */
+int power(int x,int y){
+    int retorno = 1;
+
+    for(int i = 0; i < y;i++){
+    	retorno = retorno*x;
+    }
+    return retorno;
+}
+
+/*Procedimento que efetua a reducao do operador em notacao
+ * prefixa potência segundo a regra
+ * ** a  b = a ** b
+ * */
+void reduz_POW(Celula *grafo){
+	contar_argumentos(2);
+	pop();//desempilha *
+
+	//Busca argumento
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	pop();
+	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
+	pop();
+	//Aloca dados
+	Celula *result  = aloca_espaco();
+	result->tipo = power(a->tipo,b->tipo);
+	result->fesq = NULL;
+	result->fdir = NULL;
+
+	Celula *pai = NULL;
+
+	if(topo >= t_eval){
+		pai = pilha[topo];
+	}
+
+	if(pai!=NULL){
+		pai->fesq = result;
+	}
+	else{
+		grafo->tipo = result->tipo;
+		grafo->fesq = result->fesq;
+		grafo->fdir = result->fdir;
+	}
+}
 /*Procedimento efetua a redu��o do operador soma segundo a nota��o prefixa
  * div a b = (eval a) / (eval b)
  * Onde eval � a redu��o da sub arvore do argumento do operador
@@ -1968,6 +1955,10 @@ Celula * eval(Celula *grafo){
 					case 0xF0000019:
 						reduz_Hd(grafo);
 						break;
+					//Operadores adicionados a posteriori
+					case 0xF000001C:
+						reduz_POW(grafo);
+						break;
 				}
 			}
 		// GAMBIARRA! NÃO MEXER!!!==
@@ -2083,6 +2074,10 @@ int main(){
 			//Case Hd
 			case 0xF0000019:
 				reduz_Hd(grafo);
+				break;
+			//Operadores adicionados a posteriori
+			case 0xF000001C:
+				reduz_POW(grafo);
 				break;
 		}
 		iterations++;
