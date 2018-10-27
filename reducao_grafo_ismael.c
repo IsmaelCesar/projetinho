@@ -22,9 +22,10 @@
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
-char string[N] = "/100(10)\0";
-//char string[N] = "*12(3)\0";
-
+//Listas
+//char string[N] = "H(G:*(+6(6))(+1(2))(:+(-6(3))(*2(2))[]))\0";
+//char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
+char string[N] = "H(G(G:1(:*3(10)(:*3(2)(:*2(4)[])))))\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -437,16 +438,15 @@ Celula* cria_grafo(char *entrada){
 				//Contador para marcar onde e o final da lista
 				Celula *raiz_lista = cria_combinador(entrada++);
 				int cont_lista = 0;
-				//raiz_lista->fesq = cria_grafo(++entrada);
-				//cont_lista++;
-				//Conta as entradas até o primeiro operador de lista
+
 				while(entrada[cont_lista]!= ':' && entrada[cont_lista]!= '['){
 					//entrada++;
 					cont_lista++;
 				}
 				//Decrementando para o primeiro abre parênteses antes do
 				//Operador de lista
-				cont_lista--;
+				if(entrada[cont_lista] != '[')
+					cont_lista--;
 				char *newEntrada = calloc(cont_lista,sizeof(char));
 
 				for(int i=0;i<cont_lista;i++){
@@ -1773,11 +1773,12 @@ void reduz_Tl(Celula *grafo){
 	pop();//Desempilha Tl
 
 	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
-	Celula *raiz_lista = pilha[topo--]->fdir;
+	Celula *arg = eval(pilha[topo--]->fdir);
 
 	//Se o operador nao estiver sendo aplicado a uma lista vazia
-	if(raiz_lista->tipo !=  0xF0000017){
-		Celula *b = raiz_lista->fdir;
+	if(arg->tipo == 0xF0000016){
+		//topo--;
+		Celula *b = arg->fdir;
 
 		//Tl (:ab) -> b
 		Celula *newB = copiar_alocar(b);
@@ -1795,17 +1796,25 @@ void reduz_Tl(Celula *grafo){
 			grafo->tipo = newB->tipo;
 			grafo->fdir = newB->fdir;
 			grafo->fesq = newB->fesq;
-			if(grafo->fesq){
-				empilha_filho_esquerda(grafo);
-			}
+			//if(grafo->fesq){
+			//	empilha_filho_esquerda(grafo);
+			//}
 		}
 
 	}
-	else{
+	else if(arg->tipo == 0xF0000017){
 		printf("#######################################\n");
 		printf("\t Erro na aplicacao de tl Tl\n");
 		printf("#######################################\n");
 		exit(0);
+	}
+	else{
+		grafo->tipo = arg->tipo;
+		grafo->fdir = arg->fdir;
+		grafo->fesq = arg->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
 	}
 }
 
@@ -1816,14 +1825,15 @@ void reduz_Tl(Celula *grafo){
 void reduz_Hd(Celula *grafo){
 	contar_argumentos(1);
 
-	pop();//Desempilha b
+	pop();//Desempilha H
 
 	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
-	Celula *raiz_lista = pilha[topo--]->fdir;
+	Celula *arg = eval(pilha[topo--]->fdir);
 
 	//Se o operador nao estiver sendo aplicado a uma lista vazia
-	if(raiz_lista->tipo !=  0xF0000017){
-		Celula *a = raiz_lista->fesq;
+	if(arg->tipo ==  0xF0000016){
+		//topo--;
+		Celula *a = arg->fesq;
 
 		//Hd (:ab) -> a
 		Celula *newA = copiar_alocar(a);
@@ -1847,11 +1857,19 @@ void reduz_Hd(Celula *grafo){
 		}
 
 	}
-	else{
+	else if(arg->tipo == 0xF0000017){
 		printf("#######################################\n");
 		printf("\t Erro na aplicacao de tl Hb\n");
 		printf("#######################################\n");
 		exit(0);
+	}
+	else{
+		grafo->tipo = arg->tipo;
+		grafo->fdir = arg->fdir;
+		grafo->fesq = arg->fesq;
+		if(grafo->fesq){
+			empilha_filho_esquerda(grafo);
+		}
 	}
 }
 
