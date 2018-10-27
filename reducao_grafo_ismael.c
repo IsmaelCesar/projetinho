@@ -25,7 +25,8 @@
 //Listas
 //char string[N] = "H(G:*(+6(6))(+1(2))(:+(-6(3))(*2(2))[]))\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
-char string[N] = "H(G(G:1(:*3(10)(:*3(2)(:*2(4)[])))))\0";
+//Letra A
+char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
 
 typedef struct  Celula{
 	int tipo;
