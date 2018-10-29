@@ -29,7 +29,7 @@
 //char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
 //Letra B
 //Criando combinador para map
-char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
+char string[N] = "M(S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
 
 typedef struct  Celula{
 	int tipo;
