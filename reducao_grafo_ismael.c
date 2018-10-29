@@ -27,6 +27,9 @@
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
 //Letra A
 //char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
+//Letra B
+//Criando combinador para map
+char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -207,6 +210,9 @@ int cria_tipo_celula(char *valor){
 		case '^'://Mapeamento para  potencia
 			retorno = 0xF000001C;
 			break;
+		case 'M'://Mapeamento para  funcao MAP
+			retorno = 0xF000001C;
+		break;
 		default:
 			retorno = -1;
 			break;
@@ -1847,7 +1853,7 @@ void reduz_Hd(Celula *grafo){
 	}
 	else if(arg->tipo == 0xF0000017){
 		printf("#######################################\n");
-		printf("\t Erro na aplicacao de tl Hb\n");
+		printf("\t Erro na aplicacao de Hb\n");
 		printf("#######################################\n");
 		exit(0);
 	}
@@ -1860,6 +1866,16 @@ void reduz_Hd(Celula *grafo){
 		}
 	}
 }
+
+/*Procedimento contendo a regra de redução para a funlção
+ * map, a qual dados uma lista e uma função, a mesma é aplicada a
+ * cada elemento da lista, e a lista com o resultado é retornada.
+ * Map f x = if x= [] then [], else : (f (Hd x)) Map f (Tl x))
+ * */
+void reduz_MAP(Celula *grafo){
+
+}
+
 
 /*Procedimento auxiliar para efetuar a  avalia��o de subarvore de um operador
  * */
