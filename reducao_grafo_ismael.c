@@ -1873,7 +1873,45 @@ void reduz_Hd(Celula *grafo){
  * Map f x = if x= [] then [], else : (f (Hd x)) Map f (Tl x))
  * */
 void reduz_MAP(Celula *grafo){
+	contar_argumentos(7);//Conta somente a nova célula do tipo : que será alocada
+	pop();//Desempilha M
 
+	Celula *function = pilha[topo--]->fdir;
+	Celula *list = pilha[topo--]->fdir;
+
+	if(list->tipo != 0xF0000017){
+		char comb = ':';
+		Celula *tipo_lista = cria_combinador(&comb);
+		Celula *ap  =cria_aplicacao();
+		ap->fesq = function;
+		ap->fdir = eval(list->fesq);
+		tipo_lista->fesq  = eval(ap);
+		//aplicando Tl a lista
+		comb = 'G'; //tl
+		Celula  *tl   = cria_combinador(&comb);
+		Celula *ap_tl = cria_aplicacao();
+		ap_tl->fesq   = tl;
+		ap_tl->fdir   = list;
+		//Avalia a aplicacao de tl
+		ap_tl  = eval(ap_tl);
+		//Cria o combinador Map
+		comb = 'M'; //MAp
+		Celula  *map   = cria_combinador(&comb);
+		//cria mais duas aplicacoes
+		Celula *ap_map  =  cria_aplicacao();
+		Celula *ap_f_tl = cria_aplicacao();
+		ap_map->fesq = map;
+		ap_map->fdir = function;
+		ap_f_tl->fesq = ap_map;
+		ap_f_tl->fdir = ap_tl; //Pega o resultado da avaliacao de ap tl;
+		//avaliando a aplicacao do map a cauda da lista
+		tipo_lista->fdir = eval(ap_f_tl);
+	}
+	else{
+		grafo->tipo = list->tipo;
+		grafo->fesq = list->fesq;
+		grafo->fdir = list->fdir;
+	}
 }
 
 
