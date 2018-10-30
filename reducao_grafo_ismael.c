@@ -71,9 +71,6 @@ void pop(){
 	topo--;
 }
 
-void pop_value(int val){
-	topo -= val;
-}
 
 /*Procedimento cria um grafo dedicado a free list, gerando uma arvore em pre ordem
  * */
@@ -364,17 +361,21 @@ Celula* copiar_alocar(Celula *cel){
  * tem argumentos suficientes para serem utilizados
  * nas reducoes.
  * */
-void contar_argumentos(int cont){
+void contar_argumentos(int cont,Celula *grafo){
 	Celula *aux = fl;
 	for(int i = 0; i < cont; i++){
 		if(aux){
 			aux = aux->fdir;
 		}
 		else{
+
+			mark_scan(grafo);
+			/*
 			printf("\n####################################\n");
 			printf("Nao ha elementos suficientes na freelist\n");
 			printf("\n####################################\n");
 			exit(0);
+			*/
 		}
 	}
 }
@@ -470,6 +471,7 @@ Celula* cria_grafo(char *entrada){
 					newEntrada[i] = entrada[0];
 					entrada++;
 				}
+				newEntrada[cont_lista] = '\0';
 				//Pega os caracteres copiados para o novo aray e o fornece como entrada
 				//Para subarvore mais a esquerda da lista
 				raiz_lista->fesq = cria_grafo(newEntrada);
@@ -722,7 +724,7 @@ void empilha_grafo(Celula *grafo){
  * */
 void reduz_K(Celula *grafo){
 
-	contar_argumentos(2);
+	contar_argumentos(1,grafo);
 	pop();//Desempilha K
 
 	//Buscando argumentos
@@ -767,7 +769,7 @@ void reduz_K(Celula *grafo){
  * */
 void reduz_S(Celula *grafo){
 	//Buscando argumentos
-	contar_argumentos(6);
+	contar_argumentos(6,grafo);
 	pop();//Desempilha S
 	//Celula *a = topo->dado->fdir;
 	//pop();
@@ -843,7 +845,7 @@ void reduz_S(Celula *grafo){
  *  I a -> a
  * */
 void reduz_I(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 	pop();//Desempilha I
 
 	//Busca argumentos
@@ -887,7 +889,7 @@ void reduz_I(Celula *grafo){
  * B f g x -> f ( g  x)
  * */
 void reduz_B(Celula *grafo){
-	contar_argumentos(5);
+	contar_argumentos(5,grafo);
 	pop();//Desempilha B
 
 	//busca argumentos
@@ -939,7 +941,7 @@ void reduz_B(Celula *grafo){
  * C f g x -> f x g
  * */
 void reduz_C(Celula *grafo){
-	contar_argumentos(5);
+	contar_argumentos(5,grafo);
 	pop();//Desempilha C
 
 	//Busca argumentos
@@ -992,7 +994,7 @@ void reduz_C(Celula *grafo){
  * D c f g x -> c(f x)( g x)
  * */
 void reduz_D(Celula *grafo){
-	contar_argumentos(9);
+	contar_argumentos(9,grafo);
 	pop();//Desempilha D
 
 	//Busca argumentos
@@ -1057,7 +1059,7 @@ void reduz_D(Celula *grafo){
  * E c f g x -> c f (g x)
  * */
 void reduz_E(Celula *grafo){
-	contar_argumentos(7);
+	contar_argumentos(7,grafo);
 	pop();//Desempilha E
 
 	//Busca argumentos
@@ -1116,7 +1118,7 @@ void reduz_E(Celula *grafo){
  * F c f g x -> c (f x ) g
  * */
 void reduz_F(Celula *grafo){
-	contar_argumentos(7);
+	contar_argumentos(7,grafo);
 	pop();//Desempilha F
 
 	//Busca argumentos
@@ -1176,7 +1178,7 @@ void reduz_F(Celula *grafo){
  * Y a -> a ( Y a )
  * */
 void reduz_Y(Celula *grafo){
-	contar_argumentos(5);
+	contar_argumentos(5,grafo);
 	pop();//Desempilha Y
 
 	//Busca argumentos
@@ -1220,7 +1222,7 @@ void reduz_Y(Celula *grafo){
  * Utilizando otmisacao com knot tiening
  * */
 void knot_tiening(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();//Desempilha Y
 
 	//Busca argumentos
@@ -1261,7 +1263,7 @@ Celula * eval(Celula *grafo);
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
 void reduz_SOMA(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 	pop();//desempilha +
 
 	//Busca argumento
@@ -1297,7 +1299,7 @@ void reduz_SOMA(Celula *grafo){
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
 void reduz_SUB(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 	pop();//desempilha -
 
 	//Busca argumento
@@ -1332,7 +1334,7 @@ void reduz_SUB(Celula *grafo){
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
 void reduz_MULT(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 	pop();//desempilha *
 
 	//Busca argumento
@@ -1380,7 +1382,7 @@ int power(int x,int y){
  * ** a  b = a ** b
  * */
 void reduz_POW(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 	pop();//desempilha *
 
 	//Busca argumento
@@ -1414,7 +1416,7 @@ void reduz_POW(Celula *grafo){
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
 void reduz_DIV(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();//desempilha /
 
 	//Busca argumento
@@ -1451,7 +1453,7 @@ void reduz_DIV(Celula *grafo){
  * TRUE a b -> a
  */
 void reduz_TRUE(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();//Desempilha t
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1486,7 +1488,7 @@ void reduz_TRUE(Celula *grafo){
  * FALSE a b -> b
  */
 void reduz_FALSE(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();//Desempilha FALSE
 
 	pop();//Desempilha A
@@ -1522,7 +1524,7 @@ void reduz_FALSE(Celula *grafo){
  * > a b -> (eval a) > (eval b)
  */
 void reduz_GT(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1567,7 +1569,7 @@ void reduz_GT(Celula *grafo){
  * < a b -> (eval a) < (eval b)
  */
 void reduz_LT(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1612,7 +1614,7 @@ void reduz_LT(Celula *grafo){
  * = a b -> (eval a) = (eval b)
  */
 void reduz_EQ(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1657,7 +1659,7 @@ void reduz_EQ(Celula *grafo){
  * AND a b -> (eval a) AND (eval b)
  */
 void reduz_AND(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1721,7 +1723,7 @@ void reduz_AND(Celula *grafo){
  * OR a b -> (eval a) OR (eval b)
  */
 void reduz_OR(Celula *grafo){
-	contar_argumentos(2);
+	contar_argumentos(2,grafo);
 	pop();
 
 	Celula *a = eval(pilha[topo--]->fdir);
@@ -1776,7 +1778,7 @@ void reduz_OR(Celula *grafo){
  * Tl (:ab) -> b
  * */
 void reduz_Tl(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 
 	pop();//Desempilha Tl
 
@@ -1831,7 +1833,7 @@ void reduz_Tl(Celula *grafo){
  * Hd (:ab) -> a
  * */
 void reduz_Hd(Celula *grafo){
-	contar_argumentos(1);
+	contar_argumentos(1,grafo);
 
 	pop();//Desempilha H
 
@@ -1887,7 +1889,7 @@ void reduz_Hd(Celula *grafo){
  * Map f x = if x= [] then [], else : (f (Hd x)) Map f (Tl x))
  * */
 void reduz_MAP(Celula *grafo){
-	contar_argumentos(7);//Conta somente a nova célula do tipo : que será alocada
+	contar_argumentos(7,grafo);//Conta somente a nova célula do tipo : que será alocada
 	pop();//Desempilha M
 
 	Celula *function = pilha[topo--]->fdir;
@@ -1941,6 +1943,47 @@ void reduz_MAP(Celula *grafo){
 	}
 }
 
+
+/*Procedimento auxiliar para efetuar a marcacao dos
+ * Nodes do grafo em uso a partir da raiz fazendo uma busca em pré-ordem
+ * */
+void mark(Celula *grafo){
+	grafo->mark = 'A';//A significa alocado
+	if(grafo->fesq != NULL)
+		mark(grafo->fesq);
+
+	if(grafo->fdir != NULL)
+		mark(grafo->fdir);
+}
+
+/*Procedimento efetua a execução do algoritmo de garbage collection
+ *para alocacao de mais celulas na free list.
+ * */
+void mark_scan(Celula *grafo){
+	printf("O mark-scan estah sendo executado \n");
+	mark(grafo);
+	int isFirstElement = 1;
+	Celula *ptr = NULL;
+	//Scan
+	for(int i = 0; i < H; i++){
+		if(heap[i]->mark != 'A'){//Onde G significa Garbage
+			heap[i]->mark = '\0'; //marca como não alocado
+			if(!isFirstElement){
+				ptr->tipo = 0;
+				ptr->fesq = NULL;
+				ptr->fdir = &heap[i];
+				ptr = ptr->fdir;
+			}
+			else{
+				fl = heap[i];
+				ptr = fl;
+				ptr->fesq= NULL;
+				isFirstElement = 0;
+			}
+		}
+	}
+	printf("O mark-scan terminou sua execucao\n");
+}
 
 /*Procedimento auxiliar para efetuar a  avalia��o de subarvore de um operador
  * */
