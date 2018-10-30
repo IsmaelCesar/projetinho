@@ -1,4 +1,4 @@
-#include <stdlib.h>
+﻿#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 
@@ -21,7 +21,7 @@
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
-//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
+char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
 //Listas
 //char string[N] = "^2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -29,7 +29,7 @@
 //char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
 //Letra B
 //Criando combinador para map
-char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
+//char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
 
 typedef struct  Celula{
 	int tipo;
@@ -357,6 +357,11 @@ Celula* copiar_alocar(Celula *cel){
 	newCel->fdir = cel->fdir;
 	return newCel;
 }
+
+//Adicionando declaracao implicita para que o mesmo mark-scan seja
+//utilizado no procedimento contar argumentos.
+void mark_scan(Celula *grafo);
+
 /*Procedimento auxiliar para contar se a free list
  * tem argumentos suficientes para serem utilizados
  * nas reducoes.
@@ -1966,8 +1971,8 @@ void mark_scan(Celula *grafo){
 	Celula *ptr = NULL;
 	//Scan
 	for(int i = 0; i < H; i++){
-		if(heap[i]->mark != 'A'){//Onde G significa Garbage
-			heap[i]->mark = '\0'; //marca como não alocado
+		if(heap[i].mark != 'A'){//Onde G significa Garbage
+			heap[i].mark = '\0'; //marca como não alocado
 			if(!isFirstElement){
 				ptr->tipo = 0;
 				ptr->fesq = NULL;
@@ -1975,9 +1980,10 @@ void mark_scan(Celula *grafo){
 				ptr = ptr->fdir;
 			}
 			else{
-				fl = heap[i];
+				fl = &heap[i];
 				ptr = fl;
 				ptr->fesq= NULL;
+				ptr->fdir= NULL;
 				isFirstElement = 0;
 			}
 		}
