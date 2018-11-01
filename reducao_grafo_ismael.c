@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <time.h>
 
-//#define N 10000000
-#define N 250
-//#define H 10000000
+#define N 10000000
+//#define N 250
+#define H 10000000
 //#define H 52800000
-#define H 59000000//fib 23 (Estatico)
+//#define H 59000000//fib 23 (Estatico)
 //#define H 2300000
 #define P 20000
 
@@ -18,12 +18,12 @@
 //fatorial
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
 //char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
-//char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
+char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
-char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))23\0"; //25fib2 (TURNER)
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
 //Listas
-//char string[N] = "^2(11)\0";
+//char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
 //Letra A
 //char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
@@ -109,7 +109,7 @@ void aloca_freelist(){
 Celula *aloca_espaco(){
 	Celula *retorno;
 	retorno = fl;
-	//retorno->mark = 'A'; //Marcando o espaco como alocado no momento em que é alocado
+	retorno->mark = 'A'; //Marcando o espaco como alocado no momento em que é alocado
 	if(fl != NULL){
 		fl = fl->fdir;
 	}
@@ -406,11 +406,15 @@ void contar_argumentos(int cont,Celula *grafo){
  *atravez de uma busca em pre ordem
  * */
 void desaloca_subarvore(Celula *sub_arvore){
-	sub_arvore->mark = 'G'; // G significa garbage
-	if(sub_arvore->fesq != NULL)
+
+    sub_arvore->mark = 'G'; // G significa garbage
+	if(sub_arvore->fesq != NULL){
 		desaloca_subarvore(sub_arvore->fesq);
-	if(sub_arvore->fdir != NULL)
+	}
+	if(sub_arvore->fdir != NULL){
 		desaloca_subarvore(sub_arvore->fdir);
+	}
+
 }
 
 
@@ -768,7 +772,8 @@ void reduz_K(Celula *grafo){
 	//pop();// Desenpilha a
     //pop();// Desempilha b
 	//desaloca_subarvore(pop_return()->fdir);//Desempilha o pai de B e desaloca a subarvore B
-	pop_return();
+	Celula *b = pop_return();//pop_return();
+	desaloca_subarvore(b);
 	Celula *pai = NULL;
 
 	//K a b -> a
@@ -1551,7 +1556,9 @@ void reduz_TRUE(Celula *grafo){
 	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
 	//Celula *a = pilha[topo--]->fdir;
 	//pop();//Desempilha B
-	pop_return();//Desempilha B
+	//desaloca_subarvore(pop_return()->fdir);//Desempilha B
+	Celula *b = pop_return();//pop_return();
+	desaloca_subarvore(b);
 
 	//alocacao de espaco
 	Celula *pai = NULL;
@@ -1586,7 +1593,10 @@ void reduz_FALSE(Celula *grafo){
 	//pop();//Desempilha FALSE
 	pop_return();//Desempilha False
 	//pop();//Desempilha A
-	pop_return();//Desempilha A
+	//pop_return();//Desempilha A
+	Celula *a = pop_return();//pop_return();
+	desaloca_subarvore(a);
+	//=====================================
 	Celula *b = eval(pop_return()->fdir);
 	//Celula *b = pilha[topo--]->fdir;
 	//pop();
@@ -2090,25 +2100,28 @@ void mark(Celula *grafo){
 void mark_scan(Celula *grafo){
 	printf("O mark-scan estah sendo executado \n");
 	mark(grafo);
-	int isFirstElement = 1;
-	Celula *ptr = NULL;
+	//int isFirstElement = 1;
+	Celula *ptr = fl;
 	//Scan
 	for(int i = 0; i < H; i++){
 		if(heap[i].mark == 'G'){//Onde G significa Garbage
-			heap[i].mark = '\0'; //marca como não alocado
-			if(!isFirstElement){
+			if(ptr != NULL){
 				ptr->tipo = 0;
+				ptr->mark = '\0';
 				ptr->fesq = NULL;
 				ptr->fdir = &heap[i];
 				ptr = ptr->fdir;
 			}
 			else{
+				//Se a free list for nula então trata-se do primeiro elemento
 				fl = &heap[i];
 				ptr = fl;
-				ptr->fesq= NULL;
-				ptr->fdir= NULL;
-				isFirstElement = 0;
+				ptr->tipo = 0;
+				ptr->mark = '\0';
+				ptr->fesq = NULL;
+				ptr->fdir = NULL;
 			}
+
 		}
 	}
 	printf("O mark-scan terminou sua execucao\n");
