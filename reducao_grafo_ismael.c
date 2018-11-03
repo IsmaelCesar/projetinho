@@ -4,8 +4,8 @@
 
 //#define N 10000000
 #define N 250
-#define H 10000000
-#define H 12
+#define H 1000
+//#define H 12
 //#define H 52800000
 //#define H 59000000//fib 23 (Estatico)
 //#define H 2300000
@@ -17,14 +17,14 @@
 //char string[N] ="S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))((S(C(BBI)(SII))(C(BBI)(SII))(KK))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K))K)\0";
 // Strings de teste
 //fatorial
-//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))500\0";//fab1 (KSI)
 //char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
-//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
+char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //25fib2 (TURNER)
 //Testes GC
-char string[N]   = "KI(KIK)K\0";
+//char string[N]   = "KI(KIK)K\0";
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -72,23 +72,6 @@ void push(Celula *c){
 
 void pop(){
 	topo--;
-}
-//Pops a os quais marcam as celulas como desalocadas
-//pop que retorna uma célula da pilha antes de decrementar
-Celula *pop_return(){
-	Celula *retorno;
-	pilha[topo]->mark = 'G';//G -> Garbage
-	retorno = pilha[topo--];
-	return retorno;
-}
-
-//pop que decrementa o contador da pilha e então retorna a célua
-//do contador atualizado
-Celula *pre_pop_return(){
-	Celula *retorno;
-	pilha[topo]->mark = 'G';//G -> Garbage
-	retorno = pilha[--topo];
-	return retorno;
 }
 
 
@@ -403,23 +386,6 @@ void contar_argumentos(int cont,Celula *grafo){
 			*/
 		}
 	}
-}
-
-/*Procedimento utilizado para marcar a subarvore de um grafo como lixo
- *atravez de uma busca em pre ordem
- * */
-void desaloca_subarvore(Celula *sub_arvore){
-
-    if(sub_arvore->mark != 'G'){
-        sub_arvore->mark = 'G'; // G significa garbage
-	    if(sub_arvore->fesq != NULL){
-		    desaloca_subarvore(sub_arvore->fesq);
-	    }
-	    if(sub_arvore->fdir != NULL){
-		    desaloca_subarvore(sub_arvore->fdir);
-	    }
-    }
-
 }
 
 
@@ -768,19 +734,14 @@ void empilha_grafo(Celula *grafo){
 void reduz_K(Celula *grafo){
 
 	contar_argumentos(1,grafo);
-	//pop();//Desempilha K
+	pop();//Desempilha K
     //pilha[topo--]->mark = 'G';//Desempilha K
-	pop_return();//Desempilha K
+	//pop_return();//Desempilha K
 
 	//Buscando argumentos
-	//Celula *a  = pilha[topo--]->fdir;
-    //Celula *b  = pilha[topo--]->fdir;
-    //a->mark = 'G';
-	Celula *a  = pop_return()->fdir;
-    a->mark = 'G';
-    Celula *b = pop_return()->fdir;
+	Celula *a  = pilha[topo--]->fdir;
+    Celula *b  = pilha[topo--]->fdir;
 
-    desaloca_subarvore(b);
 	Celula *pai = NULL;
 
 	//K a b -> a
@@ -803,7 +764,6 @@ void reduz_K(Celula *grafo){
 	}
 	else{
 		grafo->tipo = newA->tipo;
-		grafo->mark = newA->mark;
 		grafo->fdir = newA->fdir;
 		grafo->fesq = newA->fesq;
 		if(grafo->fesq){
@@ -819,20 +779,16 @@ void reduz_K(Celula *grafo){
 void reduz_S(Celula *grafo){
 	//Buscando argumentos
 	contar_argumentos(6,grafo);
-	//pop();//Desempilha S
-	pop_return();//Desempilha S
+	pop();//Desempilha S
 
-	//pop();
-	//Celula *a = pilha[topo--]->fdir;
-	Celula *a = pop_return()->fdir;
+	Celula *a = pilha[topo--]->fdir;
+	//Celula *a = pop_return()->fdir;
 
-	//pop();
-	//Celula *b = pilha[topo--]->fdir;
-	Celula *b = pop_return()->fdir;
+	Celula *b = pilha[topo--]->fdir;
+	//Celula *b = pop_return()->fdir;
 
-	//pop();
-	//Celula *c = pilha[topo--]->fdir;
-	Celula *c = pop_return()->fdir;
+	Celula *c = pilha[topo--]->fdir;
+	//Celula *c = pop_return()->fdir;
 
 	Celula *pai = NULL;
 
@@ -887,7 +843,6 @@ void reduz_S(Celula *grafo){
 	}
 	else{
 		grafo->tipo = aplicacaoPai->tipo;
-		grafo->mark = aplicacaoPai->mark;
 		grafo->fdir = aplicacaoPai->fdir;
 		grafo->fesq = aplicacaoPai->fesq;
 		//grafo = aplicacaoPai;
@@ -900,16 +855,11 @@ void reduz_S(Celula *grafo){
  * */
 void reduz_I(Celula *grafo){
 	contar_argumentos(1,grafo);
-	//pop();//Desempilha I
-	pop_return();//Desempilha I
-	//pilha[topo--]->mark = 'G';//Desempilha I
+	pop();//Desempilha I
 
 	//Busca argumentos
-	//Celula *a = topo->dado->fdir;
-	//pop(); //Desempilha a
-	//Celula *a = pilha[topo--]->fdir;
-	Celula *a = pop_return()->fdir;
-    a->mark = 'G';
+	Celula *a = pilha[topo--]->fdir;
+	//Celula *a = pop_return()->fdir;
 
 	Celula *pai = NULL;
 
@@ -933,7 +883,6 @@ void reduz_I(Celula *grafo){
 	}
 	else{
 		grafo->tipo = newA->tipo;
-		grafo->mark = newA->mark;
 		grafo->fesq	 = newA->fesq;
 		grafo->fdir = newA->fdir;
 		if(grafo->fesq){
@@ -953,15 +902,15 @@ void reduz_B(Celula *grafo){
 	pop_return();//Desempilha B
 
 	//busca argumentos
-	//pop();//desempilha f
-	//Celula *f = pilha[topo--]->fdir;
-	Celula *f = pop_return()->fdir;
-	//pop();//desempilha g
-	//Celula *g = pilha[topo--]->fdir;
-	Celula *g = pop_return()->fdir;
-	//pop();//desempilha x
-	//Celula *x = pilha[topo--]->fdir;
-	Celula *x = pop_return()->fdir;
+	Celula *f = pilha[topo--]->fdir; //desempilha f
+	//Celula *f = pop_return()->fdir;
+
+	Celula *g = pilha[topo--]->fdir;//desempilha g
+	//Celula *g = pop_return()->fdir;
+
+	Celula *x = pilha[topo--]->fdir;//desempilha x
+	//Celula *x = pop_return()->fdir;
+
 
 	//aloca espaco
 	Celula *newF  = copiar_alocar(f);
@@ -990,7 +939,6 @@ void reduz_B(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
@@ -1006,23 +954,19 @@ void reduz_C(Celula *grafo){
 	pop();//Desempilha C
 
 	//Busca argumentos
+	Celula *f = pilha[topo--]->fdir;
+	//Celula *f = pop_return()->fdir;//Desempilha f
 
-	//pop();//Desempilha f
-	//Celula *f = pilha[topo--]->fdir;
-	Celula *f = pop_return()->fdir;
-	//pop();//Desempilha g
-	//Celula *g = pilha[topo--]->fdir;
-	Celula *g = pop_return()->fdir;
+	Celula *g = pilha[topo--]->fdir;//Desempilha g
+	//Celula *g = pop_return()->fdir;
 
-	//pop();//Desempilha x
-	//Celula *x = pilha[topo--]->fdir;
-	Celula *x = pop_return()->fdir;
+	Celula *x = pilha[topo--]->fdir;//Desempilha x
+	//Celula *x = pop_return()->fdir;
 
 	//aloca espaco
 	Celula *pai = NULL;
 	//if(topo!= NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 	Celula *newF  = copiar_alocar(f);
@@ -1044,7 +988,6 @@ void reduz_C(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
@@ -1061,28 +1004,23 @@ void reduz_D(Celula *grafo){
 	pop();//Desempilha D
 
 	//Busca argumentos
-	//pop();//Desempilha c
-	//Celula *c = pilha[topo--]->fdir;
-	Celula *c = pop_return()->fdir;
+	Celula *c = pilha[topo--]->fdir;//Desempilha C
+	//Celula *c = pop_return()->fdir;
 
-	//pop();//Desempilha f
-	//Celula *f = pilha[topo--]->fdir;
-	Celula *f = pop_return()->fdir;
+	Celula *f = pilha[topo--]->fdir;//Desempilha f
+	//Celula *f = pop_return()->fdir;
 
-	//pop();//Desempilha g
-	//Celula *g = pilha[topo--]->fdir;
-	Celula *g = pop_return()->fdir;
+	Celula *g = pilha[topo--]->fdir;//Desempilha g
+	//Celula *g = pop_return()->fdir;
 
-	//pop();//Desempilha x
-	//Celula *x = pilha[topo--]->fdir;
-	Celula *x = pop_return()->fdir;
+	Celula *x = pilha[topo--]->fdir;//Desempilha x
+	//Celula *x = pop_return()->fdir;
 
 	//alocacao de dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
-		pai = pilha[topo];
+	    pai = pilha[topo];
 	}
 	Celula *newC  = copiar_alocar(c);
 	Celula *newF  = copiar_alocar(f);
@@ -1114,7 +1052,6 @@ void reduz_D(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
@@ -1127,31 +1064,26 @@ void reduz_D(Celula *grafo){
  * */
 void reduz_E(Celula *grafo){
 	contar_argumentos(7,grafo);
-	//pop();//Desempilha E
-	pop_return();//Desempilha E
+	pop();//Desempilha E
 
 	//Busca argumentos
 
-	//pop();
-	//Celula *c = pilha[topo--]->fdir;//Desempilha c
-	Celula *c = pop_return()->fdir;//Desempilha c
-	//pop();
-	//Celula *f = pilha[topo--]->fdir;//Desempilha f
-	Celula *f = pop_return()->fdir;//Desempilha f
+	Celula *c = pilha[topo--]->fdir;//Desempilha c
+	//Celula *c = pop_return()->fdir;//Desempilha c
 
-	//pop();//Desempilha g
-	///Celula *g = pilha[topo--]->fdir;//Desempilha
-	Celula *g = pop_return()->fdir;
+	Celula *f = pilha[topo--]->fdir;//Desempilha f
+	//Celula *f = pop_return()->fdir;//Desempilha f
 
-	//pop();//Desempilha x
-	//Celula *x = pilha[topo--]->fdir;//Desempilha x
-	Celula *x = pop_return()->fdir;
+	Celula *g = pilha[topo--]->fdir;//Desempilha G
+	//Celula *g = pop_return()->fdir;
+
+	Celula *x = pilha[topo--]->fdir;//Desempilha x
+	//Celula *x = pop_return()->fdir;
 
 	//Alocacao de dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 	Celula *newC  = copiar_alocar(c);
@@ -1179,7 +1111,6 @@ void reduz_E(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
@@ -1191,32 +1122,25 @@ void reduz_E(Celula *grafo){
  * */
 void reduz_F(Celula *grafo){
 	contar_argumentos(7,grafo);
-	//pop();//Desempilha F
-	pop_return();//Desempilha F
+	pop();//Desempilha F
 
 	//Busca argumentos
+	Celula *c = pilha[topo--]->fdir;//Desempilha c
+	//Celula *c = pop_return()->fdir;//Desempilha c
 
-	//pop();//Desempilha c
-	//Celula *c = pilha[topo--]->fdir;//Desempilha c
-	Celula *c = pop_return()->fdir;//Desempilha c
+	Celula *f = pilha[topo--]->fdir;//Desempilha f
+	//Celula *f = pop_return()->fdir;//Desempilha f
 
-	//pop();//Desempilha f
-	//Celula *f = pilha[topo--]->fdir;//Desempilha f
-	Celula *f = pop_return()->fdir;//Desempilha f
+	Celula *g = pilha[topo--]->fdir;//Desempilha g
+	//Celula *g = pop_return()->fdir;//Desempilha g
 
-	//pop();//Desempilha g
-	//Celula *g = pilha[topo--]->fdir;//Desempilha g
-	Celula *g = pop_return()->fdir;//Desempilha g
-
-	//pop();//Desempilha x
-	//Celula *x = pilha[topo--]->fdir;//Desempilha x
-	Celula *x = pop_return()->fdir;
+	Celula *x = pilha[topo--]->fdir;//Desempilha x
+	//Celula *x = pop_return()->fdir;
 
 	//Aloca dados
 	Celula *pai = NULL;
 	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 	Celula *newC  = copiar_alocar(c);
@@ -1244,7 +1168,6 @@ void reduz_F(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 	}
@@ -1257,12 +1180,10 @@ void reduz_F(Celula *grafo){
  * */
 void reduz_Y(Celula *grafo){
 	contar_argumentos(5,grafo);
-	//pop();//Desempilha Y
-	pop_return();//Desempilha Y
+	pop();//Desempilha Y
 
 	//Busca argumentos
-	//Celula *a = pilha[topo--]->fdir;
-	Celula *a = pop_return()->fdir;
+	Celula *a = pilha[topo--]->fdir;
 	//alocacao
 	Celula *newA1 = copiar_alocar(a);
 	Celula *newA2 = copiar_alocar(a);
@@ -1289,7 +1210,6 @@ void reduz_Y(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 		empilha_filho_esquerda(grafo);
@@ -1304,12 +1224,10 @@ void reduz_Y(Celula *grafo){
  * */
 void knot_tiening(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();//Desempilha Y
-	pop_return();//Desempilha Y
-
+	pop();//Desempilha Y
 	//Busca argumentos
-	//Celula *a = pilha[topo--]->fdir;
-	Celula *a = pop_return()->fdir;
+	Celula *a = pilha[topo--]->fdir;
+	//Celula *a = pop_return()->fdir;
 
 	//alocacao
 	Celula *newA   = copiar_alocar(a);
@@ -1330,7 +1248,6 @@ void knot_tiening(Celula *grafo){
 	}
 	else{
 		grafo->tipo = ap_pai->tipo;
-		grafo->mark = ap_pai->tipo;
 		grafo->fesq = ap_pai->fesq;
 		grafo->fdir = ap_pai->fdir;
 		empilha_filho_esquerda(grafo);
@@ -1349,16 +1266,13 @@ Celula * eval(Celula *grafo);
  * */
 void reduz_SOMA(Celula *grafo){
 	contar_argumentos(1,grafo);
-	//pop();//desempilha +
-	pop_return();
+	pop();//desempilha +
 
 	//Busca argumento
-	//Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
-	//pop();
-	Celula *a = eval(pop_return()->fdir);
-	//Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
-	//pop();
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	pop();
+	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
+	pop();
 
 	//Aloca dados
 	Celula *result  = aloca_espaco();
@@ -1377,7 +1291,6 @@ void reduz_SOMA(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fesq = result->fesq;
 		grafo->fdir = result->fdir;
 	}
@@ -1390,16 +1303,13 @@ void reduz_SOMA(Celula *grafo){
  * */
 void reduz_SUB(Celula *grafo){
 	contar_argumentos(1,grafo);
-	//pop();//desempilha -
-	pop_return();//desempilha -
-
+	pop();//desempilha -
 	//Busca argumento
-	/*Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
 	pop();
 	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
-	pop();*/
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	pop();
+
 	//Aloca dados
 	Celula *result  = aloca_espaco();
 	result->tipo = a->tipo - b->tipo;
@@ -1417,7 +1327,6 @@ void reduz_SUB(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fesq = result->fesq;
 		grafo->fdir = result->fdir;
 	}
@@ -1429,15 +1338,14 @@ void reduz_SUB(Celula *grafo){
  * */
 void reduz_MULT(Celula *grafo){
 	contar_argumentos(1,grafo);
-	//pop();//desempilha *
-	pop_return();
+	pop();//desempilha *
+
 	//Busca argumento
-	/*Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
 	pop();
 	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
-	pop();*/
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	pop();
+
 	//Aloca dados
 	Celula *result  = aloca_espaco();
 	result->tipo = a->tipo * b->tipo;
@@ -1455,7 +1363,6 @@ void reduz_MULT(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fesq = result->fesq;
 		grafo->fdir = result->fdir;
 	}
@@ -1480,15 +1387,14 @@ int power(int x,int y){
  * */
 void reduz_POW(Celula *grafo){
 	contar_argumentos(1,grafo);
-	//pop();//desempilha *
-	pop_return();
+	pop();//desempilha **
+
 	//Busca argumento
-	/*Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
 	pop();
 	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
-	pop();*/
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	pop();
+
 	//Aloca dados
 	Celula *result  = aloca_espaco();
 	result->tipo = power(a->tipo,b->tipo);
@@ -1506,7 +1412,6 @@ void reduz_POW(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fesq = result->fesq;
 		grafo->fdir = result->fdir;
 	}
@@ -1517,15 +1422,14 @@ void reduz_POW(Celula *grafo){
  * */
 void reduz_DIV(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();//desempilha /
-	pop_return();
+	pop();//desempilha /
+
 	//Busca argumento
-	/*Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
+	Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
 	pop();
 	Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
-	pop();*/
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	pop();
+
 	//Aloca dados
 	Celula *result  = aloca_espaco();
 	result->tipo = a->tipo / b->tipo;
@@ -1543,7 +1447,6 @@ void reduz_DIV(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fesq = result->fesq;
 		grafo->fdir = result->fdir;
 	}
@@ -1557,16 +1460,11 @@ void reduz_DIV(Celula *grafo){
  */
 void reduz_TRUE(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();//Desempilha t
-	pop_return();
+	pop();//Desempilha TRUE
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	//a->mark   = 'G';
+	Celula *a = eval(pilha[topo--]->fdir);
+	pop();//desempilha b
 
-	Celula *b = pop_return()->fdir;
-    //Celula *b = pilha[topo--]->fdir;
-	desaloca_subarvore(b);
 
 	//alocacao de espaco
 	Celula *pai = NULL;
@@ -1583,7 +1481,6 @@ void reduz_TRUE(Celula *grafo){
 	}
 	else{
 		grafo->tipo = a->tipo;
-		grafo->mark = a->mark;
 		grafo->fdir = a->fdir;
 		grafo->fesq = a->fesq;
 		if(grafo->fesq){
@@ -1598,16 +1495,10 @@ void reduz_TRUE(Celula *grafo){
  */
 void reduz_FALSE(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();//Desempilha FALSE
-	pop_return();//Desempilha FALSE
+	pop();//Desempilha FALSE
 
-	//pop_return();//Desempilha A
-	Celula *a = pop_return()->fdir;//pop_return();
-	desaloca_subarvore(a);
-	//=====================================
-	Celula *b = eval(pop_return()->fdir);
-	//Celula *b = pilha[topo--]->fdir;
-	//pop();
+	pop();//Desempilha A
+	Celula *b = eval(pilha[topo--]->fdir);//Desempilha B
 
 	//aloca espaco
 	Celula *pai = NULL;
@@ -1639,13 +1530,10 @@ void reduz_FALSE(Celula *grafo){
  */
 void reduz_GT(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();
-	pop_return();
+	pop();
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	//Celula *b = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
 
 	Celula *result = NULL;
 	// > a b -> (eval a)>(eval b)
@@ -1673,7 +1561,6 @@ void reduz_GT(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fdir = result->fdir;
 		grafo->fesq = result->fesq;
 		if(grafo->fesq){
@@ -1688,13 +1575,10 @@ void reduz_GT(Celula *grafo){
  */
 void reduz_LT(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();
-	pop_return();
+	pop();
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	//Celula *b = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
 
 	Celula *result = NULL;
 	// > a b -> (eval a)<(eval b)
@@ -1722,7 +1606,6 @@ void reduz_LT(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fdir = result->fdir;
 		grafo->fesq = result->fesq;
 		if(grafo->fesq){
@@ -1737,13 +1620,10 @@ void reduz_LT(Celula *grafo){
  */
 void reduz_EQ(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop();//Desempilha =
-	pop_return();
+	pop();//Desempilha =
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	//Celula *b = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
 
 	Celula *result = NULL;
 	// = a b -> (eval a)=(eval b)
@@ -1771,7 +1651,6 @@ void reduz_EQ(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fdir = result->fdir;
 		grafo->fesq = result->fesq;
 		if(grafo->fesq){
@@ -1786,12 +1665,10 @@ void reduz_EQ(Celula *grafo){
  */
 void reduz_AND(Celula *grafo){
 	contar_argumentos(2,grafo);
-	//pop(); //Desempilha and
+	pop(); //Desempilha and
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	//Celula *b = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
 
 	// AND a b -> (eval a) AND (eval b)
 	Celula *result = NULL;
@@ -1838,7 +1715,6 @@ void reduz_AND(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fdir = result->fdir;
 		grafo->fesq = result->fesq;
 		if(grafo->fesq){
@@ -1856,10 +1732,8 @@ void reduz_OR(Celula *grafo){
 	//pop(); //Desempilha B
 	pop_return();
 
-	//Celula *a = eval(pilha[topo--]->fdir);
-	//Celula *b = eval(pilha[topo--]->fdir);
-	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	Celula *b = eval(pop_return()->fdir); //avalia e atribui B
+	Celula *a = eval(pilha[topo--]->fdir);
+	Celula *b = eval(pilha[topo--]->fdir);
 
 	// OR a b -> (eval a) OR (eval b)
 	Celula *result = NULL;
@@ -1897,7 +1771,6 @@ void reduz_OR(Celula *grafo){
 	}
 	else{
 		grafo->tipo = result->tipo;
-		grafo->mark = result->mark;
 		grafo->fdir = result->fdir;
 		grafo->fesq = result->fesq;
 		if(grafo->fesq){
@@ -1913,12 +1786,11 @@ void reduz_OR(Celula *grafo){
 void reduz_Tl(Celula *grafo){
 	contar_argumentos(1,grafo);
 
-	//pop();//Desempilha Tl
-	pop_return();//Desempilha Tl
+	pop();//Desempilha Tl
+
 
 	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
-	//Celula *arg = eval(pilha[topo--]->fdir);
-	Celula *arg = eval(pop_return()->fdir); //avalia e atribui A
+	Celula *arg = eval(pilha[topo--]->fdir);
 
 	//Se o operador nao estiver sendo aplicado a uma lista vazia
 	if(arg->tipo == 0xF0000016){
@@ -1938,7 +1810,6 @@ void reduz_Tl(Celula *grafo){
 		}
 		else{
 			grafo->tipo = newB->tipo;
-			grafo->mark = newB->mark;
 			grafo->fdir = newB->fdir;
 			grafo->fesq = newB->fesq;
 			//if(grafo->fesq){
@@ -1955,7 +1826,6 @@ void reduz_Tl(Celula *grafo){
 	}
 	else{
 		grafo->tipo = arg->tipo;
-		grafo->mark = arg->mark;
 		grafo->fdir = arg->fdir;
 		grafo->fesq = arg->fesq;
 		if(grafo->fesq){
@@ -1971,17 +1841,13 @@ void reduz_Tl(Celula *grafo){
 void reduz_Hd(Celula *grafo){
 	contar_argumentos(1,grafo);
 
-	//pop();//Desempilha H
-	pop_return();//Desempilha H
+	pop();//Desempilha H
 
 	//Pegando a raiz da lista enquanto o node pai da lista é desempilhado
-	//Celula *arg = eval(pilha[topo--]->fdir);
-	Celula *arg = eval(pop_return()->fdir); //avalia e atribui Arg
-
+	Celula *arg = eval(pilha[topo--]->fdir);
 
 	//Se o operador nao estiver sendo aplicado a uma lista vazia
 	if(arg->tipo ==  0xF0000016){
-		//topo--;
 		Celula *a = arg->fesq;
 
 		//Hd (:ab) -> a
@@ -1998,7 +1864,6 @@ void reduz_Hd(Celula *grafo){
 		}
 		else{
 			grafo->tipo = newA->tipo;
-			grafo->mark = newA->mark;
 			grafo->fdir = newA->fdir;
 			grafo->fesq = newA->fesq;
 			if(grafo->fesq){
@@ -2015,7 +1880,6 @@ void reduz_Hd(Celula *grafo){
 	}
 	else{
 		grafo->tipo = arg->tipo;
-		grafo->mark = arg->mark;
 		grafo->fdir = arg->fdir;
 		grafo->fesq = arg->fesq;
 		if(grafo->fesq){
@@ -2031,13 +1895,10 @@ void reduz_Hd(Celula *grafo){
  * */
 void reduz_MAP(Celula *grafo){
 	contar_argumentos(7,grafo);//Conta somente a nova célula do tipo : que será alocada
-	//pop();//Desempilha M
-	pop_return();//Desempilha M
+	pop();//Desempilha M
 
-	//Celula *function = pilha[topo--]->fdir;
-	//Celula *list = pilha[topo--]->fdir;
-	Celula *function = pop_return()->fdir;
-	Celula *list = pop_return()->fdir;
+	Celula *function = pilha[topo--]->fdir;
+	Celula *list = pilha[topo--]->fdir;
 
 	if(list->tipo != 0xF0000017){
 		char comb = ':';
@@ -2076,14 +1937,12 @@ void reduz_MAP(Celula *grafo){
 		}
 		else{
 			grafo->tipo = tipo_lista->tipo;
-			grafo->mark = tipo_lista->mark;
 			grafo->fesq = tipo_lista->fesq;
 			grafo->fdir = tipo_lista->fdir;
 		}
 	}
 	else{
 		grafo->tipo = list->tipo;
-		grafo->mark = list->mark;
 		grafo->fesq = list->fesq;
 		grafo->fdir = list->fdir;
 	}
@@ -2094,14 +1953,25 @@ void reduz_MAP(Celula *grafo){
  * Nodes do grafo em uso a partir da raiz fazendo uma busca em pré-ordem
  * */
 void mark(Celula *grafo){
-      if(grafo->mark!= 'G'){
-        grafo->mark = 'A';//A significa alocado
-        if(grafo->fesq != NULL)
-            mark(grafo->fesq);
+    grafo->mark = 'A';//A significa alocado
 
-        if(grafo->fdir != NULL)
-            mark(grafo->fdir);
-      }
+    if(grafo->fesq != NULL)
+        mark(grafo->fesq);
+
+    if(grafo->fdir != NULL)
+        mark(grafo->fdir);
+}
+
+/*Procedimento auxiliar para pegar o ultimo elemento da freelist caso haja algum
+ * */
+Celula* ultima_celula_free_list(){
+    Celula *retorno = fl;
+    if(retorno != NULL){
+        while(retorno->fdir){
+            retorno = retorno->fdir;
+        }
+    }
+    return retorno;
 }
 
 /*Procedimento efetua a execução do algoritmo de garbage collection
@@ -2111,7 +1981,7 @@ void mark_scan(Celula *grafo){
 	printf("O mark-scan estah sendo executado \n");
 	mark(grafo);
 	//int isFirstElement = 1;
-	Celula *ptr = fl;
+	Celula *ptr = ultima_celula_free_list();
 	//Scan
 	for(int i = 0; i < H; i++){
 		if(heap[i].mark == 'G'){//Onde G significa Garbage
@@ -2133,6 +2003,7 @@ void mark_scan(Celula *grafo){
 				ptr->fdir = NULL;
 			}
 		}
+		heap[i].mark = '\0';
 	}
 	printf("O mark-scan terminou sua execucao\n");
 }
@@ -2244,6 +2115,7 @@ Celula * eval(Celula *grafo){
 		/**/t_eval = antigo_t_eval;//
 		/**/topo = antigo_topo;	   //
 		//==========================
+		grafo->mark = 'G';
 		return grafo;
 	}
 	else{
@@ -2368,8 +2240,6 @@ int main(){
 	double b = (double) tic;
 
 	if(grafo != NULL){
-		//printf("\n%c\n",converte_celula_caractere(grafo->tipo));
-		//printf("\n%d\n",grafo->tipo);
 		printf("\n");
 		imprime_grafo_para_string(grafo);
 	}
