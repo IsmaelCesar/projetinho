@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include <time.h>
 
-#define N 10000000
-//#define N 250
+//#define N 10000000
+#define N 250
 #define H 10000000
+#define H 12
 //#define H 52800000
 //#define H 59000000//fib 23 (Estatico)
 //#define H 2300000
@@ -18,10 +19,12 @@
 //fatorial
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K=)I)(K0))(K1))))(S(K(S(S(K+)I)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0";//fab1 (KSI)
 //char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
-char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
+//char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
+//Testes GC
+char string[N]   = "KI(KIK)K\0";
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -109,7 +112,6 @@ void aloca_freelist(){
 Celula *aloca_espaco(){
 	Celula *retorno;
 	retorno = fl;
-	retorno->mark = 'A'; //Marcando o espaco como alocado no momento em que é alocado
 	if(fl != NULL){
 		fl = fl->fdir;
 	}
@@ -117,7 +119,7 @@ Celula *aloca_espaco(){
 		printf("\n #############################\n\n\tHeap Cheia!\n\n#############################\n");
 		exit(0);
 	}
-
+    retorno->fdir = NULL;  //Evitando que o ponteiro retornado aponte com o filho da direita para a free_list
 	return retorno;
 }
 
@@ -392,6 +394,7 @@ void contar_argumentos(int cont,Celula *grafo){
 		}
 		else{
 			mark_scan(grafo);
+			aux = fl;
 			/*
 			printf("\n####################################\n");
 			printf("Nao ha elementos suficientes na freelist\n");
@@ -407,13 +410,15 @@ void contar_argumentos(int cont,Celula *grafo){
  * */
 void desaloca_subarvore(Celula *sub_arvore){
 
-    sub_arvore->mark = 'G'; // G significa garbage
-	if(sub_arvore->fesq != NULL){
-		desaloca_subarvore(sub_arvore->fesq);
-	}
-	if(sub_arvore->fdir != NULL){
-		desaloca_subarvore(sub_arvore->fdir);
-	}
+    if(sub_arvore->mark != 'G'){
+        sub_arvore->mark = 'G'; // G significa garbage
+	    if(sub_arvore->fesq != NULL){
+		    desaloca_subarvore(sub_arvore->fesq);
+	    }
+	    if(sub_arvore->fdir != NULL){
+		    desaloca_subarvore(sub_arvore->fdir);
+	    }
+    }
 
 }
 
@@ -764,16 +769,18 @@ void reduz_K(Celula *grafo){
 
 	contar_argumentos(1,grafo);
 	//pop();//Desempilha K
+    //pilha[topo--]->mark = 'G';//Desempilha K
 	pop_return();//Desempilha K
 
 	//Buscando argumentos
 	//Celula *a  = pilha[topo--]->fdir;
+    //Celula *b  = pilha[topo--]->fdir;
+    //a->mark = 'G';
 	Celula *a  = pop_return()->fdir;
-	//pop();// Desenpilha a
-    //pop();// Desempilha b
-	//desaloca_subarvore(pop_return()->fdir);//Desempilha o pai de B e desaloca a subarvore B
-	Celula *b = pop_return();//pop_return();
-	desaloca_subarvore(b);
+    a->mark = 'G';
+    Celula *b = pop_return()->fdir;
+
+    desaloca_subarvore(b);
 	Celula *pai = NULL;
 
 	//K a b -> a
@@ -835,7 +842,6 @@ void reduz_S(Celula *grafo){
 	Celula *newC1 = aloca_espaco();
 	Celula *newC2 = aloca_espaco();
 
-
 	newA->tipo = a->tipo;
 	newA->fdir = a->fdir;
 	newA->fesq = a->fesq;
@@ -877,7 +883,7 @@ void reduz_S(Celula *grafo){
 	empilha_filho_esquerda(aplicacaoFesq);
 
 	if(pai != NULL){
-			pai->fesq = aplicacaoPai;
+	    pai->fesq = aplicacaoPai;
 	}
 	else{
 		grafo->tipo = aplicacaoPai->tipo;
@@ -896,12 +902,14 @@ void reduz_I(Celula *grafo){
 	contar_argumentos(1,grafo);
 	//pop();//Desempilha I
 	pop_return();//Desempilha I
+	//pilha[topo--]->mark = 'G';//Desempilha I
 
 	//Busca argumentos
 	//Celula *a = topo->dado->fdir;
 	//pop(); //Desempilha a
 	//Celula *a = pilha[topo--]->fdir;
 	Celula *a = pop_return()->fdir;
+    a->mark = 'G';
 
 	Celula *pai = NULL;
 
@@ -1554,10 +1562,10 @@ void reduz_TRUE(Celula *grafo){
 
 	//Celula *a = eval(pilha[topo--]->fdir);
 	Celula *a = eval(pop_return()->fdir); //avalia e atribui A
-	//Celula *a = pilha[topo--]->fdir;
-	//pop();//Desempilha B
-	//desaloca_subarvore(pop_return()->fdir);//Desempilha B
-	Celula *b = pop_return();//pop_return();
+	//a->mark   = 'G';
+
+	Celula *b = pop_return()->fdir;
+    //Celula *b = pilha[topo--]->fdir;
 	desaloca_subarvore(b);
 
 	//alocacao de espaco
@@ -1591,10 +1599,10 @@ void reduz_TRUE(Celula *grafo){
 void reduz_FALSE(Celula *grafo){
 	contar_argumentos(2,grafo);
 	//pop();//Desempilha FALSE
-	pop_return();//Desempilha False
-	//pop();//Desempilha A
+	pop_return();//Desempilha FALSE
+
 	//pop_return();//Desempilha A
-	Celula *a = pop_return();//pop_return();
+	Celula *a = pop_return()->fdir;//pop_return();
 	desaloca_subarvore(a);
 	//=====================================
 	Celula *b = eval(pop_return()->fdir);
@@ -2086,12 +2094,14 @@ void reduz_MAP(Celula *grafo){
  * Nodes do grafo em uso a partir da raiz fazendo uma busca em pré-ordem
  * */
 void mark(Celula *grafo){
-	grafo->mark = 'A';//A significa alocado
-	if(grafo->fesq != NULL)
-		mark(grafo->fesq);
+      if(grafo->mark!= 'G'){
+        grafo->mark = 'A';//A significa alocado
+        if(grafo->fesq != NULL)
+            mark(grafo->fesq);
 
-	if(grafo->fdir != NULL)
-		mark(grafo->fdir);
+        if(grafo->fdir != NULL)
+            mark(grafo->fdir);
+      }
 }
 
 /*Procedimento efetua a execução do algoritmo de garbage collection
@@ -2106,11 +2116,12 @@ void mark_scan(Celula *grafo){
 	for(int i = 0; i < H; i++){
 		if(heap[i].mark == 'G'){//Onde G significa Garbage
 			if(ptr != NULL){
+                ptr->fdir = &heap[i];
+                ptr = ptr->fdir;
 				ptr->tipo = 0;
 				ptr->mark = '\0';
 				ptr->fesq = NULL;
-				ptr->fdir = &heap[i];
-				ptr = ptr->fdir;
+				ptr->fdir = NULL;
 			}
 			else{
 				//Se a free list for nula então trata-se do primeiro elemento
@@ -2121,7 +2132,6 @@ void mark_scan(Celula *grafo){
 				ptr->fesq = NULL;
 				ptr->fdir = NULL;
 			}
-
 		}
 	}
 	printf("O mark-scan terminou sua execucao\n");
