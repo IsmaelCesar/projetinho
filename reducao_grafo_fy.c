@@ -731,8 +731,7 @@ void empilha_grafo(Celula *grafo){
 /*Procedimento efetua a reducao do combinador K segundo a regra
  * K a b -> A
  * */
-//void reduz_K(Celula *grafo){
-void reduz_K(){
+void reduz_K(Celula *grafo){
     pop();//Desempilha K
     //pilha[topo--]->mark = 'G';//Desempilha K
     //pop_return();//Desempilha K
@@ -1232,8 +1231,7 @@ Celula * eval(Celula *grafo);
  * + a b = (eval a) + (eval b)
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
-//void reduz_SOMA(Celula *grafo){
-void reduz_SOMA(){
+void reduz_SOMA(Celula *grafo){
     pop();//desempilha +
 
     //Busca argumento
@@ -1277,8 +1275,7 @@ void reduz_SOMA(){
  * - a b = (eval a) - (eval b)
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
-//void reduz_SUB(Celula *grafo){
-void reduz_SUB(){
+void reduz_SUB(Celula *grafo){
     pop();//desempilha -
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
@@ -2011,8 +2008,7 @@ Celula * eval(Celula *sub_grafo){
             switch(pilha[topo]->tipo){
                 //case'K':
                 case 0xF0000000:
-                    //reduz_K(sub_grafo);
-                    reduz_K();
+                    reduz_K(sub_grafo);
                     break;
                     //case 'S':
                 case 0xF0000001:
@@ -2043,12 +2039,10 @@ Celula * eval(Celula *sub_grafo){
                     reduz_F(sub_grafo);
                     break;
                 case 0xF0000009:
-                    //reduz_SOMA(sub_grafo);
-                    reduz_SOMA();
+                    reduz_SOMA(sub_grafo);
                     break;
                 case 0xF000000A:
-                    //reduz_SUB(sub_grafo);
-                    reduz_SUB();
+                    reduz_SUB(sub_grafo);
                     break;
                 case 0xF000000B:
                     reduz_MULT(sub_grafo);
@@ -2148,8 +2142,7 @@ int main(){
         switch(pilha[topo]->tipo){
             //case'K':
             case 0xF0000000:
-                //reduz_K(grafo);
-                reduz_K();
+                reduz_K(grafo);
                 break;
                 //case 'S':
             case 0xF0000001:
@@ -2180,12 +2173,10 @@ int main(){
                 reduz_F(grafo);
                 break;
             case 0xF0000009:
-                //reduz_SOMA(grafo);
-                reduz_SOMA();
+                reduz_SOMA(grafo);
                 break;
             case 0xF000000A:
-                //reduz_SUB(grafo);
-                reduz_SUB();
+                reduz_SUB(grafo);
                 break;
             case 0xF000000B:
                 reduz_MULT(grafo);
