@@ -6,7 +6,7 @@
 #define N 250
 //#define H 10000000
 //#define H 1000
-#define H 27
+#define H 34
 //#define H 52800000
 //#define H 59000000//fib 23 (Estatico)
 //#define H 23000000
@@ -34,8 +34,8 @@
 //Criando combinador para map
 //char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
 //Strings de testes para fenechey yocherson
-char string[N] = "K+K(K2K)(+(K1K)(K1K))\0";
-
+//char string[N] = "K+K(K2K)(+(K1K)(K1K))\0";
+char string[N] = "K+K(-(K2K)(K1K))(-(K2K)(K1K))\0";//32 nodes para string
 
 typedef struct  Celula{
     int tipo;
@@ -738,7 +738,7 @@ void reduz_K(Celula *grafo){
 
     //Buscando argumentos
     Celula *a  = pilha[topo--]->fdir;
-    Celula *b  = pilha[topo--]->fdir;
+    pop();
 
     Celula *pai = NULL;
 
@@ -1282,6 +1282,12 @@ void reduz_SUB(Celula *grafo){
     pop();
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
+    if(grafo->fp){
+        grafo->tipo = grafo->fp->tipo;
+        grafo->fesq = grafo->fp->fesq;
+        grafo->fdir = grafo->fp->fdir;
+        grafo->fp = grafo->fp->fp;
+    }
 
     //Aloca dados
     Celula *result  = aloca_espaco();
@@ -1939,19 +1945,20 @@ Celula *retorna_raiz_heap_atual(){
 //Utilizando o algoritmo de busca em profundidade
 Celula* copia(Celula *node){
     //Celula *curent_hp = heap_p;
-    if(!node->fp){
+    //if(!node->fp){
         //troca_node(node);
         heap_p->tipo = node->tipo;
+        heap_p->fp = NULL;
         node->fp = heap_p++;
+        node->fp->fesq  = NULL;
+        node->fp->fdir  = NULL;
         free_cels--;
-    }
+    //}
     if(node->fesq){
-        if(node->fp)
-            node->fp->fesq = copia(node->fesq);
+        node->fp->fesq = copia(node->fesq);
     }
     if(node->fdir){
-        if(node->fp)
-            node->fp->fdir = copia(node->fdir);
+        node->fp->fdir = copia(node->fdir);
     }
     return node->fp;//Retorna a posição do node na nova heap
 }
@@ -1961,6 +1968,7 @@ void fenichel_yochelson(){
     troca_heap();
     //Efetua copia do grafo a partir da raiz
     grafo = copia(grafo);//Apos copiada o endereço da nova raiz é retornado para o grafo
+    //grafo = parcial;
     //grafo = retorna_raiz_heap_atual();//Apos copiada o endereço da nova raiz é retornado para o grafo
     topo=-1;//Zerando o topo
     empilha_grafo(grafo);//Reempilhando o grafo
@@ -1974,23 +1982,22 @@ void verifica_numero_celulas_livres(){
     if(free_cels < MAX_CELS){
         fenichel_yochelson();
         chamadas_ao_gc++;
-        topo--;
     }
 }
 
 
 /*Procedimento auxiliar para efetuar a  avalia��o de subarvore de um operador
  * */
-Celula * eval(Celula *grafo){
+Celula * eval(Celula *sub_grafo){
 
-    if(grafo->tipo == 0xF0000008){
+    if(sub_grafo->tipo == 0xF0000008){
         int antigo_t_eval = t_eval;
         int antigo_topo = topo;
         // GAMBIARRA! NÃO MEXER!!!=
         /**/topo = topo+1;       //
         /**/t_eval = topo+1;	 //
         //=========================
-        empilha_grafo(grafo);
+        empilha_grafo(sub_grafo);
         //while(topo != NULL){
         while(topo >= t_eval){
             //if(free_cels <= 10){
@@ -2001,88 +2008,88 @@ Celula * eval(Celula *grafo){
             switch(pilha[topo]->tipo){
                 //case'K':
                 case 0xF0000000:
-                    reduz_K(grafo);
+                    reduz_K(sub_grafo);
                     break;
                     //case 'S':
                 case 0xF0000001:
-                    reduz_S(grafo);
+                    reduz_S(sub_grafo);
                     break;
                     //case 'I':
                 case 0xF0000002:
-                    reduz_I(grafo);
+                    reduz_I(sub_grafo);
                     break;
                     //case 'B':
                 case 0xF0000003:
-                    reduz_B(grafo);
+                    reduz_B(sub_grafo);
                     break;
                     //case 'C':
                 case 0xF0000004:
-                    reduz_C(grafo);
+                    reduz_C(sub_grafo);
                     break;
                     //case 'D':
                 case 0xF0000005:
-                    reduz_D(grafo);
+                    reduz_D(sub_grafo);
                     break;
                     //case 'E':
                 case 0xF0000006:
-                    reduz_E(grafo);
+                    reduz_E(sub_grafo);
                     break;
                     //case 'F':
                 case 0xF0000007:
-                    reduz_F(grafo);
+                    reduz_F(sub_grafo);
                     break;
                 case 0xF0000009:
-                    reduz_SOMA(grafo);
+                    reduz_SOMA(sub_grafo);
                     break;
                 case 0xF000000A:
-                    reduz_SUB(grafo);
+                    reduz_SUB(sub_grafo);
                     break;
                 case 0xF000000B:
-                    reduz_MULT(grafo);
+                    reduz_MULT(sub_grafo);
                     break;
                 case 0xF000000C:
-                    reduz_DIV(grafo);
+                    reduz_DIV(sub_grafo);
                     break;
                 case 0xF000000D:
-                    reduz_TRUE(grafo);
+                    reduz_TRUE(sub_grafo);
                     break;
                 case 0xF000000E:
-                    reduz_FALSE(grafo);
+                    reduz_FALSE(sub_grafo);
                     break;
                 case 0xF0000010:// >
-                    reduz_GT(grafo);
+                    reduz_GT(sub_grafo);
                     break;
                 case 0xF0000011:// <
-                    reduz_LT(grafo);
+                    reduz_LT(sub_grafo);
                     break;
                 case 0xF0000012:// =
-                    reduz_EQ(grafo);
+                    reduz_EQ(sub_grafo);
                     break;
                 case 0xF0000013:// &
-                    reduz_AND(grafo);
+                    reduz_AND(sub_grafo);
                     break;
                 case 0xF0000014:// |
-                    reduz_OR(grafo);
+                    reduz_OR(sub_grafo);
                     break;
                     //Operador de turner Y
                 case 0xF0000015:
                     //reduz_Y(grafo);
-                    knot_tiening(grafo);
+                    knot_tiening(sub_grafo);
                     break;
                     //Case Tl
                 case 0xF0000018:
-                    reduz_Tl(grafo);
+                    reduz_Tl(sub_grafo);
                     break;
                     //Case Hd
                 case 0xF0000019:
-                    reduz_Hd(grafo);
+                    reduz_Hd(sub_grafo);
                     break;
                     //Operadores adicionados a posteriori
                 case 0xF000001C:
-                    reduz_POW(grafo);
+                    reduz_POW(sub_grafo);
                     break;
                 case 0xF000001D:
-                    reduz_MAP(grafo);
+                    reduz_MAP(sub_grafo);
                     break;
             }
         }
@@ -2091,12 +2098,12 @@ Celula * eval(Celula *grafo){
         /**/topo = antigo_topo;	   //
         //==========================
         verifica_numero_celulas_livres();
-        if(grafo->fp)
-            grafo = grafo->fp;
-        return grafo;
+        if(sub_grafo->fp)
+            sub_grafo = sub_grafo->fp;
+        return sub_grafo;
     }
     else{
-        return grafo;
+        return sub_grafo;
     }
 }
 
@@ -2119,8 +2126,6 @@ int main(){
     //heap = calloc(H,sizeof(Celula));
     heap_p = heap_1;//Inicializando heappointer com a primeira heap
     double clk_ps = (double)  CLOCKS_PER_SEC;
-    //Celula *grafo = cria_grafo(string);
-    //Celula *grafo = cria_lista(string);
     grafo = cria_grafo(string);
     clock_t tic = clock();
     double t_compilacao = (double)((tic - toc)/clk_ps) ;
@@ -2134,7 +2139,6 @@ int main(){
     empilha_grafo(grafo);
     while(topo >= 0){
         verifica_numero_celulas_livres();
-        //switch(topo->dado->tipo){
         switch(pilha[topo]->tipo){
             //case'K':
             case 0xF0000000:
