@@ -4,12 +4,12 @@
 
 //#define N 10000000
 #define N 250
-//#define H 10000000
+#define H 10000000
 //#define H 1000
 //#define H 12
 //#define H 52800000
 //#define H 59000000//fib 23 (Estatico)
-#define H 23000000
+//#define H 23000000
 #define P 10000
 #define MAX_CELS 10
 
@@ -23,7 +23,7 @@
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
-char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))30\0"; //25fib2 (TURNER)
+char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -2083,6 +2083,17 @@ Celula * eval(Celula *grafo){
 	}
 }
 
+double calcula_tempo(double compilacao,double reducao){
+	double result = compilacao+reducao;
+	if(result >= 60){//Minutos
+		result /= 60;
+		if(result >= 60){//hora
+			result/=60;
+		}
+	}
+	return result;
+}
+
 int main(){
 	/**
 	 * Criação e alocaçao do grafo.
@@ -2095,8 +2106,9 @@ int main(){
 	//Celula *grafo = cria_lista(string);
 	grafo = cria_grafo(string);
 	clock_t tic = clock();
+	double t_compilacao = (double)((tic - toc)/clk_ps) ;
 	printf("\n");
-	printf("Tempo Criação do grafo = %lf\n", (double)((tic - toc)/clk_ps));
+	printf("Tempo Criação do grafo = %lf\n",t_compilacao);
 	//printf("%ld",sizeof(Celula));
 	int iterations  = 0;
 	toc = clock();
@@ -2202,8 +2214,9 @@ int main(){
 		printf("\n");
 		imprime_grafo_para_string(grafo);
 	}
-	printf("\n");
-	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
+	double t_reducao = (double)((b - a)/clk_ps);
+	printf("\nTempo Redução grafo = %lf",t_reducao);
+	printf("\nTempo total = %lf", calcula_tempo(t_compilacao,t_reducao));
 	printf("\nNumero de iterações = %d\n",iterations);
     printf("Numero de chamadas ao GC %d\n",chamadas_ao_gc);
 	return 0;
