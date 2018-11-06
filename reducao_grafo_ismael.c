@@ -2083,6 +2083,17 @@ Celula * eval(Celula *grafo){
 	}
 }
 
+double calcula_tempo(double compilacao,double reducao){
+	double result = compilacao+reducao;
+	if(result >= 60){//Minutos
+		result /= 60;
+		if(result >= 60){//hora
+			result/=60;
+		}
+	}
+	return result;
+}
+
 int main(){
 	/**
 	 * Criação e alocaçao do grafo.
@@ -2095,8 +2106,9 @@ int main(){
 	//Celula *grafo = cria_lista(string);
 	grafo = cria_grafo(string);
 	clock_t tic = clock();
+	double t_compilacao = (double)((tic - toc)/clk_ps) ;
 	printf("\n");
-	printf("Tempo Criação do grafo = %lf\n", (double)((tic - toc)/clk_ps));
+	printf("Tempo Criação do grafo = %lf\n",t_compilacao);
 	//printf("%ld",sizeof(Celula));
 	int iterations  = 0;
 	toc = clock();
@@ -2202,8 +2214,9 @@ int main(){
 		printf("\n");
 		imprime_grafo_para_string(grafo);
 	}
-	printf("\n");
-	printf("Tempo Redução grafo = %lf", (double)((b - a)/clk_ps));
+	double t_reducao = (double)((b - a)/clk_ps);
+	printf("\nTempo Redução grafo = %lf",t_reducao);
+	printf("\nTempo total = %lf", calcula_tempo(t_compilacao,t_reducao));
 	printf("\nNumero de iterações = %d\n",iterations);
     printf("Numero de chamadas ao GC %d\n",chamadas_ao_gc);
 	return 0;
