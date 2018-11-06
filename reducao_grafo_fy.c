@@ -1998,13 +1998,8 @@ Celula * eval(Celula *sub_grafo){
         /**/t_eval = topo+1;	 //
         //=========================
         empilha_grafo(sub_grafo);
-        //while(topo != NULL){
         while(topo >= t_eval){
-            //if(free_cels <= 10){
-            //printf("\0");
-            //}
             verifica_numero_celulas_livres();
-            //switch(topo->dado->tipo){
             switch(pilha[topo]->tipo){
                 //case'K':
                 case 0xF0000000:
