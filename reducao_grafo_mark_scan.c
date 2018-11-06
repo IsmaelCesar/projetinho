@@ -47,6 +47,7 @@ typedef struct  Celula{
 
 //Celula heap[H];
 Celula *heap;
+
 //      Alocacao de dados
 Celula *fl;
 // Raiz do grafo
@@ -1958,32 +1959,15 @@ void mark_scan(){
 }
 
 
-
-//Declaracao do método auxiliar para a selecao dos algoritmos de GC
-void opc_algoritmo_gc(int opc);
-
 /*Procedimento auxiliar para verificar se o número de células livres
  * é menor que o número máximo de células.
  * */
 void verifica_numero_celulas_livres(){
     if(free_cels < MAX_CELS){
-        opc_algoritmo_gc(1);
+        mark_scan()
     }
 }
 
-/*Metodo auxiliar para a selecao de qual algoritmo de garbage collection
- *sera executado.
- * */
-void opc_algoritmo_gc(int opc){
-	switch (opc){
-		case 1:
-			mark_scan();
-			break;
-		case 2:
-			printf("\nSem fenechey e yocehlson ainda \n");
-			break;
-	}
-}
 
 /*Procedimento auxiliar para efetuar a  avalia��o de subarvore de um operador
  * */
