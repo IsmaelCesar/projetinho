@@ -24,8 +24,8 @@
 //char string[N] = "S(C(F=I0)1)(D+I(B(Y(ES(FI(F=I0)1)(E(D+)I(FBI(F-I1)))))(F-I1)))20\0";//fab2
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
-char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //22fib1 (SKI)
-//char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
+//char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //22fib1 (SKI)
+char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //25fib2 (TURNER)
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -48,10 +48,19 @@ typedef struct  Celula{
 }Celula;
 
 
-//Celula *heap_1;
-//Celula *heap_2;
-Celula heap_1[H];
-Celula heap_2[H];
+//Contador para o numero de celulas livres
+int free_cels = H;
+//Celula heap_1[H];
+//Celula heap_2[H];
+Celula *heap_1;
+Celula *heap_2;
+/*Método auxiliar para inicializar as duas heaps 
+*utilizando chamadsa de alocacão dinâmica
+*/
+void init_dinamico(){
+    heap_1  = calloc(free_cels,sizeof(Celula));
+    heap_2  = calloc(free_cels,sizeof(Celula));
+}
 
 //      Alocacao de dados
 Celula *heap_p;//pointer
@@ -59,8 +68,6 @@ int heap_atual = 1;
 
 // Raiz do grafo
 Celula *grafo;
-//contador para o numero de células livres
-int free_cels = H;
 int chamadas_ao_gc = 0;
 /*Estrutura auxiliar para empilhar as celulas
  * */
@@ -2162,7 +2169,7 @@ int main(){
      * Criação e alocaçao do grafo.
      * */
     clock_t toc = clock();
-    //heap = calloc(H,sizeof(Celula));
+    init_dinamico();
     heap_p = heap_1;//Inicializando heappointer com a primeira heap
     double clk_ps = (double)  CLOCKS_PER_SEC;
     grafo = cria_grafo(string);
