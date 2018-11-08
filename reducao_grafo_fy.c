@@ -1501,7 +1501,7 @@ void reduz_FALSE(Celula *grafo){
  * > segundo a regra
  * > a b -> (eval a) > (eval b)
  */
-void reduz_GT(Celula *grafo){
+void reduz_GT(Celula *m_grafo){
     pop();
 
     Celula *a = eval(pilha[topo--]->fdir);
@@ -1532,11 +1532,11 @@ void reduz_GT(Celula *grafo){
         empilha_filho_esquerda(result);
     }
     else{
-        grafo->tipo = result->tipo;
-        grafo->fdir = result->fdir;
-        grafo->fesq = result->fesq;
-        if(grafo->fesq){
-            empilha_filho_esquerda(grafo);
+        m_grafo->tipo = result->tipo;
+        m_grafo->fdir = result->fdir;
+        m_grafo->fesq = result->fesq;
+        if(m_grafo->fesq){
+            empilha_filho_esquerda(m_grafo);
         }
     }
 }
@@ -1545,7 +1545,7 @@ void reduz_GT(Celula *grafo){
  * < segundo a regra
  * < a b -> (eval a) < (eval b)
  */
-void reduz_LT(Celula *grafo){
+void reduz_LT(Celula *m_grafo){
     pop();
 
     Celula *a = eval(pilha[topo--]->fdir);
@@ -1576,11 +1576,11 @@ void reduz_LT(Celula *grafo){
         empilha_filho_esquerda(result);
     }
     else{
-        grafo->tipo = result->tipo;
-        grafo->fdir = result->fdir;
-        grafo->fesq = result->fesq;
-        if(grafo->fesq){
-            empilha_filho_esquerda(grafo);
+        m_grafo->tipo = result->tipo;
+        m_grafo->fdir = result->fdir;
+        m_grafo->fesq = result->fesq;
+        if(m_grafo->fesq){
+            empilha_filho_esquerda(m_grafo);
         }
     }
 }
@@ -1589,7 +1589,7 @@ void reduz_LT(Celula *grafo){
  * = segundo a regra
  * = a b -> (eval a) = (eval b)
  */
-void reduz_EQ(Celula *grafo){
+void reduz_EQ(Celula *m_grafo){
     pop();//Desempilha =
 
     Celula *a = eval(pilha[topo--]->fdir);
@@ -1620,11 +1620,11 @@ void reduz_EQ(Celula *grafo){
         empilha_filho_esquerda(result);
     }
     else{
-        grafo->tipo = result->tipo;
-        grafo->fdir = result->fdir;
-        grafo->fesq = result->fesq;
-        if(grafo->fesq){
-            empilha_filho_esquerda(grafo);
+        m_grafo->tipo = result->tipo;
+        m_grafo->fdir = result->fdir;
+        m_grafo->fesq = result->fesq;
+        if(m_grafo->fesq){
+            empilha_filho_esquerda(m_grafo);
         }
     }
 }
