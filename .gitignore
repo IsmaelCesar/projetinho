@@ -7,7 +7,7 @@ graph_redux.exe
 main.exe
 reducao_grafo_ismael.exe
 gmon.out
-/cmake-buid*/*
+cmake-buid*
 CMakeLists.txt
 .idea/
 main
