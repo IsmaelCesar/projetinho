@@ -9,5 +9,5 @@ reducao_grafo_ismael.exe
 gmon.out
 /cmake-buid*/*
 CMakeLists.txt
-
+.idea/
 main
