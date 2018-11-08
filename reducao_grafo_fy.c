@@ -720,8 +720,8 @@ void imprime_grafo(Celula *cel){
 /*Procedimento empilha celulas das de a raiz ate o elemento mais externo mais
  * a esquerda
  * */
-void empilha_grafo(Celula *grafo){
-    Celula *g = grafo;
+void empilha_grafo(Celula *m_grafo){
+    Celula *g = m_grafo;
     while(g != NULL){
         push(g);
         g = g->fesq;
@@ -733,7 +733,7 @@ void empilha_grafo(Celula *grafo){
 /*Procedimento efetua a reducao do combinador K segundo a regra
  * K a b -> A
  * */
-void reduz_K(Celula *grafo){
+void reduz_K(Celula *m_grafo){
     pop();//Desempilha K
     //pilha[topo--]->mark = 'G';//Desempilha K
     //pop_return();//Desempilha K
@@ -763,11 +763,11 @@ void reduz_K(Celula *grafo){
         //push(newA);
     }
     else{
-        grafo->tipo = newA->tipo;
-        grafo->fdir = newA->fdir;
-        grafo->fesq = newA->fesq;
-        if(grafo->fesq){
-            empilha_filho_esquerda(grafo);
+        m_grafo->tipo = newA->tipo;
+        m_grafo->fdir = newA->fdir;
+        m_grafo->fesq = newA->fesq;
+        if(m_grafo->fesq){
+            empilha_filho_esquerda(m_grafo);
         }
     }
 
@@ -776,7 +776,7 @@ void reduz_K(Celula *grafo){
 /*Procedimento efetua a reducao do combinador S segundo a regra
  * S a b c -> a c ( b c )
  * */
-void reduz_S(Celula *grafo){
+void reduz_S(Celula *m_grafo){
     pop();//Desempilha S
 
     Celula *a = pilha[topo--]->fdir;
@@ -837,9 +837,9 @@ void reduz_S(Celula *grafo){
         pai->fesq = aplicacaoPai;
     }
     else{
-        grafo->tipo = aplicacaoPai->tipo;
-        grafo->fdir = aplicacaoPai->fdir;
-        grafo->fesq = aplicacaoPai->fesq;
+        m_grafo->tipo = aplicacaoPai->tipo;
+        m_grafo->fdir = aplicacaoPai->fdir;
+        m_grafo->fesq = aplicacaoPai->fesq;
         //grafo = aplicacaoPai;
     }
 }
@@ -848,7 +848,7 @@ void reduz_S(Celula *grafo){
 /*Procedimento efetua a reduçao do combinador I no grafo segundo a regra
  *  I a -> a
  * */
-void reduz_I(Celula *grafo){
+void reduz_I(Celula *m_grafo){
     pop();//Desempilha I
 
     //Busca argumentos
@@ -875,11 +875,11 @@ void reduz_I(Celula *grafo){
         empilha_filho_esquerda(newA);
     }
     else{
-        grafo->tipo = newA->tipo;
-        grafo->fesq	 = newA->fesq;
-        grafo->fdir = newA->fdir;
-        if(grafo->fesq){
-            empilha_filho_esquerda(grafo);
+        m_grafo->tipo = newA->tipo;
+        m_grafo->fesq	 = newA->fesq;
+        m_grafo->fdir = newA->fdir;
+        if(m_grafo->fesq){
+            empilha_filho_esquerda(m_grafo);
         }
     }
 }
@@ -889,7 +889,7 @@ void reduz_I(Celula *grafo){
  *  a regra:
  * B f g x -> f ( g  x)
  * */
-void reduz_B(Celula *grafo){
+void reduz_B(Celula *m_grafo){
     pop();//Desempilha B
 
     //busca argumentos
@@ -925,9 +925,9 @@ void reduz_B(Celula *grafo){
         pai->fesq = ap_pai;
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
     }
 
 }
@@ -936,7 +936,7 @@ void reduz_B(Celula *grafo){
  *  a regra:
  * C f g x -> f x g
  * */
-void reduz_C(Celula *grafo){
+void reduz_C(Celula *m_grafo){
     pop();//Desempilha C
 
     //Busca argumentos
@@ -970,9 +970,9 @@ void reduz_C(Celula *grafo){
         pai->fesq = ap_pai;
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
     }
 
 }
@@ -982,7 +982,7 @@ void reduz_C(Celula *grafo){
  *  a regra:
  * D c f g x -> c(f x)( g x)
  * */
-void reduz_D(Celula *grafo){
+void reduz_D(Celula *m_grafo){
     pop();//Desempilha D
 
     //Busca argumentos
@@ -1029,9 +1029,9 @@ void reduz_D(Celula *grafo){
         pai->fesq = ap_pai;
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
     }
 
 }
@@ -1040,7 +1040,7 @@ void reduz_D(Celula *grafo){
  *  a regra:
  * E c f g x -> c f (g x)
  * */
-void reduz_E(Celula *grafo){
+void reduz_E(Celula *m_grafo){
     pop();//Desempilha E
 
     //Busca argumentos
@@ -1083,9 +1083,9 @@ void reduz_E(Celula *grafo){
         pai->fesq = ap_pai;
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
     }
 }
 
@@ -1093,7 +1093,7 @@ void reduz_E(Celula *grafo){
  *  a regra:
  * F c f g x -> c (f x ) g
  * */
-void reduz_F(Celula *grafo){
+void reduz_F(Celula *m_grafo){
     pop();//Desempilha F
 
     //Busca argumentos
@@ -1135,9 +1135,9 @@ void reduz_F(Celula *grafo){
         pai->fesq = ap_pai;
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
     }
 
 }
@@ -1146,7 +1146,7 @@ void reduz_F(Celula *grafo){
  * Segundo a regra
  * Y a -> a ( Y a )
  * */
-void reduz_Y(Celula *grafo){
+void reduz_Y(Celula *m_grafo){
     pop();//Desempilha Y
 
     //Busca argumentos
@@ -1176,10 +1176,10 @@ void reduz_Y(Celula *grafo){
         empilha_filho_esquerda(ap_pai);
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
-        empilha_filho_esquerda(grafo);
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
+        empilha_filho_esquerda(m_grafo);
     }
 
 }
@@ -1189,10 +1189,7 @@ void reduz_Y(Celula *grafo){
  * Y a -> a ( Y a )
  * Utilizando otmisacao com knot tiening
  * */
-void knot_tiening(Celula *grafo){
-    //contar_argumentos(2,grafo);
-    //contar_argumentos(2);
-    //verifica_numero_celulas_livres();
+void knot_tiening(Celula *m_grafo){
     pop();//Desempilha Y
     //Busca argumentos
     Celula *a = pilha[topo--]->fdir;
@@ -1216,51 +1213,36 @@ void knot_tiening(Celula *grafo){
         empilha_filho_esquerda(ap_pai);
     }
     else{
-        grafo->tipo = ap_pai->tipo;
-        grafo->fesq = ap_pai->fesq;
-        grafo->fdir = ap_pai->fdir;
-        empilha_filho_esquerda(grafo);
+        m_grafo->tipo = ap_pai->tipo;
+        m_grafo->fesq = ap_pai->fesq;
+        m_grafo->fdir = ap_pai->fdir;
+        empilha_filho_esquerda(m_grafo);
     }
 
 }
 
 // Operadores l�gicos aritm�ticos
 
-Celula * eval(Celula *grafo);
-
-/*Procedimento auxiliar para verificação se o grafo ou subgrafo avaliado tem
- * ou nao foward poiter
- * */
-Celula* checa_foward_ponter(Celula *m_grafo){
-    Celula *retorno = m_grafo;
-    if(m_grafo->fp){
-        //m_grafo->tipo = m_grafo->fp->tipo;
-        //m_grafo->fesq = m_grafo->fp->fesq;
-        //m_grafo->fdir = m_grafo->fp->fdir;
-        retorno = m_grafo->fp;
-    }
-    return retorno;
-}
+Celula * eval(Celula *m_grafo);
 
 //	Operadores aritm�ticos
 /*Procedimento efetua a redu��o do operador soma segundo a nota��o prefixa
  * + a b = (eval a) + (eval b)
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
-void reduz_SOMA(Celula *grafo){
+void reduz_SOMA(Celula *m_grafo){
     pop();//desempilha +
 
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
     pop();
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
-    if(grafo->fp){
-        grafo->tipo = grafo->fp->tipo;
-        grafo->fesq = grafo->fp->fesq;
-        grafo->fdir = grafo->fp->fdir;
-        grafo->fp = grafo->fp->fp;
-    }
+    if(!b)
+        return ;
 
     //Aloca dados
     Celula *result  = aloca_espaco();
@@ -1279,10 +1261,10 @@ void reduz_SOMA(Celula *grafo){
 
     }
     else{
-        grafo->tipo = result->tipo;
-        grafo->fp = result->fp;
-        grafo->fesq = result->fesq;
-        grafo->fdir = result->fdir;
+        m_grafo->tipo = result->tipo;
+        m_grafo->fp = result->fp;
+        m_grafo->fesq = result->fesq;
+        m_grafo->fdir = result->fdir;
     }
 }
 
@@ -1291,19 +1273,17 @@ void reduz_SOMA(Celula *grafo){
  * - a b = (eval a) - (eval b)
  * Onde eval � a redu��o da sub arvore do argumento do operador
  * */
-void reduz_SUB(Celula *grafo){
+void reduz_SUB(Celula *m_grafo){
     pop();//desempilha -
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
     pop();
+    if(!a)
+        return ;
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
-    if(grafo->fp){
-        grafo->tipo = grafo->fp->tipo;
-        grafo->fesq = grafo->fp->fesq;
-        grafo->fdir = grafo->fp->fdir;
-        grafo->fp = grafo->fp->fp;
-    }
+    if(!b)
+        return ;
 
     //Aloca dados
     Celula *result  = aloca_espaco();
@@ -1321,9 +1301,9 @@ void reduz_SUB(Celula *grafo){
         pai->fesq = result;
     }
     else{
-        grafo->tipo = result->tipo;
-        grafo->fesq = result->fesq;
-        grafo->fdir = result->fdir;
+        m_grafo->tipo = result->tipo;
+        m_grafo->fesq = result->fesq;
+        m_grafo->fdir = result->fdir;
     }
 }
 
@@ -1337,9 +1317,13 @@ void reduz_MULT(Celula *m_grafo){
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
     pop();
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
 
     //Aloca dados
     Celula *result  = aloca_espaco();
@@ -1386,9 +1370,14 @@ void reduz_POW(Celula *m_grafo){
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
     pop();
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
+
 
     //Aloca dados
     Celula *result  = aloca_espaco();
@@ -1421,9 +1410,14 @@ void reduz_DIV(Celula *m_grafo){
     //Busca argumento
     Celula *a = eval(pilha[topo]->fdir); //avalia e atribui A
     pop();
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo]->fdir); //avalia e atribui B
     pop();
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
+
     //Aloca dados
     Celula *result  = aloca_espaco();
     result->tipo = a->tipo / b->tipo;
@@ -1456,6 +1450,9 @@ void reduz_TRUE(Celula *m_grafo){
     pop();//Desempilha TRUE
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     pop();//desempilha b
     //m_grafo = checa_foward_ponter(m_grafo);
     if(m_grafo->fp){
@@ -1497,13 +1494,8 @@ void reduz_FALSE(Celula *m_grafo){
 
     pop();//Desempilha A
     Celula *b = eval(pilha[topo--]->fdir);//Desempilha B
-    //m_grafo = checa_foward_ponter(m_grafo);
-    if(m_grafo->fp){
-        //m_grafo->tipo = m_grafo->fp->tipo;
-        //m_grafo->fesq = m_grafo->fp->fesq;
-        //m_grafo->fdir = m_grafo->fp->fdir;
-        m_grafo = m_grafo->fp;
-    }
+    if(!b)
+        return ;
 
     //aloca espaco
     Celula *pai = NULL;
@@ -1536,14 +1528,13 @@ void reduz_GT(Celula *m_grafo){
     pop();
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo--]->fdir);
-    //m_grafo = checa_foward_ponter(m_grafo);
-    if(m_grafo->fp){
-        //m_grafo->tipo = m_grafo->fp->tipo;
-        //m_grafo->fesq = m_grafo->fp->fesq;
-        //m_grafo->fdir = m_grafo->fp->fdir;
-        m_grafo = m_grafo->fp;
-    }
+    if(!b)
+        return ;
+
 
     Celula *result = NULL;
     // > a b -> (eval a)>(eval b)
@@ -1587,7 +1578,12 @@ void reduz_LT(Celula *m_grafo){
     pop();
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo--]->fdir);
+    if(!b)
+        return ;
 
     Celula *result = NULL;
     // > a b -> (eval a)<(eval b)
@@ -1631,8 +1627,12 @@ void reduz_EQ(Celula *m_grafo){
     pop();//Desempilha =
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo--]->fdir);
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
 
     Celula *result = NULL;
     // = a b -> (eval a)=(eval b)
@@ -1676,8 +1676,12 @@ void reduz_AND(Celula *m_grafo){
     pop(); //Desempilha and
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo--]->fdir);
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
 
     // AND a b -> (eval a) AND (eval b)
     Celula *result = NULL;
@@ -1740,8 +1744,12 @@ void reduz_OR(Celula *m_grafo){
     pop(); //Desempilha B
 
     Celula *a = eval(pilha[topo--]->fdir);
+    if(!a)
+        return ;
+
     Celula *b = eval(pilha[topo--]->fdir);
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!b)
+        return ;
 
     // OR a b -> (eval a) OR (eval b)
     Celula *result = NULL;
@@ -1796,7 +1804,8 @@ void reduz_Tl(Celula *m_grafo){
 
     //Pegando a raiz da lista enquanto o node pai da lista é desempilhado
     Celula *arg = eval(pilha[topo--]->fdir);
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!arg)
+        return ;
 
     //Se o operador nao estiver sendo aplicado a uma lista vazia
     if(arg->tipo == 0xF0000016){
@@ -1846,7 +1855,8 @@ void reduz_Hd(Celula *m_grafo){
 
     //Pegando a raiz da lista enquanto o node pai da lista é desempilhado
     Celula *arg = eval(pilha[topo--]->fdir);
-    m_grafo = checa_foward_ponter(m_grafo);
+    if(!arg)
+        return ;
 
     //Se o operador nao estiver sendo aplicado a uma lista vazia
     if(arg->tipo ==  0xF0000016){
@@ -1907,8 +1917,10 @@ void reduz_MAP(Celula *m_grafo){
         Celula *ap  =cria_aplicacao();
         ap->fesq = function;
         ap->fdir = eval(list->fesq);
+        if(!ap->fdir)
+            return ;
+
         tipo_lista->fesq  = eval(ap);
-        m_grafo = checa_foward_ponter(m_grafo);
         //aplicando Tl a lista
         comb = 'G'; //tl
         Celula  *tl   = cria_combinador(&comb);
@@ -1916,7 +1928,11 @@ void reduz_MAP(Celula *m_grafo){
         ap_tl->fesq   = tl;
         ap_tl->fdir   = list;
         //Avalia a aplicacao de tl
+
         ap_tl  = eval(ap_tl);
+        if(!ap_tl)
+            return ;
+
         //Cria o combinador Map
         comb = 'M'; //MAp
         Celula  *map   = cria_combinador(&comb);
@@ -1928,7 +1944,11 @@ void reduz_MAP(Celula *m_grafo){
         ap_f_tl->fesq = ap_map;
         ap_f_tl->fdir = ap_tl; //Pega o resultado da avaliacao de ap tl;
         //avaliando a aplicacao do map a cauda da lista
+
         tipo_lista->fdir = eval(ap_f_tl);
+        if(!tipo_lista->fdir)
+            return ;
+
         Celula* pai = NULL;
         if(topo >= t_eval){
             pai = pilha[topo];
@@ -1951,15 +1971,6 @@ void reduz_MAP(Celula *m_grafo){
 }
 
 //			GARBAGE COLLECTION
-/*Método auxiliar para efetuar a troca do nó de uma heap para a outra
- * */
-void troca_node(Celula *node){
-    heap_p->tipo = node->tipo;
-    heap_p->fesq = node->fesq;
-    heap_p->fdir = node->fdir;
-
-    free_cels--;//Decrementa o numero de celulas livres da nova heap
-}
 
 //A copia é efetuada a partir da raiz
 //Utilizando o algoritmo de busca em profundidade
@@ -2023,7 +2034,9 @@ Celula * eval(Celula *sub_grafo){
         //=========================
         empilha_grafo(sub_grafo);
         while(topo >= t_eval){
-            verifica_numero_celulas_livres();
+            if(free_cels < MAX_CELS)
+                return NULL;
+
             if(free_cels==9941867)
                 printf("Aqui");
             switch(pilha[topo]->tipo){
@@ -2118,7 +2131,7 @@ Celula * eval(Celula *sub_grafo){
         /**/t_eval = antigo_t_eval;//
         /**/topo = antigo_topo;	   //
         //==========================
-        verifica_numero_celulas_livres();
+        //verifica_numero_celulas_livres();
         if(sub_grafo->fp)
             sub_grafo = sub_grafo->fp;
         return sub_grafo;
