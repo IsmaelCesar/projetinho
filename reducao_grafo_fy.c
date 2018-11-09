@@ -2067,17 +2067,36 @@ void copia_cheney(Celula *node){
     Celula *fila[size];
     //Enfileira nodes
     enfileira_node(fila,node,&fim,size);
-    //Celula *copiado= NULL;
+    Celula *copiado= NULL;
     while(inicio != fim){
-        //copiado = heap_p;
         copy_pointer = desenfileira_node(fila,&inicio,size);
         heap_p->tipo = copy_pointer->tipo;
         heap_p->fdir = copy_pointer->fdir;
         heap_p->fesq = copy_pointer->fesq;
         enfileira_node(fila,copy_pointer->fesq,&fim,size);
         enfileira_node(fila,copy_pointer->fdir,&fim,size);
+        copiado = heap_p;
         heap_p++;
         free_cels--;
+        if(copy_pointer->fesq && copy_pointer->fdir){
+           copy_pointer = desenfileira_node(fila,&inicio,size);
+            heap_p->tipo = copy_pointer->tipo;
+            heap_p->fdir = copy_pointer->fdir;
+            heap_p->fesq = copy_pointer->fesq;
+            copiado->fesq = heap_p++;
+            enfileira_node(fila,copy_pointer->fesq,&fim,size);
+
+            copy_pointer = desenfileira_node(fila,&inicio,size);
+            heap_p->tipo = copy_pointer->tipo;
+            heap_p->fdir = copy_pointer->fdir;
+            heap_p->fesq = copy_pointer->fesq;
+            copiado->fdir = heap_p++;
+            enfileira_node(fila,copy_pointer->fesq,&fim,size);
+
+            free_cels-=2;
+        }
+
+
     }
 }
 
