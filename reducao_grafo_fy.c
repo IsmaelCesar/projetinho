@@ -54,6 +54,7 @@ Celula heap_1[H];
 Celula heap_2[H];
 //Celula *heap_1;
 //Celula *heap_2;
+
 /*Método auxiliar para inicializar as duas heaps 
 *utilizando chamadsa de alocacão dinâmica
 */
@@ -2029,34 +2030,74 @@ void fenichel_yochelson(){
 }
 
 
+
 // CHENEY
+/*Procedimento auxiliar para enfileirar
+ * o node junto com seus filhos da direta e esquerda
+ * */
+void enfileira_node(Celula *fila[],Celula *node,int *i,int size){
+    if(node){
+        if(*i > size){
+            *i = -1;
+            fila[++(*i)] = node;
+        }
+        else{
+            fila[++(*i)] = node;
+        }
+    }
+}
+
+/*Procedimento auxiliar para desenfileirar um node na fila
+ * */
+Celula* desenfileira_node(Celula *fila[],int *i,int size){
+    Celula* retorno = NULL;
+    if(*i < size){
+         retorno  = fila[(*i)++];
+    }
+    else{
+        retorno  = fila[(*i)++];
+        *i = 0;
+    }
+    return retorno;
+}
+
 void copia_cheney(Celula *node){
     copy_pointer = node;
-    while(copy_pointer != NULL){
+    int  inicio = 0;
+    int  final = -1;
+    Celula *fila[10];
+    //Enfileira nodes
+    enfileira_node(fila,node,&final,10);
+    enfileira_node(fila,node->fesq,&final,10);
+    enfileira_node(fila,node->fdir,&final,10);
+    while(inicio != final){
+        copy_pointer = desenfileira_node(fila,&inicio,10);
         heap_p->tipo = copy_pointer->tipo;
         heap_p->fdir = copy_pointer->fdir;
         heap_p->fesq = copy_pointer->fesq;
-        copy_pointer = node->fesq;
         heap_p++;
         free_cels--;
-        if(copy_pointer){
+        if(inicio != final){
+            copy_pointer = desenfileira_node(fila,&inicio,10);
             heap_p->tipo = copy_pointer->tipo;
             heap_p->fesq = copy_pointer->fesq;
             heap_p->fdir = copy_pointer->fdir;
+            enfileira_node(fila,copy_pointer->fesq,&final,10);
+            enfileira_node(fila,copy_pointer->fdir,&final,10);
             heap_p++;
             free_cels--;
         }
-        copy_pointer = node->fdir;
-        if(copy_pointer){
+        if(inicio != final){
+            copy_pointer = desenfileira_node(fila,&inicio,10);
             heap_p->tipo = copy_pointer->tipo;
             heap_p->fesq = copy_pointer->fesq;
             heap_p->fdir = copy_pointer->fdir;
+            enfileira_node(fila,copy_pointer->fesq,&final,10);
+            enfileira_node(fila,copy_pointer->fdir,&final,10);
             heap_p++;
             free_cels--;
         }
-        copia_cheney(node->fesq);
-        copia_cheney(node->fdir);
-        copy_pointer = NULL;
+
     }
 }
 
