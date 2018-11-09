@@ -5,13 +5,11 @@
 //#define N 10000000
 #define N 250
 //#define H 10000000
-//#define H 1000
-#define H 45
-//#define H 35
-//#define H 52800000
+#define H 42
+//#define H 24
 //#define H 59000000//fib 23 (Estatico)
 //#define H 80000000
-#define P 1000
+#define P 10000
 //#define MAX_CELS 10
 #define MAX_CELS 1
 
@@ -25,7 +23,7 @@
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))30\0"; //22fib1 (SKI)
-//char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //25fib2 (TURNER)
+//char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))20\0"; //25fib2 (TURNER)
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -2069,41 +2067,23 @@ void copia_cheney(Celula *node){
     Celula *fila[10];
     //Enfileira nodes
     enfileira_node(fila,node,&final,10);
+    Celula *copiado= NULL;
     while(inicio != final){
+        copiado = heap_p;
         copy_pointer = desenfileira_node(fila,&inicio,size);
         heap_p->tipo = copy_pointer->tipo;
         heap_p->fdir = copy_pointer->fdir;
         heap_p->fesq = copy_pointer->fesq;
+
         enfileira_node(fila,copy_pointer->fesq,&final,size);
         enfileira_node(fila,copy_pointer->fdir,&final,size);
         heap_p++;
         free_cels--;
-        if(inicio != final){
-            copy_pointer = desenfileira_node(fila,&inicio,size);
-            heap_p->tipo = copy_pointer->tipo;
-            heap_p->fesq = copy_pointer->fesq;
-            heap_p->fdir = copy_pointer->fdir;
-            enfileira_node(fila,copy_pointer->fesq,&final,size);
-            enfileira_node(fila,copy_pointer->fdir,&final,size);
-            heap_p++;
-            free_cels--;
-        }
-        if(inicio != final){
-            copy_pointer = desenfileira_node(fila,&inicio,size);
-            heap_p->tipo = copy_pointer->tipo;
-            heap_p->fesq = copy_pointer->fesq;
-            heap_p->fdir = copy_pointer->fdir;
-            enfileira_node(fila,copy_pointer->fesq,&final,size);
-            enfileira_node(fila,copy_pointer->fdir,&final,size);
-            heap_p++;
-            free_cels--;
-        }
     }
 }
 
 void cheney(){
     troca_heap();
-    free_cels = H;
     copia_cheney(grafo);
     //Pegando raiz da heap apos efetuda a troca
     switch(heap_atual){
