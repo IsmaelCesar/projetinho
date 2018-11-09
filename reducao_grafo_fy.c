@@ -53,7 +53,7 @@ Celula heap_2[H];
 //Celula *heap_1;
 //Celula *heap_2;
 
-/*Método auxiliar para inicializar as duas heaps 
+/*Método auxiliar para inicializar as duas heaps
 *utilizando chamadsa de alocacão dinâmica
 */
 void init_dinamico(){
@@ -2062,21 +2062,20 @@ Celula* desenfileira_node(Celula *fila[],int *i,int size){
 void copia_cheney(Celula *node){
     copy_pointer = node;
     int  inicio = 0;
-    int  final = 0;
+    int  fim = 0;
     int  size  = 10;
-    Celula *fila[10];
+    Celula *fila[size];
     //Enfileira nodes
-    enfileira_node(fila,node,&final,10);
-    Celula *copiado= NULL;
-    while(inicio != final){
-        copiado = heap_p;
+    enfileira_node(fila,node,&fim,size);
+    //Celula *copiado= NULL;
+    while(inicio != fim){
+        //copiado = heap_p;
         copy_pointer = desenfileira_node(fila,&inicio,size);
         heap_p->tipo = copy_pointer->tipo;
         heap_p->fdir = copy_pointer->fdir;
         heap_p->fesq = copy_pointer->fesq;
-
-        enfileira_node(fila,copy_pointer->fesq,&final,size);
-        enfileira_node(fila,copy_pointer->fdir,&final,size);
+        enfileira_node(fila,copy_pointer->fesq,&fim,size);
+        enfileira_node(fila,copy_pointer->fdir,&fim,size);
         heap_p++;
         free_cels--;
     }
