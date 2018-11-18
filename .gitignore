@@ -11,3 +11,7 @@ cmake-buid*
 CMakeLists.txt
 .idea/
 main
+
+cmake-build-debug/
+
+cmake-build-debug_2/
