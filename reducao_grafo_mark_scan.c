@@ -8,9 +8,9 @@
 //#define H 1000
 //#define H 27
 //#define H 52800000
-//#define H 59000000//fib 23 (Estatico)
-//#define H 23000000
-#define P 200000
+#define H 59000000//fib 23 (Estatico)
+//#define H 80000000
+#define P 10000
 //#define MAX_CELS 10
 #define MAX_CELS 10
 
@@ -29,7 +29,7 @@ char string[N]= "S(S(S(KS)(S(KK)(SKK)))(K(S(SKK)(SKK))))(S(S(KS)(S(KK)(SKK)))(K(
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
 //Letra A
-//char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
+char string[N] = "H(G(G(G:*3(8)(:*7(+5(2))(:aaa(:^(/8(4))(+2(1))(:bbb[])))))))\0";
 //Letra B
 //Criando combinador para map
 //char string[N] = "M(S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1)))))))(:0(:1(:2(:3(:4(:5(:6(:7(:8(:9(:10[])))))))))))\0";
@@ -45,8 +45,8 @@ typedef struct  Celula{
 }Celula;
 
 
-//Celula heap[H];
-Celula *heap;
+Celula heap[H];
+//Celula *heap;
 
 //      Alocacao de dados
 Celula *fl;
@@ -2107,7 +2107,7 @@ int main(){
 	 * Criação e alocaçao do grafo.
 	 * */
 	clock_t toc = clock();
-	heap = calloc(H,sizeof(Celula));
+	//heap = calloc(H,sizeof(Celula));
 	aloca_freelist();
 	double clk_ps = (double)  CLOCKS_PER_SEC;
 	//Celula *grafo = cria_grafo(string);
