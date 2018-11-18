@@ -24,7 +24,7 @@
 //char string[N] = "S(C(F=I0)1)(D*I(B(Y(ES(FI(F=I0)1)(E(D*)I(FBI(F-I1)))))(F-I1)))3\0";//fatorial
 //fibonacci
 //char string[N] = "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(KI)(S(S(K<)I)(K2)))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))10\0"; //22fib1 (SKI)
-char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))30\0"; //25fib2 (TURNER)
+char string[N] =   "S(K(SII))(S(S(KS)K)(K(SII)))(S(K(S(S(S(S(K<)I)(K2))I)))(S(S(KS)(S(K(S(K+)))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K2))))))(S(S(KS)(S(KK)I))(K(S(S(K-)I)(K1))))))25\0"; //25fib2 (TURNER)
 //Listas
 //char string[N] = "+2(11)\0";
 //char string[N] = "H(G:*3(3)(:*2(2)[]))\0";
@@ -715,29 +715,19 @@ void empilha_grafo(Celula *grafo){
  * */
 void reduz_K(Celula *grafo){
 	pop();//Desempilha K
-    //pilha[topo--]->mark = 'G';//Desempilha K
-	//pop_return();//Desempilha K
 
 	//Buscando argumentos
 	Celula *a  = pilha[topo--]->fdir;
-    //Celula *b  = pilha[topo--]->fdir;
     topo--;
 
 	Celula *pai = NULL;
 
 	//K a b -> a
-	//Celula *newA = aloca_espaco();
-	//newA->tipo = a->tipo;
-	//newA->fdir = a->fdir;
-	//newA->fesq = a->fesq;
-	//Adicionou verifica��o do pai
-	//if(topo != NULL){
 	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
 
 	//Mudou de topo para pai
-	//if(topo != NULL){
 	if(topo >= t_eval){
 		pai->fesq = a;
 		empilha_filho_esquerda(a);
@@ -769,27 +759,6 @@ void reduz_S(Celula *grafo){
 	Celula *pai = NULL;
 
 	//S a b c -> a c ( b c )
-	/*
-	Celula *newA  = aloca_espaco();
-	Celula *newB  = aloca_espaco();
-	Celula *newC1 = aloca_espaco();
-	Celula *newC2 = aloca_espaco();
-
-	newA->tipo = a->tipo;
-	newA->fdir = a->fdir;
-	newA->fesq = a->fesq;
-
-	newB->tipo = b->tipo;
-	newB->fdir = b->fdir;
-	newB->fesq = b->fesq;
-
-	newC1->tipo = c->tipo;
-	newC1->fdir = c->fdir;
-	newC1->fesq = c->fesq;
-
-	newC2->tipo = c->tipo;
-	newC2->fdir = c->fdir;
-	newC2->fesq = c->fesq;*/
 
 	Celula *aplicacaoPai = cria_aplicacao();
 	Celula *aplicacaoFesq = cria_aplicacao();
@@ -798,9 +767,7 @@ void reduz_S(Celula *grafo){
 	aplicacaoPai->fesq = aplicacaoFesq;
 	aplicacaoPai->fdir = aplicacaoFdir;
 
-	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 
@@ -839,20 +806,10 @@ void reduz_I(Celula *grafo){
 	Celula *pai = NULL;
 
 	// I a -> a
-	/*
-	Celula *newA = aloca_espaco();
-
-	newA->tipo = a->tipo;
-	newA->fdir = a->fdir;
-	newA->fesq = a->fesq;*/
-
-	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 
-	//if(topo != NULL){
 	if(topo >= t_eval){
 		pai->fesq = a;
 		empilha_filho_esquerda(a);
@@ -882,16 +839,9 @@ void reduz_B(Celula *grafo){
 
 	Celula *x = pilha[topo--]->fdir;//desempilha x
 
-	//aloca espaco
-	/*Celula *newF  = copiar_alocar(f);
-	Celula *newG  = copiar_alocar(g);
-	Celula *newX = copiar_alocar(x);*/
-
 	//B f g x -> f ( g  x)
 	Celula *pai   = NULL;
-	//if(topo != NULL){
 	if(topo >= t_eval){
-		//pai = topo->dado;
 		pai = pilha[topo];
 	}
 	Celula *ap_filha2   = cria_aplicacao();
@@ -935,9 +885,6 @@ void reduz_C(Celula *grafo){
 	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
-	/*Celula *newF  = copiar_alocar(f);
-	Celula *newG  = copiar_alocar(g);
-	Celula *newX = copiar_alocar(x);*/
 
 	Celula *ap_filha = cria_aplicacao();
 	ap_filha->fesq = f;
@@ -983,12 +930,6 @@ void reduz_D(Celula *grafo){
 	if(topo >= t_eval){
 	    pai = pilha[topo];
 	}
-	/*Celula *newC  = copiar_alocar(c);
-	Celula *newF  = copiar_alocar(f);
-	Celula *newG  = copiar_alocar(g);
-	Celula *newX1 = copiar_alocar(x);
-	Celula *newX2 = copiar_alocar(x);*/
-
 	//D c f g x -> c(f x)( g x)
 	Celula *ap_filha3 = cria_aplicacao();
 	ap_filha3->fesq = f;
@@ -1042,11 +983,6 @@ void reduz_E(Celula *grafo){
 	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
-	/*Celula *newC  = copiar_alocar(c);
-	Celula *newF  = copiar_alocar(f);
-	Celula *newG  = copiar_alocar(g);
-	Celula *newX  = copiar_alocar(x);*/
-
 	//E c f g x -> c f (g x)
 	Celula *ap_filha1 = cria_aplicacao();
 	ap_filha1->fesq = c;
@@ -1090,15 +1026,9 @@ void reduz_F(Celula *grafo){
 
 	//Aloca dados
 	Celula *pai = NULL;
-	//if(topo != NULL){
 	if(topo >= t_eval){
 		pai = pilha[topo];
 	}
-	/*Celula *newC  = copiar_alocar(c);
-	Celula *newF  = copiar_alocar(f);
-	Celula *newG  = copiar_alocar(g);
-	Celula *newX  = copiar_alocar(x);*/
-
 	//F c f g x -> c (f x ) g
 	Celula *ap_filha1 = cria_aplicacao();
 	ap_filha1->fesq = f;
@@ -1134,9 +1064,6 @@ void reduz_Y(Celula *grafo){
 
 	//Busca argumentos
 	Celula *a = pilha[topo--]->fdir;
-	//alocacao
-	/*Celula *newA1 = copiar_alocar(a);
-	Celula *newA2 = copiar_alocar(a);*/
 	char comb = 'Y';
 	Celula *newY = cria_combinador(&comb);//Y
 
@@ -1173,16 +1100,9 @@ void reduz_Y(Celula *grafo){
  * Utilizando otmisacao com knot tiening
  * */
 void knot_tiening(Celula *grafo){
-	//contar_argumentos(2,grafo);
-    //contar_argumentos(2);
-    //verifica_numero_celulas_livres();
 	pop();//Desempilha Y
 	//Busca argumentos
 	Celula *a = pilha[topo--]->fdir;
-	//Celula *a = pop_return()->fdir;
-
-	//alocacao
-	/*Celula *newA   = copiar_alocar(a);*/
 	Celula *ap_pai = cria_aplicacao();
 
 	Celula *pai = NULL;
@@ -1414,7 +1334,7 @@ void reduz_TRUE(Celula *grafo){
 
 	//alocacao de espaco
 	Celula *pai = NULL;
-	Celula *newA = copiar_alocar(a);
+	//Celula *newA = copiar_alocar(a);
 
 	//TRUE a b -> a
 	if(topo>= t_eval){
@@ -1422,13 +1342,13 @@ void reduz_TRUE(Celula *grafo){
 	}
 
 	if(topo >= t_eval){
-		pai->fesq = newA;
-		empilha_filho_esquerda(newA);
+		pai->fesq = a;
+		empilha_filho_esquerda(a);
 	}
 	else{
-		grafo->tipo = newA->tipo;
-		grafo->fdir = newA->fdir;
-		grafo->fesq = newA->fesq;
+		grafo->tipo = a->tipo;
+		grafo->fdir = a->fdir;
+		grafo->fesq = a->fesq;
 		if(grafo->fesq){
 			empilha_filho_esquerda(grafo);
 		}
@@ -1447,7 +1367,6 @@ void reduz_FALSE(Celula *grafo){
 
 	//aloca espaco
 	Celula *pai = NULL;
-	Celula *newB = copiar_alocar(b);
 
 	//FALSE a b -> b
 	if(topo>= t_eval){
@@ -1455,13 +1374,13 @@ void reduz_FALSE(Celula *grafo){
 	}
 
 	if(topo >= t_eval){
-		pai->fesq = newB;
-		empilha_filho_esquerda(newB);
+		pai->fesq = b;
+		empilha_filho_esquerda(b);
 	}
 	else{
-		grafo->tipo = newB->tipo;
-		grafo->fdir = newB->fdir;
-		grafo->fesq = newB->fesq;
+		grafo->tipo = b->tipo;
+		grafo->fdir = b->fdir;
+		grafo->fesq = b->fesq;
 		if(grafo->fesq){
 			empilha_filho_esquerda(grafo);
 		}
