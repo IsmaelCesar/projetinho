@@ -134,8 +134,6 @@ Celula *aloca_espaco(){
     }
     //Zerando espaço retornado;
     retorno->tipo = 0;
-    //retorno->tipo = 0;
-    retorno->fp   = NULL;
     retorno->fesq = NULL;
     retorno->fdir = NULL;
 
@@ -1274,7 +1272,6 @@ void reduz_SOMA(Celula *m_grafo){
     }
     else{
         m_grafo->tipo = result->tipo;
-        m_grafo->fp = result->fp;
         m_grafo->fesq = result->fesq;
         m_grafo->fdir = result->fdir;
     }
