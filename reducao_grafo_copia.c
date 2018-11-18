@@ -40,7 +40,7 @@ char string[N] = "K+K(K-K(K2K)(K1K))(K-K(K2K)(K1K))\0";//64 nodes para string
 typedef struct  Celula{
     int tipo;
     //char mark;
-    struct Celula *fp;//foward pointer
+    //struct Celula *fp;//foward pointer
     struct Celula *fesq;
     struct Celula *fdir;
 }Celula;
@@ -1468,13 +1468,6 @@ void reduz_TRUE(Celula *m_grafo){
     topo--;
 
     pop();//desempilha b
-    //m_grafo = checa_foward_ponter(m_grafo);
-    if(m_grafo->fp){
-        //m_grafo->tipo = m_grafo->fp->tipo;
-        //m_grafo->fesq = m_grafo->fp->fesq;
-        //m_grafo->fdir = m_grafo->fp->fdir;
-        m_grafo = m_grafo->fp;
-    }
 
     //alocacao de espaco
     Celula *pai = NULL;
@@ -2003,24 +1996,24 @@ void reduz_MAP(Celula *m_grafo){
 
 //A copia é efetuada a partir da raiz
 //Utilizando o algoritmo de busca em profundidade
+//O filho da direita está sendo utilizado com foward ponter
 Celula* copia_fy(Celula *node){
-    //Celula *curent_hp = heap_p;
-    if(!node->fp){
-        //troca_node(node);
-        heap_p->tipo = node->tipo;
-        heap_p->fp = NULL;
-        node->fp = heap_p++;
-        node->fp->fesq  = NULL;
-        node->fp->fdir  = NULL;
-        free_cels--;
+    //Temporatios para verificar se o node tem filhos a direita e esquerda
+    Celula *fesq = node->fesq;
+    Celula *fdir = node->fdir;
+    node->fdir = heap_p;
+    heap_p->tipo = node->tipo;
+    heap_p->fesq  = NULL;
+    heap_p->fdir  = NULL;
+    free_cels--;
+    heap_p++;
+    if(fesq){
+        node->fdir->fesq = copia_fy(node->fesq);
     }
-    if(node->fesq){
-        node->fp->fesq = copia_fy(node->fesq);
+    if(fdir){
+        node->fdir->fdir = copia_fy(node->fdir);
     }
-    if(node->fdir){
-        node->fp->fdir = copia_fy(node->fdir);
-    }
-    return node->fp;//Retorna a posição do node na nova heap
+    return node->fdir;//Retorna a posição do node na nova heap
 }
 
 
@@ -2036,20 +2029,7 @@ void fenichel_yochelson(){
 
 
 // CHENEY
-/*Procedimento auxiliar para enfileirar
- * o node junto com seus filhos da direta e esquerda
- * */
-void enfileira_node(Celula *fila[],Celula *node,int *i,int size){
-    if(node){
-        if(*i > size){
-            *i = 0;
-            fila[(*i)++] = node;
-        }
-        else{
-            fila[(*i)++] = node;
-        }
-    }
-}
+
 
 /*Procedimento auxiliar para desenfileirar um node na fila
  * */
