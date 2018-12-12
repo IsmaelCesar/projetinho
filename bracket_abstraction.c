@@ -3,8 +3,8 @@
 #include <string.h>
 #include <time.h>
 #define  N 100
-char bracket_string [N] = "[x][y]xy\0";
-//char bracket_string [N] = "[x]y\0";
+//char bracket_string [N] = "[x][y]xy\0";
+char bracket_string [N] = "[x]y\0";
 
 
 //Procedimento que recebe duas variaveis, uma que aponta para
@@ -53,7 +53,7 @@ int busca_ultimo_bracket(char *string,int tam){
 int contar_argumentos(char *string,int tamanho_string,int ultimo_bracket){
     //int bracket = ultimo_bracket +1;
     int args = 0;
-    for(int i = 0,k = ultimo_bracket+1; i < 3;i++,k++){
+    for(int i = 0,k = ultimo_bracket+1; i < 2;i++,k++){
         if(string[k] == ')' || string[k] == '\0'){
             i= 3;
         }
@@ -102,6 +102,19 @@ char *cria_string_auxiliar(char *string,int arg,int nArg){
     return retorno;
 }
 
+
+void inclui_I(char *string,int ultimo_bracket,int tamanho){
+    string[ultimo_bracket-2]='I';
+    int aux_sum = 3;
+    substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
+}
+
+void inclui_K(char *string,int ultimo_bracket,int tamanho){
+    string[ultimo_bracket-2]='K';
+    int aux_sum = 2;
+    substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
+}
+
 /*Procedimento efetua a varredura da string buscando pelos brackets
  * de uma string de lambda calculo trandos formada numa stirng com brackets
  * para que a mesma seja transformada e de lambda calculo para logica combinatorial.
@@ -145,14 +158,15 @@ char *bracket_abstraction(char string[]){
             case 1:{// K ou Identidade
 
                 if(verifica_constante(string,current_b,A,nA)){
-                    string[ultimo_bracket-2]='I';
-
+                    //string[ultimo_bracket-2]='I';
+                    inclui_I(string,ultimo_bracket,tamanho);
                 }else{
-                    string[ultimo_bracket-2]='K';
-                    aux_sum = 2;
+                    //string[ultimo_bracket-2]='K';
+                    //aux_sum = 2;
+                    inclui_K(string,ultimo_bracket,tamanho);
                 }
                 //substitui os outros valores do bracket pelo combinador
-                substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
+                //substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
             }
             break;
             case 2:{
@@ -179,8 +193,6 @@ char *bracket_abstraction(char string[]){
                 }
 
             }break;
-            case 3:{}break;
-
         }
         tamanho  = strlen(string);
         ultimo_bracket = busca_ultimo_bracket(string,tamanho);
