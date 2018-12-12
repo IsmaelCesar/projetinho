@@ -4,8 +4,8 @@
 #include <time.h>
 #define  N 100
 //char bracket_string [N] = "[x][y]xy\0";
-char bracket_string [N] = "[x]y\0";
-
+//char bracket_string [N] = "[y]yy\0";
+char bracket_string [N]   = "[x](xw)w\0";
 
 //Procedimento que recebe duas variaveis, uma que aponta para
 //um array e outra que aponta para um inteiro com a posiao do
@@ -61,6 +61,7 @@ int contar_argumentos(char *string,int tamanho_string,int ultimo_bracket){
             if(string[k] == '('){
                 k++;
                 casa_parenteses(string,&k);
+                k--;//Recuando para o parenteses
             }
             args++;
         }
@@ -102,6 +103,7 @@ char *cria_string_auxiliar(char *string,int arg,int nArg){
     return retorno;
 }
 
+//      INCLUINDO COMBINADORES
 
 void inclui_I(char *string,int ultimo_bracket,int tamanho){
     string[ultimo_bracket-2]='I';
@@ -115,11 +117,61 @@ void inclui_K(char *string,int ultimo_bracket,int tamanho){
     substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
 }
 
+void inclui_B(char *string,int ultimo_bracket,char current_b,int nA,int B,int nB){
+    string[ultimo_bracket-2] = 'B';
+    int aux_sum = 2;
+    char * string_aux = cria_string_auxiliar(string,B,nB);//da um "shift left" nos caracteres
+    substitui_valores(string,ultimo_bracket,nA,aux_sum);
+    nA -= 2; //nA foi atualizado pois o argumento a foi deslocado duas casas para tras
+    string[nA+1] = '(';
+    string[nA+2] = '[';
+    string[nA+3] = current_b;
+    string[nA+4] = ']';
+    int k = -1;
+    for(int j=0;j<=(nB-B);j++,k++){
+        string[nA+5+j] = string_aux[j];
+    }
+    string[nA+5+k+1] = ')';
+    string[nA+5+k+2] = '\0';
+}
+
+void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,int nB){
+
+    string[ultimo_bracket-2] = 'S';
+    int aux_sum = 2;
+    char * string_aux_A = cria_string_auxiliar(string,A,nA);
+    char * string_aux_B = cria_string_auxiliar(string,B,nB);
+    //As novas strings sao adicionadas segundo a posicao do ultimo bracket encontrado
+    int offset = 1;
+    ultimo_bracket = ultimo_bracket -2;
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    //Copia primeira string
+    for(int i =0; i <=(nA - A);i++){
+        string[ultimo_bracket+offset+i] = string_aux_A[i];
+    }
+    offset++;
+    string[ultimo_bracket+(offset++)] = ')';
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i =0; i <=(nB - B);i++){
+        string[ultimo_bracket+offset+i] = string_aux_A[i];
+    }
+    offset++;
+    string[ultimo_bracket+(offset++)] = ')';
+    string[ultimo_bracket+offset]     = '\0';
+}
+
 /*Procedimento efetua a varredura da string buscando pelos brackets
  * de uma string de lambda calculo trandos formada numa stirng com brackets
  * para que a mesma seja transformada e de lambda calculo para logica combinatorial.
  * */
 char *bracket_abstraction(char string[]){
+    //TODO:Incluir a remocao de parenteses redundantes
     int tamanho = strlen(string);
     int ultimo_bracket = busca_ultimo_bracket(string,tamanho);
     int A,nA,B,nB,C,nC;
@@ -135,7 +187,7 @@ char *bracket_abstraction(char string[]){
             nA = nA-1;
         }
 
-        B = A+1;
+        B = nA+1;
         nB= B;
         if(B < tamanho && string[B] == '('){
             nB = B+1;
@@ -143,55 +195,32 @@ char *bracket_abstraction(char string[]){
             nB = nB-1;
         }
 
-        C = B+1;
-        nC = C;
-        if(C < tamanho && string[C] == '('){
-            nC = C+1;
-            casa_parenteses(string, &nC);
-            nC = nC-1;
-        }
-
         int num_args = contar_argumentos(string,tamanho,ultimo_bracket);
         char current_b = string[ultimo_bracket-1];//Pega o caractere entre brackets atualmente avaliado;
-        int aux_sum = 3; //Somador auxiliar para a atualizacao da string
         switch(num_args){
             case 1:{// K ou Identidade
 
-                if(verifica_constante(string,current_b,A,nA)){
+                if(!verifica_constante(string,current_b,A,nA)){
                     //string[ultimo_bracket-2]='I';
-                    inclui_I(string,ultimo_bracket,tamanho);
+                    inclui_K(string,ultimo_bracket,tamanho);
                 }else{
                     //string[ultimo_bracket-2]='K';
                     //aux_sum = 2;
-                    inclui_K(string,ultimo_bracket,tamanho);
+                    inclui_I(string,ultimo_bracket,tamanho);
                 }
                 //substitui os outros valores do bracket pelo combinador
                 //substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
             }
             break;
-            case 2:{
-                if(!verifica_constante(string,current_b,A,nA)){// B a ( [x] b )
-                    string[ultimo_bracket-2] = 'B';
-                    aux_sum = 2;
-                    char * string_aux = cria_string_auxiliar(string,B,nB);
-                    substitui_valores(string,ultimo_bracket,nA,aux_sum);
-                    nA -= 2; //nA foi atualizado pois o argumento a foi deslocado duas casas para tras
-                    string[nA+1] = '(';
-                    string[nA+2] = '[';
-                    string[nA+3] = current_b;
-                    string[nA+4] = ']';
-                    int k = -1;
-                    for(int j=0;j<=(nB-B);j++,k++){
-                        string[nA+5+j] = string_aux[j];
+            case 2:{// [x](a b)
+                if(verifica_constante(string,current_b,A,nA) && verifica_constante(string,current_b,B,nB)){ //S ( [x] a ) ( [x] b )
+                    inclui_S(string,ultimo_bracket,current_b,A,nA,B,nB);
+                }
+                else{// Verifica CURRY ou TURNER
+                    if(verifica_constante(string,current_b,A,nA)) {// B a ( [x] b ) entao a vira A B e B vira C
+                        inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
                     }
-
-                    string[nA+5+k+1] = ')';
-                    string[nA+5+k+2] = '\0';
                 }
-                else if(!verifica_constante(string,current_b,B,nB)){
-
-                }
-
             }break;
         }
         tamanho  = strlen(string);
