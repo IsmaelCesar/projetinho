@@ -53,7 +53,7 @@ int busca_ultimo_bracket(char *string,int tam){
 int contar_argumentos(char *string,int tamanho_string,int ultimo_bracket){
     //int bracket = ultimo_bracket +1;
     int args = 0;
-    for(int i = 0,k = ultimo_bracket+1; i < 2;i++,k++){
+    for(int i = 0,k = ultimo_bracket+1; i < 3;i++,k++){
         if(string[k] == ')' || string[k] == '\0'){
             i= 3;
         }
@@ -195,10 +195,17 @@ char *bracket_abstraction(char string[]){
             nB = nB-1;
         }
 
+        C = nC+1;
+        nC= C;
+        if(C < tamanho && string[C] == '('){
+            nC = C+1;
+            casa_parenteses(string, &nC);
+            nC = nC-1;
+        }
+
         int num_args = contar_argumentos(string,tamanho,ultimo_bracket);
         char current_b = string[ultimo_bracket-1];//Pega o caractere entre brackets atualmente avaliado;
-        switch(num_args){
-            case 1:{// K ou Identidade
+        if(num_args == 1){// K ou Identidade
 
                 if(!verifica_constante(string,current_b,A,nA)){
                     //string[ultimo_bracket-2]='I';
@@ -211,17 +218,13 @@ char *bracket_abstraction(char string[]){
                 //substitui os outros valores do bracket pelo combinador
                 //substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
             }
-            break;
-            case 2:{// [x](a b)
-                if(verifica_constante(string,current_b,A,nA) && verifica_constante(string,current_b,B,nB)){ //S ( [x] a ) ( [x] b )
-                    inclui_S(string,ultimo_bracket,current_b,A,nA,B,nB);
-                }
-                else{// Verifica CURRY ou TURNER
-                    if(verifica_constante(string,current_b,A,nA)) {// B a ( [x] b ) entao a vira A B e B vira C
-                        inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
-                    }
-                }
-            }break;
+        else{//num_args > 1
+            if(!verifica_constante(string,current_b,A,nA)){
+                inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
+            }
+            if(verifica_constante(string,current_b,A,nA) && verifica_constante(string,current_b,B,nB)){ //S ( [x] a ) ( [x] b )
+                inclui_S(string,ultimo_bracket,current_b,A,nA,B,nB);
+            }
         }
         tamanho  = strlen(string);
         ultimo_bracket = busca_ultimo_bracket(string,tamanho);

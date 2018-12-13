@@ -1837,25 +1837,25 @@ void scan(){
             if(ptr != NULL){
                 ptr->fdir = &heap[i];
                 ptr = ptr->fdir;
-                ptr->tipo = 0;
-                ptr->mark = '\0';
-                ptr->fesq = NULL;
-                ptr->fdir = NULL;
-                free_cels++;
+                //ptr->tipo = 0;
+                //ptr->mark = '\0';
+                //ptr->fesq = NULL;
+                //ptr->fdir = NULL;
             }
             else{
                 //Se a free list for nula então trata-se do primeiro elemento
                 fl = &heap[i];
                 ptr = fl;
-                ptr->tipo = 0;
-                ptr->mark = '\0';
-                ptr->fesq = NULL;
-                ptr->fdir = NULL;
-                free_cels++;
+                //ptr->tipo = 0;
+                //ptr->mark = '\0';
+                //ptr->fesq = NULL;
+                //ptr->fdir = NULL;
             }
+            free_cels++;
         }
         heap[i].mark = '\0';
     }
+    ptr->fdir = NULL;
 }
 
 /*Procedimento efetua a execução do algoritmo de garbage collection
