@@ -15,3 +15,7 @@ tutorial*
 cmake-build-debug/
 
 cmake-build-debug_2/
+y.tab.c
+y.tab.h
+lex.yy.c
+
