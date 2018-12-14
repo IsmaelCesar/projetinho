@@ -27,7 +27,7 @@ typedef struct valforsym *valList;
 //Definicao de fucao
 int  retornaValorVariavel(char *sym);
 int  adicionaFuncao(char *id,char *args,char *expr);
-int adicionaFuncao(char *id,char *args,char *expr);
+char *retornaFuncoesPorId(char *id)
 int  calcular(char op, int a, int b);
 
 //extern symrec *symtable;
@@ -36,7 +36,7 @@ int  calcular(char op, int a, int b);
 	char *str;
 	int val;
 }
-%token ATRIBUICAO <val>NUMERO <str>OP_ARI <str>OP_LOGI <str>ID <val>EXPR
+%token ATRIBUICAO <val>NUMERO <str>OP_ARI <str>OP_LOGI <str>ID <val>EXPR <str>DEF_FUNC
 %%
 
 PROGRAMA    : PROGRAMA STMT        
@@ -45,25 +45,27 @@ PROGRAMA    : PROGRAMA STMT
 
 STMT    	: EXPR		             
 	    	| ID ATRIBUICAO EXPR     {adicionaVariavel($<str>1,$<val>3)}
-	    	;		
+			| DEF_FUNC FUNCAO
+	    	;			
 
-FUNCAO 		: ID					  {}//imprime funcao
+EXPR        :  OP EXPR EXPR          {$<val>$ = calcular($<str>1, $<str>2, $<str>3);printf("%d",$$);}
+            |  NUMERO		   	     {$<val>$=$<val>1;}      
+	    	|  ID                    {$<str>$ = retornaValorVariavel($<str>1)}
+			;
+
+FUNCAO 		: ID					  {$<str>$ = retornaFuncoesPorId($1); printf("%s",$$);}
 			| ID ARGS				  {}	
-			| ID ARGS ATRIBUICAO EXPR {adicionaFuncao($1,$2,$4);}
+			| ID ARGS ATRIBUICAO EXPR   {adicionaFuncao($1,$2,$4);}
 			;
 
 ARGS        : ID
 			| ID ARGS
 			|
-			;				
-
-EXPR        :  OP EXPR EXPR          {$<val>$ = calcular($<str>1, $<str>2, $<str>3);printf("%d",$$);}
-            |  NUMERO		   	     {$<val>$=$<val>1;}      
-	    	|  ID                    {$<val>$ = retornaValorVariavel($<str>1);printf("%d",$$);}
-            ;
+			;	
 
 OP          : OP_ARI               {$<str>$=$<str>1;}
-            | OP_LOGI              {$<str>$=$<str>1;}              ; 
+            | OP_LOGI              {$<str>$=$<str>1;}           
+			; 
 
 %%
 
@@ -178,6 +180,37 @@ void adicionaFuncao(char *id,char *args,char *expr){
 	}
 	retorno;
 }	
+
+char * retornaFuncoesPorId(char *id){
+	struct symfunc aux = symtable;
+	struct symfunc retorno = aux;
+	char str[50];
+	if(aux){
+		while(aux){
+			if(strcmp(aux->nome,id)){//se o simbolo gerado ja existir substitui o valor
+				retorno = aux;
+				aux = NULL;
+			}
+			else
+				aux = aux->next;
+		}
+		if(!retorno){//se algum elemento foi achado
+			strcat(str,aux->nome);
+			strcat(str," ");
+			strcat(str,aux->args);
+			strcat(str,":=");
+			strcat(str,aux->expr);
+			strcat(str,"\n");
+		}
+		else{
+			return "\n";
+		}
+	}
+	else{
+		return "\n";
+	}
+	return str;
+}
 
 int main(){
 	return yyparse();

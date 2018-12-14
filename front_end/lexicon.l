@@ -12,6 +12,7 @@
 :=                   {return ATRIBUICAO;}
 [-,+,*,^,/]          {yylval.str=yytext[0];return OP_ARI;}
 [<,=,>,|,&]          {yylval.str=yytext[0];return OP_LOGI;}
+"def"                {yylval.str=*yytext; return  DEF_FUNC;}
 [\n]                 { ; }
 %%
 int yywrap(){return -1;}
