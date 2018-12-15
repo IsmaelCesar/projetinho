@@ -5,7 +5,10 @@
 #define  N 100
 //char bracket_string [N] = "[x][y]xy\0";
 //char bracket_string [N] = "[y]yy\0";
-char bracket_string [N]   = "[x](xw)(az)\0";
+//char bracket_string [N]   = "[x](xw)(az)\0";
+//char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
+//char bracket_string [N]   = "[x](aw)(hz)(xy)\0";//Teste D
+char bracket_string [N]   = "[x](aw)(xz)(hy)\0";//Teste E
 
 //Procedimento que recebe duas variaveis, uma que aponta para
 //um array e outra que aponta para um inteiro com a posiao do
@@ -159,7 +162,7 @@ void inclui_C(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
 }
 
 void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
-    string[ultimo_bracket+2] = 'D';
+    string[ultimo_bracket-2] = 'D';
 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
@@ -184,7 +187,7 @@ void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
 }
 
 void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
-    string[ultimo_bracket+2] = 'E';
+    string[ultimo_bracket-2] = 'E';
 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
@@ -202,7 +205,7 @@ void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     for(int i =0; i<=(nB - B); i++,offset++){
         string[ultimo_bracket+offset] = string_aux_B[i];
     }
-    string[ultimo_bracket+offset] = ')';
+    string[ultimo_bracket+(offset++)] = ')';
 
     for(int i =0; i<=(nC - C); i++,offset++){
         string[ultimo_bracket+offset] = string_aux_C[i];
@@ -211,7 +214,7 @@ void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
 }
 
 void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
-    string[ultimo_bracket+2] = 'F';
+    string[ultimo_bracket-2] = 'F';
 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
@@ -265,7 +268,7 @@ void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
     string[ultimo_bracket+(offset++)] = current_b;
     string[ultimo_bracket+(offset++)] = ']';
     for(int i =0; i <=(nB - B);i++,offset++){
-        string[ultimo_bracket+offset+i] = string_aux_A[i];
+        string[ultimo_bracket+offset] = string_aux_A[i];
     }
     string[ultimo_bracket+(offset++)] = ')';
     string[ultimo_bracket+offset]     = '\0';
@@ -326,21 +329,42 @@ char *bracket_abstraction(char string[]){
             }
         else{//num_args > 1
             if(num_args == 3){
-                if(verifica_constante(string, current_b, A, nA) |  verifica_constante(string, current_b, B, nB)){
-                    //B vira A tambem
-                    nA = nB;
-                    B  = C;
-                    nB = nC;
-                    if (verifica_constante(string, current_b, B, nB)) {
-                        inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
-                    } else if (verifica_constante(string, current_b, A, nA) &&
-                               verifica_constante(string, current_b, B, nB)) { //S ( [x] a ) ( [x] b )
-                        inclui_S(string, ultimo_bracket, current_b, A, nA, B, nB);
+                //Verifica os de turner
+                if(verifica_constante(string, current_b, B, nB) && verifica_constante(string, current_b, C, nC) ){
+                   //inclui f
+                   inclui_F(string,ultimo_bracket,current_b,A,nA,B,nB,C,nC);
+                }
+                else if(!verifica_constante(string, current_b, B, nB)){
+                    //Se B nao tem constante mas A tem
+                    if(verifica_constante(string, current_b, A, nA)){
+                        //B vira A tambem
+                        nA = nB;
+                        B  = C;
+                        nB = nC;
+                        if (verifica_constante(string, current_b, A, nA) &&
+                            verifica_constante(string, current_b, B, nB)) { //S ( [x] a ) ( [x] b )
+                            inclui_S(string, ultimo_bracket, current_b, A, nA, B, nB);
+                        }
+                        else{
+                            inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
+                        }
+                    }
+                    else if(verifica_constante(string, current_b, B, nB)){
+                        //inclui e
+                        inclui_E(string,ultimo_bracket,current_b,A,nA,B,nB,C,nC);
+                    }
+                    else if(verifica_constante(string, current_b, C, nC)){
+                        //inclui d
+                        inclui_D(string,ultimo_bracket,current_b,A,nA,B,nB,C,nC);
                     }
                 }
-                else{
-                    //Verifica os de turner
-
+                else if(verifica_constante(string, current_b, B, nB)){
+                    //inclui e
+                    inclui_E(string,ultimo_bracket,current_b,A,nA,B,nB,C,nC);
+                }
+                else if(verifica_constante(string, current_b, C, nC)){
+                    //inclui d
+                    inclui_D(string,ultimo_bracket,current_b,A,nA,B,nB,C,nC);
                 }
             }
             else {
