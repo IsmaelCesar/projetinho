@@ -5,7 +5,7 @@
 #define  N 100
 //char bracket_string [N] = "[x][y]xy\0";
 //char bracket_string [N] = "[y]yy\0";
-char bracket_string [N]   = "[x](xw)w\0";
+char bracket_string [N]   = "[x](xw)(az)\0";
 
 //Procedimento que recebe duas variaveis, uma que aponta para
 //um array e outra que aponta para um inteiro com a posiao do
@@ -135,6 +135,113 @@ void inclui_B(char *string,int ultimo_bracket,char current_b,int nA,int B,int nB
     string[nA+5+k+2] = '\0';
 }
 
+
+void inclui_C(char *string,int ultimo_bracket,char current_b,int A,int nA,int B, int nB){
+    string[ultimo_bracket-2] = 'C';
+    int aux_sum = 2;
+    char * string_aux_A = cria_string_auxiliar(string,A,nA);
+    char * string_aux_B = cria_string_auxiliar(string,B,nB);
+
+    int offset = 1;
+    ultimo_bracket -=2;
+    //[x] a b  =   C ([x] a) b
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i = 0;  i<=(nA-A); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_A[i];
+    }
+    string[ultimo_bracket+(offset++)] = ')';
+    for(int i = 0;  i<=(nB-B); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_B[i];
+    }
+}
+
+void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
+    string[ultimo_bracket+2] = 'D';
+
+    char * string_aux_A = cria_string_auxiliar(string,A,nA);
+    char * string_aux_B = cria_string_auxiliar(string,B,nB);
+    char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    ultimo_bracket -= 2;
+    int offset = 1;
+    //[x] a b c = D a b ([x] c)
+    for(int i =0; i<=(nA - A); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_A[i];
+    }
+    for(int i =0; i<=(nB - B); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_B[i];
+    }
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i =0; i<=(nC - C); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_C[i];
+    }
+    string[ultimo_bracket+offset] = ')';
+}
+
+void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
+    string[ultimo_bracket+2] = 'E';
+
+    char * string_aux_A = cria_string_auxiliar(string,A,nA);
+    char * string_aux_B = cria_string_auxiliar(string,B,nB);
+    char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    ultimo_bracket -= 2;
+    int offset = 1;
+    //[x] a b c = E a ([x] b) c
+    for(int i =0; i<=(nA - A); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_A[i];
+    }
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i =0; i<=(nB - B); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_B[i];
+    }
+    string[ultimo_bracket+offset] = ')';
+
+    for(int i =0; i<=(nC - C); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_C[i];
+    }
+
+}
+
+void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
+    string[ultimo_bracket+2] = 'F';
+
+    char * string_aux_A = cria_string_auxiliar(string,A,nA);
+    char * string_aux_B = cria_string_auxiliar(string,B,nB);
+    char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    ultimo_bracket -= 2;
+    int offset = 1;
+    //[x] a b c = E a ([x] b) ([x] c)
+    for(int i =0; i<=(nA - A); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_A[i];
+    }
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i =0; i<=(nB - B); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_B[i];
+    }
+    string[ultimo_bracket+offset] = ')';
+
+    string[ultimo_bracket+(offset++)] = '(';
+    string[ultimo_bracket+(offset++)] = '[';
+    string[ultimo_bracket+(offset++)] = current_b;
+    string[ultimo_bracket+(offset++)] = ']';
+    for(int i =0; i<=(nC - C); i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_C[i];
+    }
+    string[ultimo_bracket+offset] = ')';
+
+}
+
 void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,int nB){
 
     string[ultimo_bracket-2] = 'S';
@@ -149,29 +256,28 @@ void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
     string[ultimo_bracket+(offset++)] = current_b;
     string[ultimo_bracket+(offset++)] = ']';
     //Copia primeira string
-    for(int i =0; i <=(nA - A);i++){
-        string[ultimo_bracket+offset+i] = string_aux_A[i];
+    for(int i =0; i <=(nA - A);i++,offset++){
+        string[ultimo_bracket+offset] = string_aux_A[i];
     }
-    offset++;
     string[ultimo_bracket+(offset++)] = ')';
     string[ultimo_bracket+(offset++)] = '(';
     string[ultimo_bracket+(offset++)] = '[';
     string[ultimo_bracket+(offset++)] = current_b;
     string[ultimo_bracket+(offset++)] = ']';
-    for(int i =0; i <=(nB - B);i++){
+    for(int i =0; i <=(nB - B);i++,offset++){
         string[ultimo_bracket+offset+i] = string_aux_A[i];
     }
-    offset++;
     string[ultimo_bracket+(offset++)] = ')';
     string[ultimo_bracket+offset]     = '\0';
 }
+
 
 /*Procedimento efetua a varredura da string buscando pelos brackets
  * de uma string de lambda calculo trandos formada numa stirng com brackets
  * para que a mesma seja transformada e de lambda calculo para logica combinatorial.
  * */
 char *bracket_abstraction(char string[]){
-    //TODO:Incluir a remocao de parenteses redundantes
+    //TODO:Incluir a remocao de parenteses redundantes e asociatividade a esquerda
     int tamanho = strlen(string);
     int ultimo_bracket = busca_ultimo_bracket(string,tamanho);
     int A,nA,B,nB,C,nC;
@@ -195,7 +301,7 @@ char *bracket_abstraction(char string[]){
             nB = nB-1;
         }
 
-        C = nC+1;
+        C = nB+1;
         nC= C;
         if(C < tamanho && string[C] == '('){
             nC = C+1;
@@ -219,11 +325,33 @@ char *bracket_abstraction(char string[]){
                 //substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
             }
         else{//num_args > 1
-            if(!verifica_constante(string,current_b,A,nA)){
-                inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
+            if(num_args == 3){
+                if(verifica_constante(string, current_b, A, nA) |  verifica_constante(string, current_b, B, nB)){
+                    //B vira A tambem
+                    nA = nB;
+                    B  = C;
+                    nB = nC;
+                    if (verifica_constante(string, current_b, B, nB)) {
+                        inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
+                    } else if (verifica_constante(string, current_b, A, nA) &&
+                               verifica_constante(string, current_b, B, nB)) { //S ( [x] a ) ( [x] b )
+                        inclui_S(string, ultimo_bracket, current_b, A, nA, B, nB);
+                    }
+                }
+                else{
+                    //Verifica os de turner
+
+                }
             }
-            if(verifica_constante(string,current_b,A,nA) && verifica_constante(string,current_b,B,nB)){ //S ( [x] a ) ( [x] b )
-                inclui_S(string,ultimo_bracket,current_b,A,nA,B,nB);
+            else {
+                if (verifica_constante(string, current_b, A, nA)) {
+                    inclui_C(string, ultimo_bracket, current_b, A, nA, B, nB);
+                } else if (verifica_constante(string, current_b, B, nB)) {
+                    inclui_B(string, ultimo_bracket, current_b, nA, B, nB);
+                } else if (verifica_constante(string, current_b, A, nA) &&
+                           verifica_constante(string, current_b, B, nB)) { //S ( [x] a ) ( [x] b )
+                    inclui_S(string, ultimo_bracket, current_b, A, nA, B, nB);
+                }
             }
         }
         tamanho  = strlen(string);
