@@ -6,7 +6,7 @@
 //char bracket_string [N] = "[x][y]yxy\0";
 //char bracket_string [N] = "[y]xy\0";
 //char bracket_string [N]   = "[x](xw)(az)\0";
-char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
+char bracket_string [N]   = "[x]aw(xz)(xy)\0";//Teste F
 //char bracket_string [N]   = "[x](aw)(hz)(xy)\0";//Teste D
 //char bracket_string [N]   = "[x](aw)(xz)(hy)\0";//Teste E
 //char bracket_string [N]   = "S((B)C(C)(K)(K)(I))((K)(K)D(K)(I))\0";//Teste Remover parenteses Redundantes
@@ -36,6 +36,21 @@ void casa_parenteses(char* array1, int* p) {
     }
     *p = c;
 }
+/*Procedimento efetua busca sobre a string a partir de um indice pos
+ * e retorna a posicao apos o argumento encontrado na posicao, pos;
+ * */
+void acha_argumento(char *string,int *pos){
+    int c = *pos;
+    if(string[c] == '('){
+        c++;
+        casa_parenteses(string,&c);
+        c--;
+    }
+    *pos = c;
+    //else
+      //  *pos+=1;
+
+}
 
 /*Procedimento faz uma varredura na string de entrada no final ate o
  * comeco buscando o ultimo bracket da string e retornando-o
@@ -59,9 +74,9 @@ int busca_ultimo_bracket(char *string,int tam){
 int contar_argumentos(char *string,int tamanho_string,int ultimo_bracket){
     //int bracket = ultimo_bracket +1;
     int args = 0;
-    for(int i = 0,k = ultimo_bracket+1; i < 3;i++,k++){
+    for(int i = 0,k = ultimo_bracket+1; i < tamanho_string ;i++,k++){
         if(string[k] == ')' || string[k] == '\0'){
-            i= 3;
+            i= tamanho_string;
         }
         else{
             if(string[k] == '('){
@@ -323,26 +338,63 @@ void remove_parenteses_redundantes(char *string){
 /*Procedimento faz uma varredura na stirng do final até o começo
  * procurando por um fecha bracket ], caso ache algum, aplica a associatividade a
  * esquerda na string
+ * O procedimento garante que sempre haja ao menos tres argumentos na string
+ * se houver mais de tres, o procedimento aplica associatividade a esquerda
  * */
 void associatividade_esquerda(char *string){
     int tamanho_string = strlen(string);
     for(int i = tamanho_string-2; i >= 2; i--){
-        if(string[i] == ']' && string[i+1] == '('){
-            //verifica a necessidade de aplicar associatividade a esquerda
-            int P = i+1;//parenteses
-            int nP = P+1;//depois dos parenteses
-            casa_parenteses(string,&nP);
-            nP -= 1; //retorna nP para o indice na posicao do ultimo parenteses;
-            //remove os primeiros parenteses
-            int j = P+1;
-            for(; j < nP; j++){
-                string[j-1] = string[j];
+
+        if(string[i] == ']' ){//&& string[i+1] == '('
+            //achou um bracket
+            int n_args = contar_argumentos(string,tamanho_string,i);
+            int pos  = i+1;
+            int pos_bracket = pos;//salvando a poiscao apos o  bracket
+            if(n_args > 3){
+                //Aplica a associatividade a esquerda ate o numero de argumentos ser tres
+                while(n_args > 3){
+                    acha_argumento(string,&pos);
+                    char *arg1 = cria_string_auxiliar(string,i+1,pos);
+                    int nArg1 = pos++;
+
+                    acha_argumento(string,&pos);
+                    char *arg2 = cria_string_auxiliar(string,nArg1+1,pos);
+                    int nArg2 = pos++;
+
+                    acha_argumento(string,&pos);
+                    char *arg3 = cria_string_auxiliar(string,nArg2+1,pos);
+                    int nArg3 = pos++;
+
+
+                    char *resto_string = cria_string_auxiliar(string,nArg3+1,tamanho_string);
+
+                    string[pos_bracket++] = '(';
+                    //Copia novamente o argumento 1; k e o indice da string auxiliar do argumento
+                    //pos_bracket servira de indice de offset para a troca de strings
+                    for(int k = 0;k<strlen(arg1);pos_bracket++,k++){
+                        string[pos_bracket] = arg1[k];
+                    }
+
+                    for(int k = 0;k<strlen(arg2);pos_bracket++,k++){
+                        string[pos_bracket] = arg2[k];
+                    }
+
+                    string[pos_bracket++] = ')';
+
+                    //Copia novamente o argumento 3; k e o indice da string auxiliar do argumento
+                    for(int k = 0;k<strlen(arg3);pos_bracket++,k++){
+                        string[pos_bracket] = arg3[k];
+                    }
+
+                    free(arg1);
+                    free(arg2);
+                    free(arg3);
+
+                    copia_resto_string(string,resto_string,i,&pos_bracket);
+
+                    n_args = contar_argumentos(string,strlen(string),i);
+                }
             }
-            //copia o resto da string
-            for(int  k = j-1; k < tamanho_string-1; k++){
-                string[k] = string[k+2];
-            }
-            tamanho_string = strlen(string);
         }
     }
 
@@ -464,9 +516,9 @@ char *bracket_abstraction(char string[]){
 
 int main(){
     printf("%s\n",bracket_string);
-    bracket_abstraction(bracket_string);
+    //bracket_abstraction(bracket_string);
     //remove_parenteses_redundantes(bracket_string);
-    //associatividade_esquerda(bracket_string);
+    associatividade_esquerda(bracket_string);
     printf("%s",bracket_string);
 
     return 0;
