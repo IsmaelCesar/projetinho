@@ -3,14 +3,14 @@
 #include <string.h>
 #include <time.h>
 #define  N 100
-//char bracket_string [N] = "[x][y]xy\0";
+char bracket_string [N] = "[x][y]xy\0";
 //char bracket_string [N] = "[y]yy\0";
 //char bracket_string [N]   = "[x](xw)(az)\0";
 //char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
 //char bracket_string [N]   = "[x](aw)(hz)(xy)\0";//Teste D
 //char bracket_string [N]   = "[x](aw)(xz)(hy)\0";//Teste E
 //char bracket_string [N]   = "S((B)C(C)(K)(K)(I))((K)(K)D(K)(I))\0";//Teste Remover parenteses Redundantes
-char bracket_string[N]       = "[x](ab)(cd)";
+//char bracket_string[N]       = "[x]((gf)(ab))([w](w)(zc)(d))";
 
 
 //Procedimento que recebe duas variaveis, uma que aponta para
@@ -296,6 +296,34 @@ void remove_parenteses_redundantes(char *string){
     }
 }
 
+/*Procedimento faz uma varredura na stirng do final até o começo
+ * procurando por um fecha bracket ], caso ache algum, aplica a associatividade a
+ * esquerda na string
+ * */
+void associatividade_esquerda(char *string){
+    int tamanho_string = strlen(string);
+    for(int i = tamanho_string-2; i >= 2; i--){
+        if(string[i] == ']' && string[i+1] == '('){
+            //verifica a necessidade de aplicar associatividade a esquerda
+            int P = i+1;//parenteses
+            int nP = P+1;//depois dos parenteses
+            casa_parenteses(string,&nP);
+            nP -= 1; //retorna nP para o indice na posicao do ultimo parenteses;
+            //remove os primeiros parenteses
+            int j = P+1;
+            for(; j < nP; j++){
+                string[j-1] = string[j];
+            }
+            //copia o resto da string
+            for(int  k = j-1; k < tamanho_string-1; k++){
+                string[k] = string[k+2];
+            }
+            tamanho_string = strlen(string);
+        }
+    }
+
+}
+
 
 /*Procedimento efetua a varredura da string buscando pelos brackets
  * de uma string de lambda calculo trandos formada numa stirng com brackets
@@ -400,6 +428,7 @@ char *bracket_abstraction(char string[]){
                 }
             }
         }
+        associatividade_esquerda(string);
         remove_parenteses_redundantes(string);
         tamanho  = strlen(string);
         ultimo_bracket = busca_ultimo_bracket(string,tamanho);
@@ -408,10 +437,10 @@ char *bracket_abstraction(char string[]){
 }
 
 int main(){
-
+    printf("%s\n",bracket_string);
     bracket_abstraction(bracket_string);
-    //printf("%s\n",bracket_string);
-    remove_parenteses_redundantes(bracket_string);
+    //remove_parenteses_redundantes(bracket_string);
+    //associatividade_esquerda(bracket_string);
     printf("%s",bracket_string);
 
     return 0;
