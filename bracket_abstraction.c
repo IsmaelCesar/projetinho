@@ -3,10 +3,10 @@
 #include <string.h>
 #include <time.h>
 #define  N 100
-char bracket_string [N] = "[x][y]yxy\0";
-//char bracket_string [N] = "[y]yy\0";
+//char bracket_string [N] = "[x][y]yxy\0";
+//char bracket_string [N] = "[y]xy\0";
 //char bracket_string [N]   = "[x](xw)(az)\0";
-//char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
+char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
 //char bracket_string [N]   = "[x](aw)(hz)(xy)\0";//Teste D
 //char bracket_string [N]   = "[x](aw)(xz)(hy)\0";//Teste E
 //char bracket_string [N]   = "S((B)C(C)(K)(K)(I))((K)(K)D(K)(I))\0";//Teste Remover parenteses Redundantes
@@ -203,7 +203,7 @@ void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     for(int i =0; i<=(nC - C); i++,offset++){
         string[ultimo_bracket+offset] = string_aux_C[i];
     }
-    string[ultimo_bracket+offset] = ')';
+    string[ultimo_bracket+(offset++)] = ')';
     copia_resto_string(string,resto_string,ultimo_bracket,&offset);
 }
 
@@ -257,7 +257,7 @@ void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     for(int i =0; i<=(nB - B); i++,offset++){
         string[ultimo_bracket+offset] = string_aux_B[i];
     }
-    string[ultimo_bracket+offset] = ')';
+    string[ultimo_bracket+(offset++)] = ')';
 
     string[ultimo_bracket+(offset++)] = '(';
     string[ultimo_bracket+(offset++)] = '[';
@@ -359,6 +359,8 @@ char *bracket_abstraction(char string[]){
     int ultimo_bracket = busca_ultimo_bracket(string,tamanho);
     int A,nA,B,nB,C,nC;
 
+    associatividade_esquerda(string);
+    remove_parenteses_redundantes(string);
     do{
         A = ultimo_bracket+1, nA = A;
         B = 0, nB = 0;
