@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #define  N 100
-char bracket_string [N] = "[x][y]xy\0";
+char bracket_string [N] = "[x][y]yxy\0";
 //char bracket_string [N] = "[y]yy\0";
 //char bracket_string [N]   = "[x](xw)(az)\0";
 //char bracket_string [N]   = "[x](aw)(xz)(xy)\0";//Teste F
@@ -109,6 +109,16 @@ char *cria_string_auxiliar(char *string,int arg,int nArg){
     return retorno;
 }
 
+void copia_resto_string(char *string,char *resto_string,int ultimo_bracket,int *offset){
+    int ofst = *offset;
+    //inclui o resto da string
+    int tam_resto_string = strlen(resto_string);
+    for(int  i =0; i < tam_resto_string; i++,ofst++){
+        string[ultimo_bracket+ofst] = resto_string[i];
+    }
+    *offset = ofst;
+}
+
 //      INCLUINDO COMBINADORES
 
 void inclui_I(char *string,int ultimo_bracket,int tamanho){
@@ -116,6 +126,7 @@ void inclui_I(char *string,int ultimo_bracket,int tamanho){
     int aux_sum = 3;
     substitui_valores(string,ultimo_bracket,tamanho,aux_sum);
 }
+
 
 void inclui_K(char *string,int ultimo_bracket,int tamanho){
     string[ultimo_bracket-2]='K';
@@ -127,18 +138,21 @@ void inclui_B(char *string,int ultimo_bracket,char current_b,int nA,int B,int nB
     string[ultimo_bracket-2] = 'B';
     int aux_sum = 2;
     char * string_aux = cria_string_auxiliar(string,B,nB);//da um "shift left" nos caracteres
+    char * resto_string = cria_string_auxiliar(string_aux,nB+1,strlen(string));
     substitui_valores(string,ultimo_bracket,nA,aux_sum);
     nA -= 2; //nA foi atualizado pois o argumento a foi deslocado duas casas para tras
-    string[nA+1] = '(';
-    string[nA+2] = '[';
-    string[nA+3] = current_b;
-    string[nA+4] = ']';
-    int k = -1;
-    for(int j=0;j<=(nB-B);j++,k++){
-        string[nA+5+j] = string_aux[j];
+    int ultima_pos = nA;
+    int offset = 1;
+    string[ultima_pos+(offset++)] = '(';
+    string[ultima_pos+(offset++)] = '[';
+    string[ultima_pos+(offset++)] = current_b;
+    string[ultima_pos+(offset++)] = ']';
+    for(int j=0;j<=(nB-B);j++,offset++){
+        string[ultima_pos+offset] = string_aux[j];
     }
-    string[nA+5+k+1] = ')';
-    string[nA+5+k+2] = '\0';
+    string[ultima_pos+(offset++)] = ')';
+    copia_resto_string(string,resto_string,ultima_pos,&offset);
+    //string[nA+5+k+2] = '\0';
 }
 
 
@@ -147,7 +161,7 @@ void inclui_C(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
     int aux_sum = 2;
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
-
+    char * resto_string = cria_string_auxiliar(string,nB+1,strlen(string));
     int offset = 1;
     ultimo_bracket -=2;
     //[x] a b  =   C ([x] a) b
@@ -162,6 +176,8 @@ void inclui_C(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
     for(int i = 0;  i<=(nB-B); i++,offset++){
         string[ultimo_bracket+offset] = string_aux_B[i];
     }
+    //inclui o resto da string
+    copia_resto_string(string,resto_string,ultimo_bracket,&offset);
 }
 
 void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
@@ -170,6 +186,7 @@ void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
     char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    char * resto_string = cria_string_auxiliar(string,nC+1,strlen(string));
     ultimo_bracket -= 2;
     int offset = 1;
     //[x] a b c = D a b ([x] c)
@@ -187,6 +204,7 @@ void inclui_D(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
         string[ultimo_bracket+offset] = string_aux_C[i];
     }
     string[ultimo_bracket+offset] = ')';
+    copia_resto_string(string,resto_string,ultimo_bracket,&offset);
 }
 
 void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
@@ -195,6 +213,7 @@ void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
     char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    char * resto_string = cria_string_auxiliar(string,nC+1,strlen(string));
     ultimo_bracket -= 2;
     int offset = 1;
     //[x] a b c = E a ([x] b) c
@@ -214,6 +233,8 @@ void inclui_E(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
         string[ultimo_bracket+offset] = string_aux_C[i];
     }
 
+    copia_resto_string(string,resto_string,ultimo_bracket,&offset);
+
 }
 
 void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int B, int nB,int C,int nC){
@@ -222,6 +243,7 @@ void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
     char * string_aux_C = cria_string_auxiliar(string,C,nC);
+    char * resto_string = cria_string_auxiliar(string,nC+1,strlen(string));
     ultimo_bracket -= 2;
     int offset = 1;
     //[x] a b c = E a ([x] b) ([x] c)
@@ -245,7 +267,7 @@ void inclui_F(char *string,int ultimo_bracket,char current_b,int A, int nA, int 
         string[ultimo_bracket+offset] = string_aux_C[i];
     }
     string[ultimo_bracket+offset] = ')';
-
+    copia_resto_string(string,resto_string,ultimo_bracket,&offset);
 }
 
 void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,int nB){
@@ -254,6 +276,7 @@ void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
     int aux_sum = 2;
     char * string_aux_A = cria_string_auxiliar(string,A,nA);
     char * string_aux_B = cria_string_auxiliar(string,B,nB);
+    char * resto_string = cria_string_auxiliar(string,nB+1,strlen(string));
     //As novas strings sao adicionadas segundo a posicao do ultimo bracket encontrado
     int offset = 1;
     ultimo_bracket = ultimo_bracket -2;
@@ -274,7 +297,8 @@ void inclui_S(char *string,int ultimo_bracket,char current_b,int A,int nA,int B,
         string[ultimo_bracket+offset] = string_aux_A[i];
     }
     string[ultimo_bracket+(offset++)] = ')';
-    string[ultimo_bracket+offset]     = '\0';
+    copia_resto_string(string,resto_string,ultimo_bracket,&offset);
+
 }
 
 //      REAJUSTE DE STRING E ASSOCIATIVIDADE A ESQUERDA
